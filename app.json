@@ -15,16 +15,31 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.douglowderexpo.CriticalUpdatesTest"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.douglowderexpo.CriticalUpdatesTest"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0ee1aeb3-386b-4742-861b-79b407a935e1"
+      }
+    },
+    "owner": "douglowderexpo",
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "requestHeaders": {
+        "expo-channel-name": "main"
+      },
+      "url": "https://u.expo.dev/0ee1aeb3-386b-4742-861b-79b407a935e1"
     }
   }
 }
