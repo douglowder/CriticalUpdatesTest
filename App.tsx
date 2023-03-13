@@ -7,7 +7,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Provider as UpdatesProvider, useUpdates } from 'expo-updates';
+import { UpdatesProvider, useUpdates } from 'expo-updates';
 
 export default function App() {
   return (
