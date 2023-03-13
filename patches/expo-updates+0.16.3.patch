@@ -1,33 +1,18 @@
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.d.ts b/node_modules/expo-updates/build/UpdatesProvider.d.ts
 new file mode 100644
-index 0000000..f725448
+index 0000000..63fce7e
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.d.ts
-@@ -0,0 +1,39 @@
-+/**
-+ * Description of an update from its manifest
-+ */
-+export type UpdateDescription = {
-+    id: string;
-+    createdAt: string | Date;
-+    critical: boolean;
-+    message: string;
-+    embedded: boolean;
-+};
+@@ -0,0 +1,24 @@
++import type { Manifest } from './Updates.types';
 +/**
 + * Updates info structure for the currently running and next available updates
 + */
 +export type UpdatesInfo = {
-+    currentlyRunning: UpdateDescription;
-+    updateAvailable?: UpdateDescription;
++    currentlyRunning: Partial<Manifest>;
++    updateAvailable?: Partial<Manifest>;
++    embedded: boolean;
 +    error?: string;
-+};
-+/**
-+ * Context that includes getter and ssetter for updates info
-+ */
-+export type UpdatesContextType = {
-+    updates: UpdatesInfo;
-+    setUpdates: (updates: UpdatesInfo) => void;
 +};
 +/**
 + * Downloads and runs an update, if one is available
@@ -46,32 +31,27 @@ index 0000000..f725448
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.d.ts.map b/node_modules/expo-updates/build/UpdatesProvider.d.ts.map
 new file mode 100644
-index 0000000..ab19d1b
+index 0000000..bdae6c0
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.d.ts.map
 @@ -0,0 +1 @@
-+{"version":3,"file":"UpdatesProvider.d.ts","sourceRoot":"","sources":["../src/UpdatesProvider.tsx"],"names":[],"mappings":"AAQA;;GAEG;AACH,MAAM,MAAM,iBAAiB,GAAG;IAC9B,EAAE,EAAE,MAAM,CAAC;IACX,SAAS,EAAE,MAAM,GAAG,IAAI,CAAC;IACzB,QAAQ,EAAE,OAAO,CAAC;IAClB,OAAO,EAAE,MAAM,CAAC;IAChB,QAAQ,EAAE,OAAO,CAAC;CACnB,CAAC;AAEF;;GAEG;AACH,MAAM,MAAM,WAAW,GAAG;IACxB,gBAAgB,EAAE,iBAAiB,CAAC;IACpC,eAAe,CAAC,EAAE,iBAAiB,CAAC;IACpC,KAAK,CAAC,EAAE,MAAM,CAAC;CAChB,CAAC;AAEF;;GAEG;AACH,MAAM,MAAM,kBAAkB,GAAG;IAC/B,OAAO,EAAE,WAAW,CAAC;IACrB,UAAU,EAAE,CAAC,OAAO,EAAE,WAAW,KAAK,IAAI,CAAC;CAC5C,CAAC;AA8FF;;GAEG;AACH,QAAA,MAAM,SAAS,EAAE,MAAM,OAAO,CAAC,IAAI,CAIlC,CAAC;AAWF,QAAA,MAAM,QAAQ,UAAW;IAAE,QAAQ,EAAE,GAAG,CAAA;CAAE,gBASzC,CAAC;AAEF,QAAA,MAAM,UAAU;iBACD,WAAW;oBACR,MAAM,IAAI;eACf,MAAM,IAAI;CAiBtB,CAAC;AAEF,OAAO,EAAE,QAAQ,EAAE,UAAU,EAAE,CAAC"}
++{"version":3,"file":"UpdatesProvider.d.ts","sourceRoot":"","sources":["../src/UpdatesProvider.tsx"],"names":[],"mappings":"AAGA,OAAO,KAAK,EAAE,QAAQ,EAAe,MAAM,iBAAiB,CAAC;AAK7D;;GAEG;AACH,MAAM,MAAM,WAAW,GAAG;IACxB,gBAAgB,EAAE,OAAO,CAAC,QAAQ,CAAC,CAAC;IACpC,eAAe,CAAC,EAAE,OAAO,CAAC,QAAQ,CAAC,CAAC;IACpC,QAAQ,EAAE,OAAO,CAAC;IAClB,KAAK,CAAC,EAAE,MAAM,CAAC;CAChB,CAAC;AA2FF;;GAEG;AACH,QAAA,MAAM,SAAS,EAAE,MAAM,OAAO,CAAC,IAAI,CAIlC,CAAC;AAYF,QAAA,MAAM,QAAQ,UAAW;IAAE,QAAQ,EAAE,GAAG,CAAA;CAAE,gBAUzC,CAAC;AAEF,QAAA,MAAM,UAAU;iBACD,WAAW;oBACR,MAAM,IAAI;eACf,MAAM,IAAI;CAiBtB,CAAC;AAEF,OAAO,EAAE,QAAQ,EAAE,UAAU,EAAE,CAAC"}
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.js b/node_modules/expo-updates/build/UpdatesProvider.js
 new file mode 100644
-index 0000000..a8e06ff
+index 0000000..7752f69
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.js
-@@ -0,0 +1,131 @@
+@@ -0,0 +1,122 @@
 +import React, { createContext, useContext, useState } from 'react';
-+import * as ExpoUpdates from './Updates';
++import * as Updates from './Updates';
 +import { useUpdateEvents } from './UpdatesHooks';
 +/////// Constants ////////
 +/**
 + * The currently running update, constructed from the manifest constant
 + */
-+const currentlyRunning = {
-+    id: ExpoUpdates.manifest?.id || 'None',
-+    createdAt: ExpoUpdates.manifest?.createdAt || '',
-+    critical: ExpoUpdates.manifest?.extra?.expoClient?.extra?.critical || false,
-+    message: ExpoUpdates.manifest?.extra?.expoClient?.extra?.message || '',
-+    embedded: ExpoUpdates.isEmbeddedLaunch,
-+};
++const currentlyRunning = Updates.manifest;
++const embedded = Updates.isEmbeddedLaunch;
 +/////// Internal functions ////////
 +/**
 + * Promise wrapper for setTimeout()
@@ -89,21 +69,17 @@ index 0000000..a8e06ff
 + * @returns the appropriate updates info object
 + */
 +const updatesFromEvent = (event) => {
-+    if (event.type === ExpoUpdates.UpdateEventType.NO_UPDATE_AVAILABLE) {
++    if (event.type === Updates.UpdateEventType.NO_UPDATE_AVAILABLE) {
 +        return {
 +            currentlyRunning,
++            embedded,
 +        };
 +    }
-+    else if (event.type === ExpoUpdates.UpdateEventType.UPDATE_AVAILABLE) {
++    else if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {
 +        return {
 +            currentlyRunning,
-+            updateAvailable: {
-+                id: event?.manifest?.id || '',
-+                createdAt: event?.manifest?.createdAt || '',
-+                critical: event?.manifest?.extra?.expoClient?.extra?.critical || false,
-+                message: event?.manifest?.extra?.expoClient?.extra?.message || '',
-+                embedded: false,
-+            },
++            updateAvailable: event.manifest,
++            embedded,
 +        };
 +    }
 +    else {
@@ -111,6 +87,7 @@ index 0000000..a8e06ff
 +        return {
 +            currentlyRunning,
 +            error: event.message || '',
++            embedded,
 +        };
 +    }
 +};
@@ -122,22 +99,18 @@ index 0000000..a8e06ff
 +const checkAndRefreshUpdatesStructure = async (setUpdates) => {
 +    let result;
 +    try {
-+        const checkResult = await ExpoUpdates.checkForUpdateAsync();
++        const checkResult = await Updates.checkForUpdateAsync();
 +        if (checkResult.isAvailable) {
 +            result = {
 +                currentlyRunning,
-+                updateAvailable: {
-+                    id: checkResult?.manifest?.id || '',
-+                    createdAt: checkResult?.manifest?.createdAt || '',
-+                    critical: checkResult?.manifest?.extra?.expoClient?.extra?.critical || false,
-+                    message: checkResult?.manifest?.extra?.expoClient?.extra?.message || '',
-+                    embedded: false,
-+                },
++                updateAvailable: checkResult.manifest,
++                embedded,
 +            };
 +        }
 +        else {
 +            result = {
 +                currentlyRunning,
++                embedded,
 +            };
 +        }
 +    }
@@ -145,6 +118,7 @@ index 0000000..a8e06ff
 +        result = {
 +            currentlyRunning,
 +            error: error?.message || 'Error occurred',
++            embedded,
 +        };
 +    }
 +    setUpdates(result);
@@ -153,20 +127,22 @@ index 0000000..a8e06ff
 + * Downloads and runs an update, if one is available
 + */
 +const runUpdate = async () => {
-+    await ExpoUpdates.fetchUpdateAsync();
++    await Updates.fetchUpdateAsync();
 +    await delay(2000);
-+    await ExpoUpdates.reloadAsync();
++    await Updates.reloadAsync();
 +};
 +/////// Context, provider, and hook ////////
 +const UpdatesContext = createContext({
 +    updates: {
 +        currentlyRunning,
++        embedded,
 +    },
 +    setUpdates: (_) => { },
 +});
 +const Provider = (props) => {
 +    const [updates, setUpdates] = useState({
 +        currentlyRunning,
++        embedded,
 +    });
 +    return (React.createElement(UpdatesContext.Provider, { value: { updates, setUpdates } }, props.children));
 +};
@@ -192,88 +168,78 @@ index 0000000..a8e06ff
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.js.map b/node_modules/expo-updates/build/UpdatesProvider.js.map
 new file mode 100644
-index 0000000..7695ce8
+index 0000000..b49df12
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.js.map
 @@ -0,0 +1 @@
-+{"version":3,"file":"UpdatesProvider.js","sourceRoot":"","sources":["../src/UpdatesProvider.tsx"],"names":[],"mappings":"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","sourcesContent":["import React, { createContext, useContext, useState } from 'react';\n\nimport * as ExpoUpdates from './Updates';\nimport type { UpdateEvent } from './Updates.types';\nimport { useUpdateEvents } from './UpdatesHooks';\n\n/////// Types ////////\n\n/**\n * Description of an update from its manifest\n */\nexport type UpdateDescription = {\n  id: string;\n  createdAt: string | Date;\n  critical: boolean;\n  message: string;\n  embedded: boolean;\n};\n\n/**\n * Updates info structure for the currently running and next available updates\n */\nexport type UpdatesInfo = {\n  currentlyRunning: UpdateDescription;\n  updateAvailable?: UpdateDescription;\n  error?: string;\n};\n\n/**\n * Context that includes getter and ssetter for updates info\n */\nexport type UpdatesContextType = {\n  updates: UpdatesInfo;\n  setUpdates: (updates: UpdatesInfo) => void;\n};\n\n/////// Constants ////////\n\n/**\n * The currently running update, constructed from the manifest constant\n */\nconst currentlyRunning: UpdateDescription = {\n  id: ExpoUpdates.manifest?.id || 'None',\n  createdAt: ExpoUpdates.manifest?.createdAt || '',\n  critical: ExpoUpdates.manifest?.extra?.expoClient?.extra?.critical || false,\n  message: ExpoUpdates.manifest?.extra?.expoClient?.extra?.message || '',\n  embedded: ExpoUpdates.isEmbeddedLaunch,\n};\n\n/////// Internal functions ////////\n\n/**\n * Promise wrapper for setTimeout()\n * @param {delay} timeout Timeout in ms\n * @returns a Promise that resolves after the timeout has elapsed\n */\nconst delay = (timeout: number) => {\n  return new Promise((resolve) => {\n    setTimeout(resolve, timeout);\n  });\n};\n\n/**\n * Constructs an UpdatesInfo from an UpdatesEvent\n * @param event the event passed into the expo-updates listener\n * @returns the appropriate updates info object\n */\nconst updatesFromEvent = (event: UpdateEvent): UpdatesInfo => {\n  if (event.type === ExpoUpdates.UpdateEventType.NO_UPDATE_AVAILABLE) {\n    return {\n      currentlyRunning,\n    };\n  } else if (event.type === ExpoUpdates.UpdateEventType.UPDATE_AVAILABLE) {\n    return {\n      currentlyRunning,\n      updateAvailable: {\n        id: event?.manifest?.id || '',\n        createdAt: event?.manifest?.createdAt || '',\n        critical: event?.manifest?.extra?.expoClient?.extra?.critical || false,\n        message: event?.manifest?.extra?.expoClient?.extra?.message || '',\n        embedded: false,\n      },\n    };\n  } else {\n    // event type === ERROR\n    return {\n      currentlyRunning,\n      error: event.message || '',\n    };\n  }\n};\n\n/**\n * Calls expo-updates checkForUpdateAsync and uses the passed in setter\n * to refresh the updates info context\n * @param setUpdates the setter passed in from the provider\n */\nconst checkAndRefreshUpdatesStructure: (\n  setUpdates: (_: UpdatesInfo) => void\n) => Promise<void> = async (setUpdates) => {\n  let result: UpdatesInfo;\n  try {\n    const checkResult = await ExpoUpdates.checkForUpdateAsync();\n    if (checkResult.isAvailable) {\n      result = {\n        currentlyRunning,\n        updateAvailable: {\n          id: checkResult?.manifest?.id || '',\n          createdAt: checkResult?.manifest?.createdAt || '',\n          critical: checkResult?.manifest?.extra?.expoClient?.extra?.critical || false,\n          message: checkResult?.manifest?.extra?.expoClient?.extra?.message || '',\n          embedded: false,\n        },\n      };\n    } else {\n      result = {\n        currentlyRunning,\n      };\n    }\n  } catch (error: any) {\n    result = {\n      currentlyRunning,\n      error: error?.message || 'Error occurred',\n    };\n  }\n  setUpdates(result);\n};\n\n/**\n * Downloads and runs an update, if one is available\n */\nconst runUpdate: () => Promise<void> = async () => {\n  await ExpoUpdates.fetchUpdateAsync();\n  await delay(2000);\n  await ExpoUpdates.reloadAsync();\n};\n\n/////// Context, provider, and hook ////////\n\nconst UpdatesContext: React.Context<UpdatesContextType> = createContext({\n  updates: {\n    currentlyRunning,\n  },\n  setUpdates: (_) => {},\n});\n\nconst Provider = (props: { children: any }) => {\n  const [updates, setUpdates] = useState({\n    currentlyRunning,\n  });\n  return (\n    <UpdatesContext.Provider value={{ updates, setUpdates }}>\n      {props.children}\n    </UpdatesContext.Provider>\n  );\n};\n\nconst useUpdates = (): {\n  updatesInfo: UpdatesInfo;\n  checkForUpdate: () => void;\n  runUpdate: () => void;\n} => {\n  // Get updates info value and setter from provider\n  const { updates, setUpdates } = useContext(UpdatesContext);\n  // Construct the function to manually check for updates\n  // so applications don't need to use the setter\n  const checkForUpdate: () => void = () => {\n    checkAndRefreshUpdatesStructure(setUpdates);\n  };\n  // Set up listener for events from automatic update requests\n  // that happen on startup, and use events to refresh the updates info\n  // context\n  useUpdateEvents((event) => {\n    setUpdates(updatesFromEvent(event));\n  });\n  // Return the updates info and the user facing functions\n  return { updatesInfo: updates, checkForUpdate, runUpdate };\n};\n\nexport { Provider, useUpdates };\n"]}
++{"version":3,"file":"UpdatesProvider.js","sourceRoot":"","sources":["../src/UpdatesProvider.tsx"],"names":[],"mappings":"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","sourcesContent":["import React, { createContext, useContext, useState } from 'react';\n\nimport * as Updates from './Updates';\nimport type { Manifest, UpdateEvent } from './Updates.types';\nimport { useUpdateEvents } from './UpdatesHooks';\n\n/////// Types ////////\n\n/**\n * Updates info structure for the currently running and next available updates\n */\nexport type UpdatesInfo = {\n  currentlyRunning: Partial<Manifest>;\n  updateAvailable?: Partial<Manifest>;\n  embedded: boolean;\n  error?: string;\n};\n\n/**\n * Context that includes getter and setter for updates info\n */\ntype UpdatesContextType = {\n  updates: UpdatesInfo;\n  setUpdates: (updates: UpdatesInfo) => void;\n};\n\n/////// Constants ////////\n\n/**\n * The currently running update, constructed from the manifest constant\n */\nconst currentlyRunning = Updates.manifest;\nconst embedded = Updates.isEmbeddedLaunch;\n\n/////// Internal functions ////////\n\n/**\n * Promise wrapper for setTimeout()\n * @param {delay} timeout Timeout in ms\n * @returns a Promise that resolves after the timeout has elapsed\n */\nconst delay = (timeout: number) => {\n  return new Promise((resolve) => {\n    setTimeout(resolve, timeout);\n  });\n};\n\n/**\n * Constructs an UpdatesInfo from an UpdatesEvent\n * @param event the event passed into the expo-updates listener\n * @returns the appropriate updates info object\n */\nconst updatesFromEvent = (event: UpdateEvent): UpdatesInfo => {\n  if (event.type === Updates.UpdateEventType.NO_UPDATE_AVAILABLE) {\n    return {\n      currentlyRunning,\n      embedded,\n    };\n  } else if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {\n    return {\n      currentlyRunning,\n      updateAvailable: event.manifest,\n      embedded,\n    };\n  } else {\n    // event type === ERROR\n    return {\n      currentlyRunning,\n      error: event.message || '',\n      embedded,\n    };\n  }\n};\n\n/**\n * Calls expo-updates checkForUpdateAsync and uses the passed in setter\n * to refresh the updates info context\n * @param setUpdates the setter passed in from the provider\n */\nconst checkAndRefreshUpdatesStructure: (\n  setUpdates: (_: UpdatesInfo) => void\n) => Promise<void> = async (setUpdates) => {\n  let result: UpdatesInfo;\n  try {\n    const checkResult = await Updates.checkForUpdateAsync();\n    if (checkResult.isAvailable) {\n      result = {\n        currentlyRunning,\n        updateAvailable: checkResult.manifest,\n        embedded,\n      };\n    } else {\n      result = {\n        currentlyRunning,\n        embedded,\n      };\n    }\n  } catch (error: any) {\n    result = {\n      currentlyRunning,\n      error: error?.message || 'Error occurred',\n      embedded,\n    };\n  }\n  setUpdates(result);\n};\n\n/**\n * Downloads and runs an update, if one is available\n */\nconst runUpdate: () => Promise<void> = async () => {\n  await Updates.fetchUpdateAsync();\n  await delay(2000);\n  await Updates.reloadAsync();\n};\n\n/////// Context, provider, and hook ////////\n\nconst UpdatesContext: React.Context<UpdatesContextType> = createContext({\n  updates: {\n    currentlyRunning,\n    embedded,\n  },\n  setUpdates: (_) => {},\n});\n\nconst Provider = (props: { children: any }) => {\n  const [updates, setUpdates] = useState({\n    currentlyRunning,\n    embedded,\n  });\n  return (\n    <UpdatesContext.Provider value={{ updates, setUpdates }}>\n      {props.children}\n    </UpdatesContext.Provider>\n  );\n};\n\nconst useUpdates = (): {\n  updatesInfo: UpdatesInfo;\n  checkForUpdate: () => void;\n  runUpdate: () => void;\n} => {\n  // Get updates info value and setter from provider\n  const { updates, setUpdates } = useContext(UpdatesContext);\n  // Construct the function to manually check for updates\n  // so applications don't need to use the setter\n  const checkForUpdate: () => void = () => {\n    checkAndRefreshUpdatesStructure(setUpdates);\n  };\n  // Set up listener for events from automatic update requests\n  // that happen on startup, and use events to refresh the updates info\n  // context\n  useUpdateEvents((event) => {\n    setUpdates(updatesFromEvent(event));\n  });\n  // Return the updates info and the user facing functions\n  return { updatesInfo: updates, checkForUpdate, runUpdate };\n};\n\nexport { Provider, useUpdates };\n"]}
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/index.d.ts b/node_modules/expo-updates/build/index.d.ts
-index b67bbd5..d985a4c 100644
+index b67bbd5..c414269 100644
 --- a/node_modules/expo-updates/build/index.d.ts
 +++ b/node_modules/expo-updates/build/index.d.ts
 @@ -1,3 +1,4 @@
  export * from './Updates';
  export * from './UpdatesHooks';
-+export * from './UpdatesProvider';
++export { Provider, useUpdates } from './UpdatesProvider';
  //# sourceMappingURL=index.d.ts.map
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/index.d.ts.map b/node_modules/expo-updates/build/index.d.ts.map
-index 314e2ba..4edd68b 100644
+index 314e2ba..3870e23 100644
 --- a/node_modules/expo-updates/build/index.d.ts.map
 +++ b/node_modules/expo-updates/build/index.d.ts.map
 @@ -1 +1 @@
 -{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,cAAc,WAAW,CAAC;AAC1B,cAAc,gBAAgB,CAAC"}
 \ No newline at end of file
-+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,cAAc,WAAW,CAAC;AAC1B,cAAc,gBAAgB,CAAC;AAC/B,cAAc,mBAAmB,CAAC"}
++{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,cAAc,WAAW,CAAC;AAC1B,cAAc,gBAAgB,CAAC;AAC/B,OAAO,EAAE,QAAQ,EAAE,UAAU,EAAE,MAAM,mBAAmB,CAAC"}
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/index.js b/node_modules/expo-updates/build/index.js
-index 10c0854..a085af5 100644
+index 10c0854..c97aba2 100644
 --- a/node_modules/expo-updates/build/index.js
 +++ b/node_modules/expo-updates/build/index.js
 @@ -1,3 +1,4 @@
  export * from './Updates';
  export * from './UpdatesHooks';
-+export * from './UpdatesProvider';
++export { Provider, useUpdates } from './UpdatesProvider';
  //# sourceMappingURL=index.js.map
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/index.js.map b/node_modules/expo-updates/build/index.js.map
-index a252c10..50e4ffe 100644
+index a252c10..935eaa0 100644
 --- a/node_modules/expo-updates/build/index.js.map
 +++ b/node_modules/expo-updates/build/index.js.map
 @@ -1 +1 @@
 -{"version":3,"file":"index.js","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,cAAc,WAAW,CAAC;AAC1B,cAAc,gBAAgB,CAAC","sourcesContent":["export * from './Updates';\nexport * from './UpdatesHooks';\n"]}
 \ No newline at end of file
-+{"version":3,"file":"index.js","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,cAAc,WAAW,CAAC;AAC1B,cAAc,gBAAgB,CAAC;AAC/B,cAAc,mBAAmB,CAAC","sourcesContent":["export * from './Updates';\nexport * from './UpdatesHooks';\nexport * from './UpdatesProvider';\n"]}
++{"version":3,"file":"index.js","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,cAAc,WAAW,CAAC;AAC1B,cAAc,gBAAgB,CAAC;AAC/B,OAAO,EAAE,QAAQ,EAAE,UAAU,EAAE,MAAM,mBAAmB,CAAC","sourcesContent":["export * from './Updates';\nexport * from './UpdatesHooks';\nexport { Provider, useUpdates } from './UpdatesProvider';\n"]}
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/src/UpdatesProvider.tsx b/node_modules/expo-updates/src/UpdatesProvider.tsx
 new file mode 100644
-index 0000000..b6acc72
+index 0000000..be857d0
 --- /dev/null
 +++ b/node_modules/expo-updates/src/UpdatesProvider.tsx
-@@ -0,0 +1,180 @@
+@@ -0,0 +1,161 @@
 +import React, { createContext, useContext, useState } from 'react';
 +
-+import * as ExpoUpdates from './Updates';
-+import type { UpdateEvent } from './Updates.types';
++import * as Updates from './Updates';
++import type { Manifest, UpdateEvent } from './Updates.types';
 +import { useUpdateEvents } from './UpdatesHooks';
 +
 +/////// Types ////////
 +
 +/**
-+ * Description of an update from its manifest
-+ */
-+export type UpdateDescription = {
-+  id: string;
-+  createdAt: string | Date;
-+  critical: boolean;
-+  message: string;
-+  embedded: boolean;
-+};
-+
-+/**
 + * Updates info structure for the currently running and next available updates
 + */
 +export type UpdatesInfo = {
-+  currentlyRunning: UpdateDescription;
-+  updateAvailable?: UpdateDescription;
++  currentlyRunning: Partial<Manifest>;
++  updateAvailable?: Partial<Manifest>;
++  embedded: boolean;
 +  error?: string;
 +};
 +
 +/**
-+ * Context that includes getter and ssetter for updates info
++ * Context that includes getter and setter for updates info
 + */
-+export type UpdatesContextType = {
++type UpdatesContextType = {
 +  updates: UpdatesInfo;
 +  setUpdates: (updates: UpdatesInfo) => void;
 +};
@@ -283,13 +249,8 @@ index 0000000..b6acc72
 +/**
 + * The currently running update, constructed from the manifest constant
 + */
-+const currentlyRunning: UpdateDescription = {
-+  id: ExpoUpdates.manifest?.id || 'None',
-+  createdAt: ExpoUpdates.manifest?.createdAt || '',
-+  critical: ExpoUpdates.manifest?.extra?.expoClient?.extra?.critical || false,
-+  message: ExpoUpdates.manifest?.extra?.expoClient?.extra?.message || '',
-+  embedded: ExpoUpdates.isEmbeddedLaunch,
-+};
++const currentlyRunning = Updates.manifest;
++const embedded = Updates.isEmbeddedLaunch;
 +
 +/////// Internal functions ////////
 +
@@ -310,26 +271,23 @@ index 0000000..b6acc72
 + * @returns the appropriate updates info object
 + */
 +const updatesFromEvent = (event: UpdateEvent): UpdatesInfo => {
-+  if (event.type === ExpoUpdates.UpdateEventType.NO_UPDATE_AVAILABLE) {
++  if (event.type === Updates.UpdateEventType.NO_UPDATE_AVAILABLE) {
 +    return {
 +      currentlyRunning,
++      embedded,
 +    };
-+  } else if (event.type === ExpoUpdates.UpdateEventType.UPDATE_AVAILABLE) {
++  } else if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {
 +    return {
 +      currentlyRunning,
-+      updateAvailable: {
-+        id: event?.manifest?.id || '',
-+        createdAt: event?.manifest?.createdAt || '',
-+        critical: event?.manifest?.extra?.expoClient?.extra?.critical || false,
-+        message: event?.manifest?.extra?.expoClient?.extra?.message || '',
-+        embedded: false,
-+      },
++      updateAvailable: event.manifest,
++      embedded,
 +    };
 +  } else {
 +    // event type === ERROR
 +    return {
 +      currentlyRunning,
 +      error: event.message || '',
++      embedded,
 +    };
 +  }
 +};
@@ -344,27 +302,24 @@ index 0000000..b6acc72
 +) => Promise<void> = async (setUpdates) => {
 +  let result: UpdatesInfo;
 +  try {
-+    const checkResult = await ExpoUpdates.checkForUpdateAsync();
++    const checkResult = await Updates.checkForUpdateAsync();
 +    if (checkResult.isAvailable) {
 +      result = {
 +        currentlyRunning,
-+        updateAvailable: {
-+          id: checkResult?.manifest?.id || '',
-+          createdAt: checkResult?.manifest?.createdAt || '',
-+          critical: checkResult?.manifest?.extra?.expoClient?.extra?.critical || false,
-+          message: checkResult?.manifest?.extra?.expoClient?.extra?.message || '',
-+          embedded: false,
-+        },
++        updateAvailable: checkResult.manifest,
++        embedded,
 +      };
 +    } else {
 +      result = {
 +        currentlyRunning,
++        embedded,
 +      };
 +    }
 +  } catch (error: any) {
 +    result = {
 +      currentlyRunning,
 +      error: error?.message || 'Error occurred',
++      embedded,
 +    };
 +  }
 +  setUpdates(result);
@@ -374,9 +329,9 @@ index 0000000..b6acc72
 + * Downloads and runs an update, if one is available
 + */
 +const runUpdate: () => Promise<void> = async () => {
-+  await ExpoUpdates.fetchUpdateAsync();
++  await Updates.fetchUpdateAsync();
 +  await delay(2000);
-+  await ExpoUpdates.reloadAsync();
++  await Updates.reloadAsync();
 +};
 +
 +/////// Context, provider, and hook ////////
@@ -384,6 +339,7 @@ index 0000000..b6acc72
 +const UpdatesContext: React.Context<UpdatesContextType> = createContext({
 +  updates: {
 +    currentlyRunning,
++    embedded,
 +  },
 +  setUpdates: (_) => {},
 +});
@@ -391,6 +347,7 @@ index 0000000..b6acc72
 +const Provider = (props: { children: any }) => {
 +  const [updates, setUpdates] = useState({
 +    currentlyRunning,
++    embedded,
 +  });
 +  return (
 +    <UpdatesContext.Provider value={{ updates, setUpdates }}>
@@ -423,10 +380,10 @@ index 0000000..b6acc72
 +
 +export { Provider, useUpdates };
 diff --git a/node_modules/expo-updates/src/index.ts b/node_modules/expo-updates/src/index.ts
-index ad39cc8..730e3f1 100644
+index ad39cc8..885f6cb 100644
 --- a/node_modules/expo-updates/src/index.ts
 +++ b/node_modules/expo-updates/src/index.ts
 @@ -1,2 +1,3 @@
  export * from './Updates';
  export * from './UpdatesHooks';
-+export * from './UpdatesProvider';
++export { Provider, useUpdates } from './UpdatesProvider';

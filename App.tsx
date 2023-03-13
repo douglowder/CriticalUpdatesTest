@@ -27,9 +27,9 @@ function UpdatesDemo() {
   const updateMessage = JSON.stringify(updatesInfo, null, 2);
 
   // Show whether or not we are running embedded code or an update
-  const runTypeMessage = updatesInfo.currentlyRunning.embedded
+  const runTypeMessage = updatesInfo.embedded
     ? 'This app is running from built-in code'
-    : updatesInfo.currentlyRunning.critical
+    : updatesInfo.currentlyRunning?.extra?.expoClient?.extra?.critical || false
     ? 'This app is running a critical update'
     : 'This app is running a normal update';
 
