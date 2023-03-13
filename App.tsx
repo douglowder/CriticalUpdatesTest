@@ -47,15 +47,9 @@ function UpdatesDemo() {
         <Text style={styles.headerText}>Critical Updates Test</Text>
         <Text>{runTypeMessage}</Text>
         <Text style={styles.updateMessageText}>{updateMessage}</Text>
-        <Button
-          pressHandler={handleCheckButtonPress}
-          text="Check manually for updates"
-        />
+        <Button pressHandler={handleCheckButtonPress} text="Check manually for updates" />
         {updateAvailable ? (
-          <Button
-            pressHandler={handleDownloadButtonPress}
-            text="Download and run update"
-          />
+          <Button pressHandler={handleDownloadButtonPress} text="Download and run update" />
         ) : null}
         <StatusBar style="auto" />
       </View>
@@ -70,8 +64,7 @@ function Button(props: { text: string; pressHandler: () => void }) {
       style={({ pressed }) => {
         return pressed ? [styles.button, styles.buttonPressed] : styles.button;
       }}
-      onPress={pressHandler}
-    >
+      onPress={pressHandler}>
       <Text style={styles.buttonText}>{text}</Text>
     </Pressable>
   );
