@@ -1,6 +1,14 @@
+
 const path = require('path');
 const fs = require('fs/promises');
 const spawnAsync = require('@expo/spawn-async');
+
+const usage = () => {
+  console.log('Usage: push-update.js ');
+  console.log('  Parameters:');
+  console.log('    <--message|-m> (message) (required) Sets the message passed into the EAS update command');
+  console.log('    <--critical|-c> (optional) If present, sets the "critical" flag in the update');
+};
 
 const pushUpdateAsync = async (message, critical, projectRoot) => {
   console.log('Modifying app.json...');
@@ -40,19 +48,23 @@ const pushUpdateAsync = async (message, critical, projectRoot) => {
 const params = process.argv.filter((a, i) => i > 0);
 const projectRoot = path.resolve(__dirname, '..');
 
-let message = 'Testing updates';
+let message = '';
 let critical = false;
 
 while (params.length) {
   if (params[0] === '--message' || params[0] === '-m') {
+    message = params[1];
     params.shift();
-    message = params[0];
   }
   if (params[0] === '--critical' || params[0] === '-c') {
-    params.shift();
-    critical = params[0] === 'true';
+    critical = true;
   }
   params.shift();
+}
+
+if (message.length === 0) {
+  usage();
+  return;
 }
 
 console.log(`message = ${message}`);
