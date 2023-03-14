@@ -20,16 +20,15 @@ export default function App() {
 function UpdatesDemo() {
   const { updatesInfo, checkForUpdate, runUpdate } = useUpdates();
 
-  // If true, we show the button to download and run the update
-  const updateAvailable = updatesInfo.updateAvailable !== undefined;
+  const { currentlyRunning, updateAvailable } = updatesInfo;
 
-  // Show updates info in box
-  const updateMessage = JSON.stringify(updatesInfo, null, 2);
+  // If true, we show the button to download and run the update
+  const showDownloadButton = updateAvailable !== undefined;
 
   // Show whether or not we are running embedded code or an update
   const runTypeMessage = updatesInfo.embedded
     ? 'This app is running from built-in code'
-    : updatesInfo.currentlyRunning?.extra?.expoClient?.extra?.critical || false
+    : isManifestCritical(currentlyRunning)
     ? 'This app is running a critical update'
     : 'This app is running a normal update';
 
@@ -46,9 +45,11 @@ function UpdatesDemo() {
       <View style={styles.container}>
         <Text style={styles.headerText}>Critical Updates Test</Text>
         <Text>{runTypeMessage}</Text>
-        <Text style={styles.updateMessageText}>{updateMessage}</Text>
+        <Text style={styles.updateMessageText}>
+          {infoBoxText(currentlyRunning, updateAvailable)}
+        </Text>
         <Button pressHandler={handleCheckButtonPress} text="Check manually for updates" />
-        {updateAvailable ? (
+        {showDownloadButton ? (
           <Button pressHandler={handleDownloadButtonPress} text="Download and run update" />
         ) : null}
         <StatusBar style="auto" />
@@ -69,6 +70,35 @@ function Button(props: { text: string; pressHandler: () => void }) {
     </Pressable>
   );
 }
+
+const infoBoxText = (currentlyRunning: any, updateAvailable: any) => {
+  let currentlyRunningText = 'Running the embedded bundle\n';
+  if (currentlyRunning?.id) {
+    currentlyRunningText = `Running an update:\n${manifestDescription(currentlyRunning)}`;
+  }
+  let updateAvailableText = 'No new update available\n';
+  if (updateAvailable) {
+    updateAvailableText = `New update available:\n${manifestDescription(updateAvailable)}`;
+  }
+  return currentlyRunningText + '\n' + updateAvailableText;
+};
+
+const manifestDescription = (manifest: any) => {
+  return (
+    `  ID: ${manifest?.id}\n` +
+    `  Created: ${manifest?.createdAt}\n` +
+    `  Message: ${manifestMessage(manifest)}\n` +
+    `  Critical: ${isManifestCritical(manifest)}\n`
+  );
+};
+
+const manifestMessage = (manifest: any) => {
+  return manifest?.extra?.expoClient?.extra?.message || '';
+};
+
+const isManifestCritical = (manifest: any) => {
+  return manifest?.extra?.expoClient?.extra?.critical || false;
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -106,6 +136,6 @@ const styles = StyleSheet.create({
     borderColor: '#4630EB',
     borderWidth: 1,
     borderRadius: 4,
-    fontSize: 12,
+    fontSize: 10,
   },
 });
