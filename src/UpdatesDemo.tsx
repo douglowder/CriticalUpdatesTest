@@ -9,6 +9,8 @@ import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { UpdatesProvider, useUpdates } from 'expo-updates';
 
+import { infoBoxText, isManifestCritical } from './Utils';
+
 export default function UpdatesDemo() {
   const { updatesInfo, checkForUpdate, runUpdate } = useUpdates();
 
@@ -24,14 +26,6 @@ export default function UpdatesDemo() {
     ? 'This app is running a critical update'
     : 'This app is running a normal update';
 
-  const handleCheckButtonPress = () => {
-    checkForUpdate();
-  };
-
-  const handleDownloadButtonPress = () => {
-    runUpdate();
-  };
-
   return (
     <UpdatesProvider>
       <View style={styles.container}>
@@ -40,9 +34,9 @@ export default function UpdatesDemo() {
         <Text style={styles.updateMessageText}>
           {infoBoxText(currentlyRunning, updateAvailable)}
         </Text>
-        <Button pressHandler={handleCheckButtonPress} text="Check manually for updates" />
+        <Button pressHandler={checkForUpdate} text="Check manually for updates" />
         {showDownloadButton ? (
-          <Button pressHandler={handleDownloadButtonPress} text="Download and run update" />
+          <Button pressHandler={runUpdate} text="Download and run update" />
         ) : null}
         <StatusBar style="auto" />
       </View>
@@ -62,35 +56,6 @@ function Button(props: { text: string; pressHandler: () => void }) {
     </Pressable>
   );
 }
-
-const infoBoxText = (currentlyRunning: any, updateAvailable: any) => {
-  let currentlyRunningText = 'Running the embedded bundle\n';
-  if (currentlyRunning?.id) {
-    currentlyRunningText = `Running an update:\n${manifestDescription(currentlyRunning)}`;
-  }
-  let updateAvailableText = 'No new update available\n';
-  if (updateAvailable) {
-    updateAvailableText = `New update available:\n${manifestDescription(updateAvailable)}`;
-  }
-  return currentlyRunningText + '\n' + updateAvailableText;
-};
-
-const manifestDescription = (manifest: any) => {
-  return (
-    `  ID: ${manifest?.id}\n` +
-    `  Created: ${manifest?.createdAt}\n` +
-    `  Message: ${manifestMessage(manifest)}\n` +
-    `  Critical: ${isManifestCritical(manifest)}\n`
-  );
-};
-
-const manifestMessage = (manifest: any) => {
-  return manifest?.extra?.expoClient?.extra?.message || '';
-};
-
-const isManifestCritical = (manifest: any) => {
-  return manifest?.extra?.expoClient?.extra?.critical || false;
-};
 
 const styles = StyleSheet.create({
   container: {
