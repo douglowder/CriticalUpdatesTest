@@ -7,7 +7,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { UpdatesProvider, useUpdates } from 'expo-updates';
+import { useUpdates } from 'expo-updates';
 
 import { infoBoxText, isManifestCritical } from './Utils';
 import styles from './styles';
@@ -28,20 +28,16 @@ export default function UpdatesDemo() {
     : 'This app is running a normal update';
 
   return (
-    <UpdatesProvider>
-      <View style={styles.container}>
-        <Text style={styles.headerText}>Critical Updates Test</Text>
-        <Text>{runTypeMessage}</Text>
-        <Text style={styles.updateMessageText}>
-          {infoBoxText(currentlyRunning, updateAvailable)}
-        </Text>
-        <Button pressHandler={checkForUpdate} text="Check manually for updates" />
-        {showDownloadButton ? (
-          <Button pressHandler={runUpdate} text="Download and run update" />
-        ) : null}
-        <StatusBar style="auto" />
-      </View>
-    </UpdatesProvider>
+    <View style={styles.container}>
+      <Text style={styles.headerText}>Critical Updates Test</Text>
+      <Text>{runTypeMessage}</Text>
+      <Text style={styles.updateMessageText}>{infoBoxText(currentlyRunning, updateAvailable)}</Text>
+      <Button pressHandler={checkForUpdate} text="Check manually for updates" />
+      {showDownloadButton ? (
+        <Button pressHandler={runUpdate} text="Download and run update" />
+      ) : null}
+      <StatusBar style="auto" />
+    </View>
   );
 }
 

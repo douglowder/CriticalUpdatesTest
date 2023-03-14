@@ -27,4 +27,11 @@ const isManifestCritical = (manifest: any) => {
   return manifest?.extra?.expoClient?.extra?.critical || false;
 };
 
-export { infoBoxText, manifestDescription, manifestMessage, isManifestCritical };
+// Promise wrapper for setTimeout()
+const delay = (timeout: number) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeout);
+  });
+};
+
+export { delay, infoBoxText, manifestDescription, manifestMessage, isManifestCritical };
