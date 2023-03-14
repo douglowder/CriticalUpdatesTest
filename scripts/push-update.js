@@ -1,4 +1,3 @@
-
 const path = require('path');
 const fs = require('fs/promises');
 const spawnAsync = require('@expo/spawn-async');
@@ -6,7 +5,9 @@ const spawnAsync = require('@expo/spawn-async');
 const usage = () => {
   console.log('Usage: push-update.js ');
   console.log('  Parameters:');
-  console.log('    <--message|-m> (message) (required) Sets the message passed into the EAS update command');
+  console.log(
+    '    <--message|-m> (message) (required) Sets the message passed into the EAS update command'
+  );
   console.log('    <--critical|-c> (optional) If present, sets the "critical" flag in the update');
 };
 
@@ -64,7 +65,7 @@ while (params.length) {
 
 if (message.length === 0) {
   usage();
-  return;
+  process.exit(0);
 }
 
 console.log(`message = ${message}`);
