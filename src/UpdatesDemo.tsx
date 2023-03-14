@@ -6,10 +6,11 @@
  */
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { UpdatesProvider, useUpdates } from 'expo-updates';
 
 import { infoBoxText, isManifestCritical } from './Utils';
+import styles from './styles';
 
 export default function UpdatesDemo() {
   const { updatesInfo, checkForUpdate, runUpdate } = useUpdates();
@@ -56,43 +57,3 @@ function Button(props: { text: string; pressHandler: () => void }) {
     </Pressable>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 10,
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: '#4630EB',
-  },
-  buttonPressed: {
-    backgroundColor: '#8630EB',
-  },
-  buttonText: {
-    color: 'white',
-  },
-  headerText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  updateMessageText: {
-    margin: 10,
-    height: 200,
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    width: '90%',
-    borderColor: '#4630EB',
-    borderWidth: 1,
-    borderRadius: 4,
-    fontSize: 10,
-  },
-});
