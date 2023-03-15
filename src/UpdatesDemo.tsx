@@ -7,7 +7,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { useUpdates } from 'expo-updates';
+import { useUpdates } from 'expo-updates-provider';
 
 import { infoBoxText, isManifestCritical } from './Utils';
 import styles from './styles';
