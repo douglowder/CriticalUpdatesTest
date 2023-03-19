@@ -1,0 +1,36 @@
+diff --git a/node_modules/expo-updates/ios/EXUpdates/AppLoader/EXUpdatesAppLoaderTask.m b/node_modules/expo-updates/ios/EXUpdates/AppLoader/EXUpdatesAppLoaderTask.m
+index 3c9a535..2ac1933 100644
+--- a/node_modules/expo-updates/ios/EXUpdates/AppLoader/EXUpdatesAppLoaderTask.m
++++ b/node_modules/expo-updates/ios/EXUpdates/AppLoader/EXUpdatesAppLoaderTask.m
+@@ -83,6 +83,19 @@ static NSString * const EXUpdatesAppLoaderTaskErrorDomain = @"EXUpdatesAppLoader
+   return self;
+ }
+ 
++- (NSNumber *)launchWaitMsFromPreference
++{
++  NSString *preferenceValue = [[NSUserDefaults standardUserDefaults] stringForKey:@"EX_UPDATES_LAUNCH_WAIT_MS"];
++  if (preferenceValue == nil) {
++    return nil;
++  }
++  int result = [preferenceValue intValue];
++  if (result >= 0 && result < 5000) {
++    return [NSNumber numberWithInt:result];
++  }
++  return nil;
++}
++
+ - (void)start
+ {
+   if (!_config.isEnabled) {
+@@ -125,6 +138,11 @@ static NSString * const EXUpdatesAppLoaderTaskErrorDomain = @"EXUpdatesAppLoader
+ 
+   __block BOOL shouldCheckForUpdate = [EXUpdatesUtils shouldCheckForUpdateWithConfig:_config];
+   NSNumber *launchWaitMs = _config.launchWaitMs;
++  NSNumber *launchWaitMsFromPreference = [self launchWaitMsFromPreference];
++  if (launchWaitMsFromPreference != nil) {
++    launchWaitMs = launchWaitMsFromPreference;
++    [self->_logger warn:[NSString stringWithFormat:@"EXUpdatesAppLoaderTask: valid cache timeout preference found. Cache timeout will be %d ms", [launchWaitMsFromPreference intValue]] code:EXUpdatesErrorCodeNone];
++  }
+   if ([launchWaitMs isEqualToNumber:@(0)] || !shouldCheckForUpdate) {
+     self->_isTimerFinished = YES;
+   } else {
