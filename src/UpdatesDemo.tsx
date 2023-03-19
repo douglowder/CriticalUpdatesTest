@@ -7,7 +7,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { useUpdates } from 'expo-updates-provider';
+import { useUpdates } from '../expo-updates-provider';
 
 import { infoBoxText, isManifestCritical } from './Utils';
 import styles from './styles';
@@ -15,13 +15,13 @@ import styles from './styles';
 export default function UpdatesDemo() {
   const { updatesInfo, checkForUpdate, runUpdate } = useUpdates();
 
-  const { currentlyRunning, updateAvailable } = updatesInfo;
+  const { currentlyRunning, availableUpdate: updateAvailable } = updatesInfo;
 
   // If true, we show the button to download and run the update
   const showDownloadButton = updateAvailable !== undefined;
 
   // Show whether or not we are running embedded code or an update
-  const runTypeMessage = updatesInfo.embedded
+  const runTypeMessage = updatesInfo.currentlyRunning.isEmbeddedLaunch
     ? 'This app is running from built-in code'
     : isManifestCritical(currentlyRunning)
     ? 'This app is running a critical update'

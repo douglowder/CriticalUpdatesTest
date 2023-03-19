@@ -3714,19 +3714,7 @@ expo-updates-interface@~0.9.0:
   resolved "https://registry.yarnpkg.com/expo-updates-interface/-/expo-updates-interface-0.9.1.tgz#e81308d551ed5a4c35c8770ac61434f6ca749610"
   integrity sha512-wk88LLhseQ7LJvxdN7BTKiryyqALxnrvr+lyHK3/prg76Yy0EGi2Q/oE/rtFyyZ1JmQDRbO/5pdX0EE6QqVQXQ==
 
-"expo-updates-provider@https://github.com/expo/expo-updates-provider":
-  version "0.0.1"
-  resolved "https://github.com/expo/expo-updates-provider#2dd7bd6d1f7f3893610ea831d6c93eda8a719ed9"
-  dependencies:
-    "@expo/config" "~8.0.0"
-    "@expo/config-plugins" "~6.0.0"
-    "@expo/metro-config" "~0.7.0"
-    arg "4.1.0"
-    expo-manifests "~0.5.0"
-    expo-structured-headers "~3.1.0"
-    expo-updates "^0.16.3"
-
-expo-updates@^0.16.3, expo-updates@~0.16.3:
+expo-updates@~0.16.3:
   version "0.16.3"
   resolved "https://registry.yarnpkg.com/expo-updates/-/expo-updates-0.16.3.tgz#190f5896f98db2e130b608d61c8359ee4b2c2125"
   integrity sha512-uFr2Fvq7IbKwz9xEqWE9GNEs0sBAd6uiUI9McTCKw4BzKhjylRbPAN3zewc7MGLOvhTwBASva79VLQVgzdoBRw==

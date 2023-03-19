@@ -15,7 +15,6 @@
     "expo-splash-screen": "~0.18.1",
     "expo-status-bar": "~1.4.4",
     "expo-updates": "~0.16.3",
-    "expo-updates-provider": "https://github.com/expo/expo-updates-provider",
     "react": "18.2.0",
     "react-native": "0.71.3"
   },

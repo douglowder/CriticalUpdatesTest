@@ -1,13 +1,14 @@
-const infoBoxText = (currentlyRunning: any, updateAvailable: any) => {
-  let currentlyRunningText = 'Running the embedded bundle\n';
-  if (currentlyRunning?.id) {
-    currentlyRunningText = `Running an update:\n${manifestDescription(currentlyRunning)}`;
-  }
-  let updateAvailableText = 'No new update available\n';
-  if (updateAvailable) {
-    updateAvailableText = `New update available:\n${manifestDescription(updateAvailable)}`;
-  }
-  return currentlyRunningText + '\n' + updateAvailableText;
+import type { CurrentlyRunningInfo, AvailableUpdateInfo } from '../expo-updates-provider';
+
+const infoBoxText = (
+  currentlyRunning: CurrentlyRunningInfo,
+  availableUpdate: AvailableUpdateInfo | undefined
+) => {
+  return (
+    currentlyRunningDescription(currentlyRunning) +
+    '\n' +
+    availableUpdateDescription(availableUpdate)
+  );
 };
 
 const manifestDescription = (manifest: any) => {
@@ -17,6 +18,28 @@ const manifestDescription = (manifest: any) => {
     `  Message: ${manifestMessage(manifest)}\n` +
     `  Critical: ${isManifestCritical(manifest)}\n`
   );
+};
+
+const currentlyRunningDescription = (currentlyRunning: CurrentlyRunningInfo) => {
+  return (
+    (currentlyRunning?.isEmbeddedLaunch
+      ? 'Running the embedded bundle:\n'
+      : 'Running an update:\n') +
+    ` ID: ${currentlyRunning.updateId}\n` +
+    ` Created: ${currentlyRunning.createdAt}\n` +
+    ` Channel: ${currentlyRunning.channel}\n` +
+    ` Runtime Version: ${currentlyRunning.runtimeVersion}\n`
+  );
+};
+
+const availableUpdateDescription = (availableUpdate: AvailableUpdateInfo | undefined) => {
+  return availableUpdate
+    ? 'Update available:\n' +
+        ` ID: ${availableUpdate.updateId}\n` +
+        ` Created: ${availableUpdate.createdAt || ''}\n` +
+        ' Manifest:\n' +
+        manifestDescription(availableUpdate.manifest)
+    : 'No available update';
 };
 
 const manifestMessage = (manifest: any) => {
