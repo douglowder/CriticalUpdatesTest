@@ -1,16 +1,21 @@
-import DefaultPreference from 'react-native-default-preference';
+import * as ExpoSettings from 'expo-settings';
 import type { CurrentlyRunningInfo, AvailableUpdateInfo } from '../expo-updates-provider';
 
 const cacheTimeoutKey = 'EX_UPDATES_LAUNCH_WAIT_MS';
 
-const cacheTimeout = async () => {
-  const cacheTimeoutString = await DefaultPreference.get(cacheTimeoutKey);
+const getCacheTimeoutSetting: () => number = () => {
+  const cacheTimeoutString = ExpoSettings.get(cacheTimeoutKey);
   return cacheTimeoutString ? parseInt(cacheTimeoutString, 10) : -1;
 };
 
-const setCacheTimeout = async (timeout: number) => {
-  await DefaultPreference.set(cacheTimeoutKey, `${timeout}`);
+const setCacheTimeoutSetting = (timeout: number) => {
+  ExpoSettings.set(cacheTimeoutKey, `${timeout}`);
 };
+
+const removeCacheTimeoutSetting = () => {
+  ExpoSettings.remove(cacheTimeoutKey);
+};
+
 const infoBoxText = (
   currentlyRunning: CurrentlyRunningInfo,
   availableUpdate: AvailableUpdateInfo | undefined
@@ -69,8 +74,9 @@ const delay = (timeout: number) => {
 };
 
 export {
-  cacheTimeout,
-  setCacheTimeout,
+  getCacheTimeoutSetting,
+  setCacheTimeoutSetting,
+  removeCacheTimeoutSetting,
   delay,
   infoBoxText,
   manifestDescription,

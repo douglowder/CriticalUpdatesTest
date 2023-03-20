@@ -9,7 +9,13 @@ import React, { useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { useUpdates } from '../expo-updates-provider';
 
-import { cacheTimeout, setCacheTimeout, infoBoxText, isManifestCritical } from './Utils';
+import {
+  getCacheTimeoutSetting,
+  setCacheTimeoutSetting,
+  removeCacheTimeoutSetting,
+  infoBoxText,
+  isManifestCritical,
+} from './Utils';
 import styles from './styles';
 
 export default function UpdatesDemo() {
@@ -21,16 +27,20 @@ export default function UpdatesDemo() {
   const showDownloadButton = availableUpdate !== undefined;
 
   const setCacheTimeout3000 = () => {
-    setCacheTimeout(3000).catch((error) => console.warn(error));
+    setCacheTimeoutSetting(3000);
+    setCacheTimeoutValue(3000);
+  };
+
+  const removeCacheTimeout = () => {
+    removeCacheTimeoutSetting();
+    setCacheTimeoutValue(null);
   };
 
   const [cacheTimeoutValue, setCacheTimeoutValue] = useState<number | null>(null);
   useEffect(() => {
-    cacheTimeout().then((timeout) => {
-      if (cacheTimeoutValue === null) {
-        setCacheTimeoutValue(timeout);
-      }
-    });
+    if (cacheTimeoutValue === null) {
+      setCacheTimeoutValue(getCacheTimeoutSetting());
+    }
   }, [cacheTimeoutValue]);
   // Show whether or not we are running embedded code or an update
   const runTypeMessage = updatesInfo.currentlyRunning.isEmbeddedLaunch
@@ -52,6 +62,7 @@ export default function UpdatesDemo() {
         <Button pressHandler={runUpdate} text="Download and run update" />
       ) : null}
       <Button pressHandler={setCacheTimeout3000} text="Set cache timeout to 3000" />
+      <Button pressHandler={removeCacheTimeout} text="Remove cache timeout" />
       <StatusBar style="auto" />
     </View>
   );
