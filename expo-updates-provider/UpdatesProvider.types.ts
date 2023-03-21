@@ -1,5 +1,16 @@
 import type { Manifest } from 'expo-updates';
 
+export enum UpdatesProviderDownloadEventType {
+  DOWNLOAD_START = 'start',
+  DOWNLOAD_COMPLETE = 'complete',
+  DOWNLOAD_ERROR = 'error',
+}
+
+export type UpdatesProviderDownloadEvent = {
+  type: UpdatesProviderDownloadEventType;
+  error?: Error;
+};
+
 /**
  * Information on the currently running app
  */
@@ -84,5 +95,5 @@ export type UpdatesInfo = {
   /**
    * If an error is returned by the UpdateEvent listener, the error description will appear here.
    */
-  error?: string;
+  error?: Error;
 };

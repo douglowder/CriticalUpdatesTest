@@ -2,7 +2,8 @@ import React, { createContext, useContext, useState } from 'react';
 
 import * as Updates from 'expo-updates';
 import type { Manifest, UpdateEvent } from 'expo-updates';
-import type { UpdatesInfo } from './UpdatesProvider.types';
+import { UpdatesInfo, UpdatesProviderDownloadEventType } from './UpdatesProvider.types';
+import { UpdatesProviderDownloadEvent } from './UpdatesProvider.types';
 
 /////// Types ////////
 
@@ -62,7 +63,7 @@ const updatesFromEvent = (event: UpdateEvent): UpdatesInfo => {
     // event type === ERROR
     return {
       currentlyRunning,
-      error: event.message || '',
+      error: new Error(event.message),
     };
   }
 };
@@ -104,7 +105,7 @@ const UpdatesContext: React.Context<UpdatesContextType> = createContext({
 ///////////// Exported functions /////////////
 
 /**
- * Calls [`checkForUpdateAsync`](#checkforupdateasync) and uses the passed in setter
+ * Calls `Updates.checkForUpdateAsync()` and uses the passed in setter
  * to refresh the [`UpdatesInfo`](#updatesinfo). Provided to application code from
  * the [`useUpdates`](#useupdates) hook.
  */
@@ -116,10 +117,45 @@ export let checkForUpdate = () => {
  * Downloads and runs an update, if one is available. Provided to application code
  * from the [`useUpdates`](#useupdates) hook.
  */
-export const runUpdate: () => Promise<void> = async () => {
+export const downloadAndRunUpdate: () => Promise<void> = async () => {
   await Updates.fetchUpdateAsync();
   await delay(2000);
   await Updates.reloadAsync();
+};
+
+/**
+ * Downloads an update, if one is available, using `Updates.fetchUpdateAsync()`.
+ * @param downloadHandler Optional handler. If present, the handler will be called when download starts, and again when download completes (successfully or not).
+ */
+export const downloadUpdate: (
+  downloadHandler?: (event: UpdatesProviderDownloadEvent) => void
+) => void = (downloadHandler) => {
+  downloadHandler &&
+    downloadHandler({
+      type: UpdatesProviderDownloadEventType.DOWNLOAD_START,
+    });
+  Updates.fetchUpdateAsync()
+    .then(() => {
+      downloadHandler &&
+        downloadHandler({
+          type: UpdatesProviderDownloadEventType.DOWNLOAD_COMPLETE,
+        });
+    })
+    .catch((error: Error) => {
+      downloadHandler &&
+        downloadHandler({
+          type: UpdatesProviderDownloadEventType.DOWNLOAD_ERROR,
+          error,
+        });
+    });
+};
+
+/**
+ * Runs an update by calling `Updates.reloadAsync()`. This should not be called unless there is an available update
+ * that has already been successfully downloaded using [`downloadUpdate()`](#downloadupdate).
+ */
+export const runUpdate = () => {
+  Updates.reloadAsync();
 };
 
 /**
@@ -153,6 +189,8 @@ const UpdatesProvider = (props: { children: any }) => {
 const useUpdates = (): {
   updatesInfo: UpdatesInfo;
   checkForUpdate: typeof checkForUpdate;
+  downloadAndRunUpdate: typeof downloadAndRunUpdate;
+  downloadUpdate: typeof downloadUpdate;
   runUpdate: typeof runUpdate;
 } => {
   // Get updates info value and setter from provider
@@ -163,7 +201,7 @@ const useUpdates = (): {
     checkAndRefreshUpdatesStructure(setUpdatesInfo);
   };
   // Return the updates info and the user facing functions
-  return { updatesInfo, checkForUpdate, runUpdate };
+  return { updatesInfo, checkForUpdate, downloadAndRunUpdate, downloadUpdate, runUpdate };
 };
 
 export { UpdatesProvider, useUpdates };

@@ -6,10 +6,11 @@
  */
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, Text, TextInput, View } from 'react-native';
 import { useUpdates } from '../expo-updates-provider';
 
 import {
+  delay,
   getCacheTimeoutSetting,
   setCacheTimeoutSetting,
   removeCacheTimeoutSetting,
@@ -17,14 +18,73 @@ import {
   isManifestCritical,
 } from './Utils';
 import styles from './styles';
+import {
+  UpdatesProviderDownloadEvent,
+  UpdatesProviderDownloadEventType,
+} from '../expo-updates-provider/UpdatesProvider.types';
 
 export default function UpdatesDemo() {
-  const { updatesInfo, checkForUpdate, runUpdate } = useUpdates();
-
+  // Info from the provider
+  const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate } = useUpdates();
   const { currentlyRunning, availableUpdate } = updatesInfo;
-
   // If true, we show the button to download and run the update
   const showDownloadButton = availableUpdate !== undefined;
+
+  // Download handling
+  const [updateStatus, setUpdateStatus] = useState('Not started');
+
+  const downloadHandler = (downloadEvent: UpdatesProviderDownloadEvent) => {
+    switch (downloadEvent.type) {
+      case UpdatesProviderDownloadEventType.DOWNLOAD_START:
+        setUpdateStatus('Started');
+        break;
+      case UpdatesProviderDownloadEventType.DOWNLOAD_COMPLETE:
+        setUpdateStatus('Complete');
+        break;
+      case UpdatesProviderDownloadEventType.DOWNLOAD_ERROR:
+        setUpdateStatus('Error');
+        console.warn(`${downloadEvent.error}`);
+    }
+  };
+
+  const getAndRunUpdate = () => {
+    downloadUpdate(downloadHandler);
+  };
+
+  useEffect(() => {
+    const run = async () => {
+      await delay(2000);
+      runUpdate();
+    };
+    if (updateStatus === 'Complete') {
+      run();
+    }
+  }, [updateStatus, runUpdate]);
+
+  // Cache timeout handling
+  const [cacheTimeoutValue, setCacheTimeoutValue] = useState<number | null>(null);
+
+  const getCacheTimeoutText = () => {
+    if (cacheTimeoutValue === -1) {
+      return '0';
+    }
+    if (Number.isNaN(cacheTimeoutValue)) {
+      return '0';
+    }
+    return `${cacheTimeoutValue}`;
+  };
+
+  const setCacheTimeoutText = (timeout: string) => {
+    let value = 0;
+    try {
+      const newTimeout = parseInt(timeout, 10);
+      if (newTimeout >= 0 && newTimeout <= 5000) {
+        value = newTimeout;
+      }
+    } catch (_: any) {}
+    setCacheTimeoutSetting(value);
+    setCacheTimeoutValue(value);
+  };
 
   const setCacheTimeout3000 = () => {
     setCacheTimeoutSetting(3000);
@@ -36,7 +96,6 @@ export default function UpdatesDemo() {
     setCacheTimeoutValue(null);
   };
 
-  const [cacheTimeoutValue, setCacheTimeoutValue] = useState<number | null>(null);
   useEffect(() => {
     if (cacheTimeoutValue === null) {
       setCacheTimeoutValue(getCacheTimeoutSetting());
@@ -53,16 +112,20 @@ export default function UpdatesDemo() {
     <View style={styles.container}>
       <Text style={styles.headerText}>Critical Updates Test</Text>
       <Text>{runTypeMessage}</Text>
-      <Text style={styles.updateMessageText}>{`${infoBoxText(
+      <Text style={styles.updateMessageText}>{`Download status: ${updateStatus}\n\n${infoBoxText(
         currentlyRunning,
         availableUpdate
-      )}\nCache timeout = ${cacheTimeoutValue}`}</Text>
+      )}\n`}</Text>
+      <Text>Cache timeout</Text>
+      <TextInput
+        aria-label="Cache timeout"
+        value={getCacheTimeoutText()}
+        onChangeText={(text) => setCacheTimeoutText(text)}
+      />
       <Button pressHandler={checkForUpdate} text="Check manually for updates" />
       {showDownloadButton ? (
-        <Button pressHandler={runUpdate} text="Download and run update" />
+        <Button pressHandler={getAndRunUpdate} text="Download and run update" />
       ) : null}
-      <Button pressHandler={setCacheTimeout3000} text="Set cache timeout to 3000" />
-      <Button pressHandler={removeCacheTimeout} text="Remove cache timeout" />
       <StatusBar style="auto" />
     </View>
   );
