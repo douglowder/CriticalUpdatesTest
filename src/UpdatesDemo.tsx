@@ -6,17 +6,11 @@
  */
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { Pressable, Text, TextInput, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import { useUpdates } from '../expo-updates-provider';
 
-import {
-  delay,
-  getCacheTimeoutSetting,
-  setCacheTimeoutSetting,
-  removeCacheTimeoutSetting,
-  infoBoxText,
-  isManifestCritical,
-} from './Utils';
+import { delay, infoBoxText, isManifestCritical } from './Utils';
+import CacheTimeout from './CacheTimeout';
 import styles from './styles';
 import {
   UpdatesProviderDownloadEvent,
@@ -30,77 +24,39 @@ export default function UpdatesDemo() {
   // If true, we show the button to download and run the update
   const showDownloadButton = availableUpdate !== undefined;
 
-  // Download handling
-  const [updateStatus, setUpdateStatus] = useState('Not started');
-
+  ////// Download update and handle download events
+  const [updateDownloadStatus, setUpdateDownloadStatus] = useState('Not started');
   const downloadHandler = (downloadEvent: UpdatesProviderDownloadEvent) => {
     switch (downloadEvent.type) {
       case UpdatesProviderDownloadEventType.DOWNLOAD_START:
-        setUpdateStatus('Started');
+        setUpdateDownloadStatus('Started');
         break;
       case UpdatesProviderDownloadEventType.DOWNLOAD_COMPLETE:
-        setUpdateStatus('Complete');
+        setUpdateDownloadStatus('Complete');
         break;
       case UpdatesProviderDownloadEventType.DOWNLOAD_ERROR:
-        setUpdateStatus('Error');
+        setUpdateDownloadStatus('Error');
         console.warn(`${downloadEvent.error}`);
     }
   };
-
-  const getAndRunUpdate = () => {
-    downloadUpdate(downloadHandler);
-  };
-
   useEffect(() => {
     const run = async () => {
       await delay(2000);
       runUpdate();
     };
-    if (updateStatus === 'Complete') {
+    if (updateDownloadStatus === 'Complete') {
       run();
     }
-  }, [updateStatus, runUpdate]);
+  }, [updateDownloadStatus, runUpdate]);
 
-  // Cache timeout handling
-  const [cacheTimeoutValue, setCacheTimeoutValue] = useState<number | null>(null);
-
-  const getCacheTimeoutText = () => {
-    if (cacheTimeoutValue === -1) {
-      return '0';
-    }
-    if (Number.isNaN(cacheTimeoutValue)) {
-      return '0';
-    }
-    return `${cacheTimeoutValue}`;
+  // Button press handlers
+  const handleDownloadButtonPress = () => {
+    downloadUpdate(downloadHandler);
+  };
+  const handleCheckForUpdatePress = () => {
+    checkForUpdate();
   };
 
-  const setCacheTimeoutText = (timeout: string) => {
-    let value = 0;
-    try {
-      const newTimeout = parseInt(timeout, 10);
-      if (newTimeout >= 0 && newTimeout <= 5000) {
-        value = newTimeout;
-      }
-    } catch (_: any) {}
-    setCacheTimeoutSetting(value);
-    setCacheTimeoutValue(value);
-  };
-
-  const setCacheTimeout3000 = () => {
-    setCacheTimeoutSetting(3000);
-    setCacheTimeoutValue(3000);
-  };
-
-  const removeCacheTimeout = () => {
-    removeCacheTimeoutSetting();
-    setCacheTimeoutValue(null);
-  };
-
-  useEffect(() => {
-    if (cacheTimeoutValue === null) {
-      setCacheTimeoutValue(getCacheTimeoutSetting());
-    }
-  }, [cacheTimeoutValue]);
   // Show whether or not we are running embedded code or an update
   const runTypeMessage = updatesInfo.currentlyRunning.isEmbeddedLaunch
     ? 'This app is running from built-in code'
@@ -112,19 +68,16 @@ export default function UpdatesDemo() {
     <View style={styles.container}>
       <Text style={styles.headerText}>Critical Updates Test</Text>
       <Text>{runTypeMessage}</Text>
-      <Text style={styles.updateMessageText}>{`Download status: ${updateStatus}\n\n${infoBoxText(
+      <Text style={styles.updateMessageText}>{`${infoBoxText(
         currentlyRunning,
         availableUpdate
       )}\n`}</Text>
-      <Text>Cache timeout</Text>
-      <TextInput
-        aria-label="Cache timeout"
-        value={getCacheTimeoutText()}
-        onChangeText={(text) => setCacheTimeoutText(text)}
-      />
-      <Button pressHandler={checkForUpdate} text="Check manually for updates" />
+      <CacheTimeout />
+      <Text>Download status</Text>
+      <Text>{updateDownloadStatus}</Text>
+      <Button pressHandler={handleCheckForUpdatePress} text="Check manually for updates" />
       {showDownloadButton ? (
-        <Button pressHandler={getAndRunUpdate} text="Download and run update" />
+        <Button pressHandler={handleDownloadButtonPress} text="Download and run update" />
       ) : null}
       <StatusBar style="auto" />
     </View>
