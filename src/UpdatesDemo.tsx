@@ -7,7 +7,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { useUpdates } from '../expo-updates-provider';
+import { useUpdatesStore } from '../expo-updates-provider';
 
 import { delay, infoBoxText, isManifestCritical } from './Utils';
 import CacheTimeout from './CacheTimeout';
@@ -15,11 +15,11 @@ import styles from './styles';
 import {
   UpdatesProviderDownloadEvent,
   UpdatesProviderDownloadEventType,
-} from '../expo-updates-provider/UpdatesProvider.types';
+} from '../expo-updates-provider';
 
 export default function UpdatesDemo() {
   // Info from the provider
-  const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate } = useUpdates();
+  const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate } = useUpdatesStore();
   const { currentlyRunning, availableUpdate } = updatesInfo;
   // If true, we show the button to download and run the update
   const showDownloadButton = availableUpdate !== undefined;

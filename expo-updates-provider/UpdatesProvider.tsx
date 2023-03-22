@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
-
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import * as Updates from 'expo-updates';
 import type { Manifest, UpdateEvent } from 'expo-updates';
 import { UpdatesInfo, UpdatesProviderDownloadEventType } from './UpdatesProvider.types';
@@ -69,9 +68,7 @@ const updatesFromEvent = (event: UpdateEvent): UpdatesInfo => {
 };
 
 // Implementation of checkForUpdate
-const checkAndRefreshUpdatesStructure: (
-  setUpdates: (_: UpdatesInfo) => void
-) => Promise<void> = async (setUpdates) => {
+const checkAndReturnNewUpdatesInfo: () => Promise<UpdatesInfo> = async () => {
   let result: UpdatesInfo;
   try {
     const checkResult = await Updates.checkForUpdateAsync();
@@ -91,7 +88,7 @@ const checkAndRefreshUpdatesStructure: (
       error: error?.message || 'Error occurred',
     };
   }
-  setUpdates(result);
+  return result;
 };
 
 // The context provided to the app
@@ -176,6 +173,8 @@ export const runUpdate = () => {
   Updates.reloadAsync();
 };
 
+/////// Provider and hook ///////////
+
 /**
  * Provides the Updates React context. Includes an [`UpdateEvent`](#updateevent) listener
  * that will set the context automatically, if automatic updates are enabled and a new
@@ -217,7 +216,7 @@ const useUpdates = (): {
 
   // Create the implementation of checkForUpdate()
   checkForUpdate = () => {
-    checkAndRefreshUpdatesStructure(setUpdatesInfo);
+    checkAndReturnNewUpdatesInfo().then((result) => setUpdatesInfo(result));
   };
   // Return the updates info and the user facing functions
   return {
@@ -231,3 +230,47 @@ const useUpdates = (): {
 };
 
 export { UpdatesProvider, useUpdates };
+
+//////// Alternative: use a store for Updates shared state ////////
+let store: UpdatesInfo = {
+  currentlyRunning,
+};
+
+const createEmitter: () => any = () => {
+  const subscriptions = new Map();
+  return {
+    emit: (v: any) => subscriptions.forEach((fn) => fn(v)),
+    subscribe: (fn: any) => {
+      const key = Symbol();
+      subscriptions.set(key, fn);
+      return () => subscriptions.delete(key);
+    },
+  };
+};
+
+const storeEmitter = createEmitter();
+
+const getStore = () => store;
+
+const setStore = (newStore: UpdatesInfo) => {
+  store = newStore;
+  storeEmitter.emit(store);
+};
+
+checkForUpdate = () => {
+  checkAndReturnNewUpdatesInfo().then((result) => setStore(result));
+};
+
+export const useUpdatesStore = () => {
+  const [localStore, setLocalStore] = useState(getStore());
+  useEffect(() => storeEmitter.subscribe(setLocalStore), []);
+  Updates.useUpdateEvents((event) => setStore(updatesFromEvent(event)));
+  return {
+    updatesInfo: localStore,
+    checkForUpdate,
+    extraPropertiesFromManifest,
+    downloadAndRunUpdate,
+    downloadUpdate,
+    runUpdate,
+  };
+};

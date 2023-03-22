@@ -17,4 +17,5 @@ export {
   downloadUpdate,
   downloadAndRunUpdate,
   runUpdate,
+  useUpdatesStore,
 } from './UpdatesProvider';
