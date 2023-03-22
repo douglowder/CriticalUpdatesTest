@@ -29,7 +29,7 @@ export default StyleSheet.create({
   },
   updateMessageText: {
     margin: 10,
-    height: 200,
+    height: 300,
     paddingVertical: 12,
     paddingHorizontal: 32,
     width: '90%',

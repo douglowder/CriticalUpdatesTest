@@ -1,5 +1,9 @@
 import type { Manifest } from 'expo-updates';
 
+/**
+ * Enumeration of the different possible event types emitted by [`downloadUpdate`](#downloadupdate) during
+ * the download of an available update.
+ */
 export enum UpdatesProviderDownloadEventType {
   DOWNLOAD_START = 'start',
   DOWNLOAD_COMPLETE = 'complete',

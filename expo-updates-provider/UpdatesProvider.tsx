@@ -105,6 +105,24 @@ const UpdatesContext: React.Context<UpdatesContextType> = createContext({
 ///////////// Exported functions /////////////
 
 /**
+ * Extracts any custom properties in the `extra` part of the Expo config.  The `eas` property
+ * is excluded (reserved for Expo internal use).
+ * @param manifest The manifest to check
+ * @returns Object containing any properties found. If no extra properties found, returns an empty object.
+ */
+export const extraPropertiesFromManifest: (manifest: Partial<Manifest>) => {
+  [key: string]: any;
+} = (manifest) => {
+  const result: { [key: string]: any } = {};
+  for (const key in manifest?.extra?.expoClient?.extra) {
+    if (key !== 'eas') {
+      result[key] = manifest?.extra?.expoClient?.extra[key];
+    }
+  }
+  return result;
+};
+
+/**
  * Calls `Updates.checkForUpdateAsync()` and uses the passed in setter
  * to refresh the [`UpdatesInfo`](#updatesinfo). Provided to application code from
  * the [`useUpdates`](#useupdates) hook.
@@ -189,6 +207,7 @@ const UpdatesProvider = (props: { children: any }) => {
 const useUpdates = (): {
   updatesInfo: UpdatesInfo;
   checkForUpdate: typeof checkForUpdate;
+  extraPropertiesFromManifest: typeof extraPropertiesFromManifest;
   downloadAndRunUpdate: typeof downloadAndRunUpdate;
   downloadUpdate: typeof downloadUpdate;
   runUpdate: typeof runUpdate;
@@ -201,7 +220,14 @@ const useUpdates = (): {
     checkAndRefreshUpdatesStructure(setUpdatesInfo);
   };
   // Return the updates info and the user facing functions
-  return { updatesInfo, checkForUpdate, downloadAndRunUpdate, downloadUpdate, runUpdate };
+  return {
+    updatesInfo,
+    checkForUpdate,
+    extraPropertiesFromManifest,
+    downloadAndRunUpdate,
+    downloadUpdate,
+    runUpdate,
+  };
 };
 
 export { UpdatesProvider, useUpdates };

@@ -1,5 +1,6 @@
 import * as ExpoSettings from 'expo-settings';
 import type { CurrentlyRunningInfo, AvailableUpdateInfo } from '../expo-updates-provider';
+import { extraPropertiesFromManifest } from '../expo-updates-provider';
 
 const cacheTimeoutKey = 'EX_UPDATES_LAUNCH_WAIT_MS';
 
@@ -59,11 +60,11 @@ const availableUpdateDescription = (availableUpdate: AvailableUpdateInfo | undef
 };
 
 const manifestMessage = (manifest: any) => {
-  return manifest?.extra?.expoClient?.extra?.message || '';
+  return extraPropertiesFromManifest(manifest).message || '';
 };
 
 const isManifestCritical = (manifest: any) => {
-  return manifest?.extra?.expoClient?.extra?.critical || false;
+  return extraPropertiesFromManifest(manifest).critical || false;
 };
 
 // Promise wrapper for setTimeout()
