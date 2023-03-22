@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { EventEmitter } from 'fbemitter';
+
 import * as Updates from 'expo-updates';
 import type { Manifest, UpdateEvent } from 'expo-updates';
 import { UpdatesInfo, UpdatesProviderDownloadEventType } from './UpdatesProvider.types';
@@ -232,29 +234,18 @@ const useUpdates = (): {
 export { UpdatesProvider, useUpdates };
 
 //////// Alternative: use a store for Updates shared state ////////
+
 let store: UpdatesInfo = {
   currentlyRunning,
 };
 
-const createEmitter: () => any = () => {
-  const subscriptions = new Map();
-  return {
-    emit: (v: any) => subscriptions.forEach((fn) => fn(v)),
-    subscribe: (fn: any) => {
-      const key = Symbol();
-      subscriptions.set(key, fn);
-      return () => subscriptions.delete(key);
-    },
-  };
-};
-
-const storeEmitter = createEmitter();
+const storeEmitter = new EventEmitter();
 
 const getStore = () => store;
 
 const setStore = (newStore: UpdatesInfo) => {
   store = newStore;
-  storeEmitter.emit(store);
+  storeEmitter.emit('store', store);
 };
 
 checkForUpdate = () => {
@@ -263,7 +254,12 @@ checkForUpdate = () => {
 
 export const useUpdatesStore = () => {
   const [localStore, setLocalStore] = useState(getStore());
-  useEffect(() => storeEmitter.subscribe(setLocalStore), []);
+  useEffect(() => {
+    const subscription = storeEmitter.addListener('store', (newStore: UpdatesInfo) =>
+      setLocalStore(newStore)
+    );
+    return () => subscription.remove();
+  }, []);
   Updates.useUpdateEvents((event) => setStore(updatesFromEvent(event)));
   return {
     updatesInfo: localStore,

@@ -16,12 +16,14 @@
     "expo-splash-screen": "~0.18.1",
     "expo-status-bar": "~1.4.4",
     "expo-updates": "~0.16.3",
+    "fbemitter": "^3.0.0",
     "react": "18.2.0",
     "react-native": "0.71.3"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@react-native-community/eslint-config": "^3.2.0",
+    "@types/fbemitter": "^2.0.32",
     "@types/react": "~18.0.14",
     "eslint": "^8.36.0",
     "metro": "^0.76.0",
