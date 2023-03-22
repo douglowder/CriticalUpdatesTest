@@ -1,14 +1,6 @@
 import type { Manifest } from 'expo-updates';
 
-/**
- * Enumeration of the different possible event types emitted by [`downloadUpdate`](#downloadupdate) during
- * the download of an available update.
- */
-export enum UpdatesProviderDownloadEventType {
-  DOWNLOAD_START = 'start',
-  DOWNLOAD_COMPLETE = 'complete',
-  DOWNLOAD_ERROR = 'error',
-}
+import type { UpdatesProviderDownloadEventType } from './constants';
 
 export type UpdatesProviderDownloadEvent = {
   type: UpdatesProviderDownloadEventType;
@@ -100,4 +92,12 @@ export type UpdatesInfo = {
    * If an error is returned by the UpdateEvent listener, the error description will appear here.
    */
   error?: Error;
+};
+
+/**
+ * Context that includes getter and setter for updates info
+ */
+export type UpdatesContextType = {
+  updatesInfo: UpdatesInfo;
+  setUpdatesInfo: (updates: UpdatesInfo) => void;
 };

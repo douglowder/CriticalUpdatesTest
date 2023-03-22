@@ -7,19 +7,22 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { useUpdatesStore } from '../expo-updates-provider';
+
+// This import is to use the store
+//import { useUpdatesStore, UpdatesProviderDownloadEventType } from '../expo-updates-provider';
+// This import is to use the provider
+import { useUpdates, UpdatesProviderDownloadEventType } from '../expo-updates-provider';
+
+import type { UpdatesProviderDownloadEvent } from '../expo-updates-provider';
 
 import { delay, infoBoxText, isManifestCritical } from './Utils';
 import CacheTimeout from './CacheTimeout';
 import styles from './styles';
-import {
-  UpdatesProviderDownloadEvent,
-  UpdatesProviderDownloadEventType,
-} from '../expo-updates-provider';
-
 export default function UpdatesDemo() {
+  // Info from the store
+  // const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate } = useUpdatesStore();
   // Info from the provider
-  const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate } = useUpdatesStore();
+  const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate } = useUpdates();
   const { currentlyRunning, availableUpdate } = updatesInfo;
   // If true, we show the button to download and run the update
   const showDownloadButton = availableUpdate !== undefined;
@@ -60,7 +63,7 @@ export default function UpdatesDemo() {
   // Show whether or not we are running embedded code or an update
   const runTypeMessage = updatesInfo.currentlyRunning.isEmbeddedLaunch
     ? 'This app is running from built-in code'
-    : isManifestCritical(currentlyRunning)
+    : isManifestCritical(currentlyRunning.manifest)
     ? 'This app is running a critical update'
     : 'This app is running a normal update';
 
