@@ -5,13 +5,18 @@ export type {
   CurrentlyRunningInfo,
   AvailableUpdateInfo,
   UpdatesProviderDownloadEvent,
-} from './types';
+} from './UpdatesProvider.types';
 
 // Export constants
-export { UpdatesProviderDownloadEventType } from './constants';
-
-// Methods
-export { extraPropertiesFromManifest } from './utils';
+export { UpdatesProviderDownloadEventType } from './UpdatesProvider.constants';
 
 // Provider
-export { UpdatesProvider, useUpdates } from './provider';
+export {
+  UpdatesProvider,
+  useUpdates,
+  checkForUpdate,
+  downloadUpdate,
+  runUpdate,
+  downloadAndRunUpdate,
+  extraPropertiesFromManifest,
+} from './UpdatesProvider';

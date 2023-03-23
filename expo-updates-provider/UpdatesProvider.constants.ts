@@ -1,5 +1,5 @@
 import * as Updates from 'expo-updates';
-import type { CurrentlyRunningInfo } from './types';
+import type { CurrentlyRunningInfo } from './UpdatesProvider.types';
 /////// Constants and enums  ////////
 
 // The currently running info, constructed from Updates constants

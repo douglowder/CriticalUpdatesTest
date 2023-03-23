@@ -1,6 +1,6 @@
 import type { Manifest } from 'expo-updates';
 
-import type { UpdatesProviderDownloadEventType } from './constants';
+import type { UpdatesProviderDownloadEventType } from './UpdatesProvider.constants';
 
 /**
  * An event emitted by [`downloadUpdate`](#downloadupdate) during
