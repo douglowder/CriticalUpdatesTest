@@ -15,6 +15,3 @@ export { extraPropertiesFromManifest } from './utils';
 
 // Provider
 export { UpdatesProvider, useUpdates } from './provider';
-
-// Store
-export { useUpdatesStore } from './store';
