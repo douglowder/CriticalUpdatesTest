@@ -18,7 +18,7 @@ import styles from './styles';
 export default function UpdatesDemo() {
   // Info from the provider
   const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate } = useUpdates();
-  const { currentlyRunning, availableUpdate } = updatesInfo;
+  const { currentlyRunning, availableUpdate, error, lastCheckForUpdateTime } = updatesInfo;
 
   // If true, we show the button to download and run the update
   const showDownloadButton = availableUpdate !== undefined;
@@ -69,7 +69,9 @@ export default function UpdatesDemo() {
       <Text>{runTypeMessage}</Text>
       <Text style={styles.updateMessageText}>{`${infoBoxText(
         currentlyRunning,
-        availableUpdate
+        availableUpdate,
+        error,
+        lastCheckForUpdateTime
       )}\n`}</Text>
       <CacheTimeout />
       <Text>Download status</Text>

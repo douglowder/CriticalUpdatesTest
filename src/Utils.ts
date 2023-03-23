@@ -19,12 +19,16 @@ const removeCacheTimeoutSetting = () => {
 
 const infoBoxText = (
   currentlyRunning: CurrentlyRunningInfo,
-  availableUpdate: AvailableUpdateInfo | undefined
+  availableUpdate: AvailableUpdateInfo | undefined,
+  error: Error | undefined,
+  lastCheckForUpdateTime: Date | undefined
 ) => {
   return (
     currentlyRunningDescription(currentlyRunning) +
     '\n' +
-    availableUpdateDescription(availableUpdate)
+    availableUpdateDescription(availableUpdate) +
+    '\n' +
+    `Last check for update: ${lastCheckForUpdateTime}\n`
   );
 };
 

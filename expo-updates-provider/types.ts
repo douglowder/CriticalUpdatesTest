@@ -89,9 +89,13 @@ export type UpdatesInfo = {
    */
   availableUpdate?: AvailableUpdateInfo;
   /**
-   * If an error is returned by the UpdateEvent listener, the error description will appear here.
+   * If an error is returned by any of the APIs to check for, download, or launch updates, the error description will appear here.
    */
   error?: Error;
+  /**
+   * A `Date` object representing the last time this client checked for an available update.
+   */
+  lastCheckForUpdateTime?: Date;
 };
 
 /**

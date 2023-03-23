@@ -23,20 +23,24 @@ export const availableUpdateFromManifest = (manifest: Partial<Manifest> | undefi
 
 // Constructs the UpdatesInfo from an event
 export const updatesFromEvent = (event: UpdateEvent): UpdatesInfo => {
+  const lastCheckForUpdateTime = new Date();
   if (event.type === Updates.UpdateEventType.NO_UPDATE_AVAILABLE) {
     return {
       currentlyRunning,
+      lastCheckForUpdateTime,
     };
   } else if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {
     return {
       currentlyRunning,
       availableUpdate: availableUpdateFromManifest(event.manifest),
+      lastCheckForUpdateTime,
     };
   } else {
     // event type === ERROR
     return {
       currentlyRunning,
       error: new Error(event.message),
+      lastCheckForUpdateTime,
     };
   }
 };
@@ -46,20 +50,25 @@ export const checkAndReturnNewUpdatesInfo: () => Promise<UpdatesInfo> = async ()
   let result: UpdatesInfo;
   try {
     const checkResult = await Updates.checkForUpdateAsync();
+    const lastCheckForUpdateTime = new Date();
     if (checkResult.isAvailable) {
       result = {
         currentlyRunning,
         availableUpdate: availableUpdateFromManifest(checkResult.manifest),
+        lastCheckForUpdateTime,
       };
     } else {
       result = {
         currentlyRunning,
+        lastCheckForUpdateTime,
       };
     }
   } catch (error: any) {
+    const lastCheckForUpdateTime = new Date();
     result = {
       currentlyRunning,
       error: error?.message || 'Error occurred',
+      lastCheckForUpdateTime,
     };
   }
   return result;

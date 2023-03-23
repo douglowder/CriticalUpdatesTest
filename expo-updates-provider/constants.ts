@@ -1,9 +1,9 @@
 import * as Updates from 'expo-updates';
-
+import type { CurrentlyRunningInfo } from './types';
 /////// Constants and enums  ////////
 
 // The currently running info, constructed from Updates constants
-export const currentlyRunning = {
+export const currentlyRunning: CurrentlyRunningInfo = {
   updateId: Updates.updateId,
   channel: Updates.channel,
   createdAt: Updates.createdAt,
