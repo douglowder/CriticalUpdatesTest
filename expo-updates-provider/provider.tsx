@@ -27,7 +27,7 @@ const UpdatesContext: React.Context<UpdatesContextType> = createContext({
  * to refresh the [`UpdatesInfo`](#updatesinfo). Provided to application code from
  * the [`useUpdates`](#useupdates) hook.
  */
-export let checkForUpdate = () => {
+let checkForUpdate = () => {
   // This stub is replaced with the real implementation in the hook
 };
 
@@ -85,4 +85,12 @@ const useUpdates = (): {
   };
 };
 
-export { UpdatesProvider, useUpdates };
+export {
+  UpdatesProvider,
+  useUpdates,
+  checkForUpdate,
+  extraPropertiesFromManifest,
+  downloadAndRunUpdate,
+  downloadUpdate,
+  runUpdate,
+};

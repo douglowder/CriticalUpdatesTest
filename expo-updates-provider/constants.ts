@@ -18,7 +18,16 @@ export const currentlyRunning: CurrentlyRunningInfo = {
  * the download of an available update.
  */
 export enum UpdatesProviderDownloadEventType {
+  /**
+   * Type of event emitted when update download starts.
+   */
   DOWNLOAD_START = 'start',
+  /**
+   * Type of event emitted when update download completes successfully.
+   */
   DOWNLOAD_COMPLETE = 'complete',
+  /**
+   * Type of event emitted when update download completes with an error.
+   */
   DOWNLOAD_ERROR = 'error',
 }

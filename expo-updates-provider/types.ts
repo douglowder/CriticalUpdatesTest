@@ -2,13 +2,18 @@ import type { Manifest } from 'expo-updates';
 
 import type { UpdatesProviderDownloadEventType } from './constants';
 
+/**
+ * An event emitted by [`downloadUpdate`](#downloadupdate) during
+ * the download of an available update.
+ */
 export type UpdatesProviderDownloadEvent = {
   type: UpdatesProviderDownloadEventType;
   error?: Error;
 };
 
 /**
- * Information on the currently running app
+ * Structure encapsulating information on the currently running app
+ * (either the embedded bundle or a downloaded update).
  */
 export type CurrentlyRunningInfo = {
   /**
@@ -23,7 +28,8 @@ export type CurrentlyRunningInfo = {
    */
   channel: string | null;
   /**
-   * If `expo-updates` is enabled, this is a `Date` object representing the creation time of the update that's currently running (whether it was embedded or downloaded at runtime).
+   * If `expo-updates` is enabled, this is a `Date` object representing the creation time of the update
+   * that's currently running (whether it was embedded or downloaded at runtime).
    *
    * In development mode, or any other environment in which `expo-updates` is disabled, this value is
    * null.
@@ -76,7 +82,7 @@ export type AvailableUpdateInfo = {
   manifest: Partial<Manifest>;
 };
 /**
- * Updates info structure provided by UpdatesProvider.
+ * Combined updates info structure provided by UpdatesProvider.
  */
 export type UpdatesInfo = {
   /**
@@ -84,16 +90,19 @@ export type UpdatesInfo = {
    */
   currentlyRunning: CurrentlyRunningInfo;
   /**
-   * If a new available update has been found, either by using checkForUpdate(), or by the UpdateEvent listener in useUpdates(),
+   * If a new available update has been found, either by using checkForUpdate(),
+   * or by the [`UpdateEvent`](#updateevent) listener in [`useUpdates`](#useupdates),
    * this will contain the information for that update.
    */
   availableUpdate?: AvailableUpdateInfo;
   /**
-   * If an error is returned by any of the APIs to check for, download, or launch updates, the error description will appear here.
+   * If an error is returned by any of the APIs to check for, download, or launch updates,
+   * the error description will appear here.
    */
   error?: Error;
   /**
-   * A `Date` object representing the last time this client checked for an available update.
+   * A `Date` object representing the last time this client checked for an available update,
+   * or undefined if no check has yet occurred since the app started.
    */
   lastCheckForUpdateTime?: Date;
 };
