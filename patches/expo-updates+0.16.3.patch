@@ -1,13 +1,759 @@
+diff --git a/node_modules/expo-updates/CHANGELOG.md.orig b/node_modules/expo-updates/CHANGELOG.md.orig
+new file mode 100644
+index 0000000..4d71503
+--- /dev/null
++++ b/node_modules/expo-updates/CHANGELOG.md.orig
+@@ -0,0 +1,739 @@
++# Changelog
++
++## Unpublished
++
++### 🛠 Breaking changes
++
++### 🎉 New features
++
++### 🐛 Bug fixes
++
++### 💡 Others
++
++## 0.16.3 — 2023-02-22
++
++### 🎉 New features
++
++- New `useUpdateEvents` hook. ([#21258](https://github.com/expo/expo/pull/21258) by [@douglowder](https://github.com/douglowder))
++
++### 🐛 Bug fixes
++
++- Make Updates API work with native debug. ([#21253](https://github.com/expo/expo/pull/21253) by [@douglowder](https://github.com/douglowder))
++
++### 💡 Others
++
++- Break up E2E tests for reliability. ([#21223](https://github.com/expo/expo/pull/21223) by [@douglowder](https://github.com/douglowder))
++- Convert E2E tests to TypeScript. ([#21278](https://github.com/expo/expo/pull/21278) by [@douglowder](https://github.com/douglowder))
++
++## 0.16.2 — 2023-02-21
++
++_This version does not introduce any user-facing changes._
++
++## 0.16.1 — 2023-02-09
++
++### 💡 Others
++
++- Convert E2E tests to Hermes. ([#21065](https://github.com/expo/expo/pull/21065) by [@douglowder](https://github.com/douglowder))
++
++## 0.16.0 — 2023-02-03
++
++### 🐛 Bug fixes
++
++- [Android] Fix runtime version parsing. ([#19821](https://github.com/expo/expo/pull/19821) by [@douglowder](https://github.com/douglowder))
++- Added support for React Native 0.71.x. ([#20799](https://github.com/expo/expo/pull/20799) [#20832](https://github.com/expo/expo/pull/20832) by [@kudo](https://github.com/kudo))
++
++### 💡 Others
++
++- Bump `@expo/metro-config`. ([#20720](https://github.com/expo/expo/pull/20720) by [@EvanBacon](https://github.com/EvanBacon))
++- Improvements to setup for Updates E2E tests. ([#20120](https://github.com/expo/expo/pull/20120) by [@douglowder](https://github.com/douglowder))
++- Convert updates E2E workflow to use EAS. ([#20399](https://github.com/expo/expo/pull/20399) by [@douglowder](https://github.com/douglowder))
++- Avoid dependency on `uuid`. ([#20475](https://github.com/expo/expo/pull/20475) by [@LinusU](https://github.com/LinusU))
++- On Android bump `compileSdkVersion` and `targetSdkVersion` to `33`. ([#20721](https://github.com/expo/expo/pull/20721) by [@lukmccall](https://github.com/lukmccall))
++
++## 0.15.5 - 2022-11-14
++
++### 🎉 New features
++
++- New API Updates.isEmbeddedLaunch. ([#20014](https://github.com/expo/expo/pull/20014) by [@douglowder](https://github.com/douglowder))
++
++## 0.15.4 — 2022-11-03
++
++### 🐛 Bug fixes
++
++- Fixed another _app.manifest_ occasionally missing from build outputs on Android. ([#19809](https://github.com/expo/expo/pull/19809) by [@kudo](https://github.com/kudo))
++
++## 0.15.3 — 2022-10-30
++
++_This version does not introduce any user-facing changes._
++
++## 0.15.2 — 2022-10-28
++
++_This version does not introduce any user-facing changes._
++
++## 0.15.1 — 2022-10-28
++
++### 🐛 Bug fixes
++
++- Fixed the _app.manifest_ occasionally missing from build outputs on Android. ([#19731](https://github.com/expo/expo/pull/19731) by [@kudo](https://github.com/kudo), [@kudo](https://github.com/kudo))
++
++## 0.15.0 — 2022-10-25
++
++### 🛠 Breaking changes
++
++- [plugin] Upgrade minimum runtime requirement to Node 14 (LTS). ([#18204](https://github.com/expo/expo/pull/18204) by [@EvanBacon](https://github.com/EvanBacon))
++- Bumped iOS deployment target to 13.0 and deprecated support for iOS 12. ([#18873](https://github.com/expo/expo/pull/18873) by [@tsapeta](https://github.com/tsapeta))
++
++### 🎉 New features
++
++- [iOS] New logger and log reader for unifying logging support in expo-updates. ([#18284](https://github.com/expo/expo/pull/18284) by [@douglowder](https://github.com/douglowder))
++- [Android] New logger and log reader for unifying logging support in expo-updates. ([#18318](https://github.com/expo/expo/pull/18318) by [@douglowder](https://github.com/douglowder))
++- Add JS methods to read and clear client logs. ([#18390](https://github.com/expo/expo/pull/18390) by [@douglowder](https://github.com/douglowder))
++- Add Logger support for writing logs to a file; add Logger and associated classes to Android. ([#18513](https://github.com/expo/expo/pull/18513) by [@douglowder](https://github.com/douglowder))
++- Make extra header processing code consistent between manifests and assets. ([#18564](https://github.com/expo/expo/pull/18564) by [@wschurman](https://github.com/wschurman))
++- Type `UpdateCheckResult` and `UpdateFetchResult` to reflect when `manifest` is defined or not. ([#18577](https://github.com/expo/expo/pull/18577) by [@SimenB](https://github.com/SimenB))
++
++### 🐛 Bug fixes
++
++- Fix small race condition in recovery code on Android where in very rare scenarios, a bundle could be downloaded twice. ([#18377](https://github.com/expo/expo/pull/18377) by [@esamelson](https://github.com/esamelson))
++- Fixed _with-node.sh_ doesn't keep quotes when passing arguments to Node.js and caused build errors when there are spaces in target name. ([#18741](https://github.com/expo/expo/pull/18741) by [@kudo](https://github.com/kudo))
++
++### 💡 Others
++
++- [plugin] Migrate import from @expo/config-plugins to expo/config-plugins and @expo/config-types to expo/config. ([#18855](https://github.com/expo/expo/pull/18855) by [@brentvatne](https://github.com/brentvatne))
++- Update doc block link for manifests. ([#18981](https://github.com/expo/expo/pull/18981) by [@EvanBacon](https://github.com/EvanBacon))
++- Drop `@expo/config-plugins` dependency in favor of peer dependency on `expo`. ([#18595](https://github.com/expo/expo/pull/18595) by [@EvanBacon](https://github.com/EvanBacon))
++- Log various errors with the new Updates logger; add E2E tests for the logger. ([#18810](https://github.com/expo/expo/pull/18810) by [@douglowder](https://github.com/douglowder))
++- [iOS] Flag to enable native debugging of updates. ([#19292](https://github.com/expo/expo/pull/19292) by [@douglowder](https://github.com/douglowder))
++- [Android] Flag to enable native debugging of updates. ([#19441](https://github.com/expo/expo/pull/19441) by [@douglowder](https://github.com/douglowder))
++
++### ⚠️ Notices
++
++- Added support for React Native 0.70.x. ([#19261](https://github.com/expo/expo/pull/19261) by [@kudo](https://github.com/kudo))
++
++## 0.14.3 — 2022-07-25
++
++### 🐛 Bug fixes
++
++- Deprecated the unreliable `source-login-scripts.sh` and sourcing the Node.js binary path from `.xcode.env` and `.xcode.env.local`. ([#18330](https://github.com/expo/expo/pull/18330) by [@kudo](https://github.com/kudo))
++
++## 0.14.2 — 2022-07-16
++
++_This version does not introduce any user-facing changes._
++
++## 0.14.1 — 2022-07-11
++
++_This version does not introduce any user-facing changes._
++
++## 0.14.0 — 2022-07-07
++
++### 🐛 Bug fixes
++
++- Improved support of nvm sourcing in iOS shell scripts. ([#17109](https://github.com/expo/expo/pull/17109) by [@liamronancb](https://github.com/liamronancb))
++- Android: Allow null asset hash in new manifests. ([#17466](https://github.com/expo/expo/pull/17466) by [@wschurman](https://github.com/wschurman))
++- Fixed `source-login-scripts.sh` ~/zlogin typo. ([#17622](https://github.com/expo/expo/pull/17622) by [@vrgimael](https://github.com/vrgimael))
++- Android: Fix asset hash storage. ([#17732](https://github.com/expo/expo/pull/17732) by [@wschurman](https://github.com/wschurman))
++- Validate asset hash against expected hash before writing file to disk. ([#17745](https://github.com/expo/expo/pull/17745) by [@wschurman](https://github.com/wschurman))
++- Fixed missing `app.manifest` on react-native 0.69 or Android Gradle Plugin 7.1+. ([#18034](https://github.com/expo/expo/pull/18034) by [@kudo](https://github.com/kudo))
++- Suppress EXUpdatesService load in Expo Go to prevent crash. ([#18056](https://github.com/expo/expo/pull/18056) by [@douglowder](https://github.com/douglowder))
++- Fix proguard support in Android builds. ([#18035](https://github.com/expo/expo/pull/18035) by [@esamelson](https://github.com/esamelson))
++
++### 💡 Others
++
++- (cli) Fix help command parsing. ([#17293](https://github.com/expo/expo/pull/17293) by [@wschurman](https://github.com/wschurman))
++- [iOS] Get downloaded update IDs. ([#17817](https://github.com/expo/expo/pull/17817) by [@douglowder](https://github.com/douglowder))
++- [Android] Get downloaded update IDs. ([#17933](https://github.com/expo/expo/pull/17933) by [@douglowder](https://github.com/douglowder))
++
++## 0.13.0 — 2022-04-21
++
++### 🐛 Bug fixes
++
++- Fix asset hash validation. ([#17152](https://github.com/expo/expo/pull/17152) by [@wschurman](https://github.com/wschurman))
++
++### 💡 Others
++
++- Add current and embedded update headers to manifest requests. ([#17033](https://github.com/expo/expo/pull/17033) by [@esamelson](https://github.com/esamelson))
++- Fix return value in AppDelegateSubscriber (used with expo-dev-client). ([#17111](https://github.com/expo/expo/pull/17111) by [@esamelson](https://github.com/esamelson))
++
++## 0.12.0 — 2022-04-18
++
++### 🛠 Breaking changes
++
++- Remove okhttp and okio backward compatible workaround and drop react-native 0.64 support. ([#16446](https://github.com/expo/expo/pull/16446) by [@kudo](https://github.com/kudo))
++
++### 🎉 New features
++
++- Add iOS support for code signing. ([#15682](https://github.com/expo/expo/pull/15682) by [@wschurman](https://github.com/wschurman))
++- Add CLI. ([#16216](https://github.com/expo/expo/pull/16216) by [@wschurman](https://github.com/wschurman))
++- Add support for dev client auto-setup with updates integration on iOS. ([#16230](https://github.com/expo/expo/pull/16230) by [@esamelson](https://github.com/esamelson))
++- Fix codesigning header name. ([#16480](https://github.com/expo/expo/pull/16480) by [@wschurman](https://github.com/wschurman))
++- Support certificate chains (Android). ([#16375](https://github.com/expo/expo/pull/16375) by [@wschurman](https://github.com/wschurman))
++- Support certificate chains (iOS). ([#16634](https://github.com/expo/expo/pull/16634) by [@wschurman](https://github.com/wschurman))
++- Add support for expo project information certificate extension (Android). ([#16607](https://github.com/expo/expo/pull/16607) by [@wschurman](https://github.com/wschurman))
++- Add support for expo project information certificate extension (iOS). ([#16726](https://github.com/expo/expo/pull/16726) by [@wschurman](https://github.com/wschurman))
++- Pass EAS-Client-ID in header for asset and manifest requests. ([#16729](https://github.com/expo/expo/pull/16729) by [@wschurman](https://github.com/wschurman))
++- Validate expo project information up the certificate chain. ([#16800](https://github.com/expo/expo/pull/16800) by [@wschurman](https://github.com/wschurman))
++- Update CLI to separate private keys from code signing certificate. ([#16979](https://github.com/expo/expo/pull/16979) by [@wschurman](https://github.com/wschurman))
++
++### 🐛 Bug fixes
++
++- Update `fbemitter` to v3. ([#16245](https://github.com/expo/expo/pull/16245) by [@SimenB](https://github.com/SimenB))
++- Allow non-codesigned manifests for Expo Go (Android). ([#16649](https://github.com/expo/expo/pull/16649) by [@wschurman](https://github.com/wschurman))
++- Allow non-codesigned manifests for Expo Go (iOS). ([#16682](https://github.com/expo/expo/pull/16682) by [@wschurman](https://github.com/wschurman))
++- Fix issue where default values for primitive-typed configuration values were not correctly set. ([#16644](https://github.com/expo/expo/pull/16644) by [@esamelson](https://github.com/esamelson))
++- Fixed iOS script phase build error when `extendedglob` is enabled in zsh config. ([#17024](https://github.com/expo/expo/pull/17024) by [@kudo](https://github.com/kudo))
++
++### 💡 Others
++
++- Updated `@expo/config-plugins` from `4.0.2` to `4.0.14`, `@expo/config` from `^6.0.6` to `^6.0.14` and `@expo/metro-config` from `~0.2.6` to `~0.3.7` ([#15621](https://github.com/expo/expo/pull/15621) by [@EvanBacon](https://github.com/EvanBacon))
++- Swap out Cloudfront CDN for `classic-assets.eascdn.net`. ([#15781](https://github.com/expo/expo/pull/15781)) by [@quinlanj](https://github.com/quinlanj)
++- Add ability for expo-dev-launcher to launch a specific update through UpdatesDevLauncherController. ([#16865](https://github.com/expo/expo/pull/16865) by [@esamelson](https://github.com/esamelson))
++
++### ⚠️ Notices
++
++- On Android bump `compileSdkVersion` to `31`, `targetSdkVersion` to `31` and `Java` version to `11`. ([#16941](https://github.com/expo/expo/pull/16941) by [@bbarthec](https://github.com/bbarthec))
++
++### 📚 3rd party library updates
++
++- Upgrade Android `Room` library version to 2.4.2. ([#16970](https://github.com/expo/expo/pull/16970) by [@kudo](https://github.com/kudo))
++
++## 0.11.7 — 2022-03-07
++
++### 🐛 Bug fixes
++
++- Fix iOS issue where splash screen wouldn't show when using expo-updates and expo-splash-screen ([#16163](https://github.com/expo/expo/pull/16163)) by [@hannojg](https://github.com/hannojg)
++
++### 💡 Others
++
++- Added `Updates.createdAt` constant export. ([#16344](https://github.com/expo/expo/pull/16344)) by [@hannojg](https://github.com/hannojg)
++
++## 0.11.6 - 2022-02-01
++
++### 🐛 Bug fixes
++
++- Fix iOS launch crash when app.json `expo.updates.enabled` is false. ([#15997](https://github.com/expo/expo/pull/15997) by [@kudo](https://github.com/kudo))
++- Fix `Plugin with id 'maven' not found` build error from Android Gradle 7. ([#16080](https://github.com/expo/expo/pull/16080) by [@kudo](https://github.com/kudo))
++
++## 0.11.5 — 2022-01-20
++
++### 🐛 Bug fixes
++
++- Fix build errors on React Native 0.66 caused by `okio` and `okhttp`. ([#15632](https://github.com/expo/expo/pull/15632) by [@kudo](https://github.com/kudo))
++- Fix the `PhaseScriptExecution` build errors when the `source_login_scripts.sh` failed to load. ([#15890](https://github.com/expo/expo/pull/15890) by [@kudo](https://github.com/kudo))
++
++## 0.11.4 — 2022-01-13
++
++### 🐛 Bug fixes
++
++- Fix `IllegalThreadStateException` that occurred when creating an event to send to React Native early in the app lifecycle. ([#15880](https://github.com/expo/expo/pull/15880) by [@esamelson](https://github.com/esamelson))
++- Ensure we return early when updates are disabled on Android. ([#15882](https://github.com/expo/expo/pull/15882) by [@esamelson](https://github.com/esamelson))
++
++## 0.11.3 — 2021-12-22
++
++### 🐛 Bug fixes
++
++- Fix the view does not update from screen rotation on iOS devices. ([#15608](https://github.com/expo/expo/pull/15608) by [@kudo](https://github.com/kudo))
++- Fix building error on AArch64 JDK. ([#15669](https://github.com/expo/expo/pull/15669) by [@kudo](https://github.com/kudo))
++
++## 0.11.2 — 2021-12-15
++
++### 🐛 Bug fixes
++
++- Add missing @JvmStatic annotation to `UpdatesDevLauncherController.initialize`. ([#15561](https://github.com/expo/expo/pull/15561) by [@esamelson](https://github.com/esamelson))
++
++## 0.11.2-rc.0 — 2021-12-13
++
++### 🎉 New features
++
++- Added `Updates.channel` and `Updates.runtimeVersion` constant export. ([#15469](https://github.com/expo/expo/pull/15469) by [@jkhales](https://github.com/jkhales))
++
++## 0.11.1 — 2021-12-08
++
++### 🎉 New features
++
++- Add error recovery manager on Android. ([#15220](https://github.com/expo/expo/pull/15220) by [@esamelson](https://github.com/esamelson))
++- Hook up error recovery manager to rest of module on Android. ([#15222](https://github.com/expo/expo/pull/15222) by [@esamelson](https://github.com/esamelson))
++
++## 0.11.0 — 2021-12-03
++
++### 🛠 Breaking changes
++
++- Add local SQLite fields for error recovery manager on iOS. ([#14610](https://github.com/expo/expo/pull/14610) by [@esamelson](https://github.com/esamelson))
++- Add DB migration for above. ([#14718](https://github.com/expo/expo/pull/14718) by [@esamelson](https://github.com/esamelson))
++- Add local SQLite fields and DB migration for error recovery manager on Android. ([#15218](https://github.com/expo/expo/pull/15218) by [@esamelson](https://github.com/esamelson))
++- Add DEFAULT 0 to new error recovery DB columns. ([#15360](https://github.com/expo/expo/pull/15360) by [@esamelson](https://github.com/esamelson))
++
++### 🎉 New features
++
++- Add error recovery manager on iOS. ([#14397](https://github.com/expo/expo/pull/14397) by [@esamelson](https://github.com/esamelson))
++- Hook up error recovery manager to rest of module on iOS. ([#14398](https://github.com/expo/expo/pull/14398) by [@esamelson](https://github.com/esamelson))
++- Move persisted error log to EXUpdatesErrorRecovery on iOS. ([#14399](https://github.com/expo/expo/pull/14399) by [@esamelson](https://github.com/esamelson))
++- Add native EXUpdatesCheckOnLaunch: ERROR_RECOVERY_ONLY setting on iOS. ([#14673](https://github.com/expo/expo/pull/14673) by [@esamelson](https://github.com/esamelson))
++- Small fixes for error recovery manager on iOS. ([#15223](https://github.com/expo/expo/pull/15223) by [@esamelson](https://github.com/esamelson))
++- Add native checkOnLaunch: ERROR_RECOVERY_ONLY setting on Android. ([#15219](https://github.com/expo/expo/pull/15219) by [@esamelson](https://github.com/esamelson))
++- Enhance node binary resolution for Xcode build phases scripts by the vendoring source-login-scripts.sh. ([#15336](https://github.com/expo/expo/pull/15336) by [@kudo](https://github.com/kudo))
++- Add android support for multipart manifest responses. ([#15401](https://github.com/expo/expo/pull/15401) by [@wschurman](https://github.com/wschurman))
++- Add iOS support for multipart manifest responses. ([#15426](https://github.com/expo/expo/pull/15426) by [@wschurman](https://github.com/wschurman))
++- Add android support for code signing. ([#15514](https://github.com/expo/expo/pull/15514) by [@wschurman](https://github.com/wschurman))
++
++### 🐛 Bug fixes
++
++- Fix auto setup `EXUpdatesAppDelegate` breaking reanimated installation. ([#14755](https://github.com/expo/expo/pull/14755) by [@kudo](https://github.com/kudo))
++- Fix support for `react.entryFile` gradle config. ([#14934](https://github.com/expo/expo/pull/14934) by [@EvanBacon](https://github.com/EvanBacon))
++- Fix Android app.manifest not generated when in OneSignal gradle plugin integration. ([#14938](https://github.com/expo/expo/pull/14938) by [@kudo](https://github.com/kudo))
++- Fix Android app.manifest not generated from [#14938](https://github.com/expo/expo/pull/14938) regression. ([#14953](https://github.com/expo/expo/pull/14953) by [@kudo](https://github.com/kudo))
++- Fix iOS app.manifest generation error in `eas build --local` mode. ([#14956](https://github.com/expo/expo/pull/14956) by [@kudo](https://github.com/kudo))
++- Fix handling of unexpectedly missing assets on iOS. ([#15008](https://github.com/expo/expo/pull/15008) by [@esamelson](https://github.com/esamelson))
++- Fix issue with assets that are duplicated in the local SQLite db being reaped when they are still in use. ([#15049](https://github.com/expo/expo/pull/15049) by [@esamelson](https://github.com/esamelson))
++- Retain embedded asset fields when merging existing asset entities on Android. ([#15123](https://github.com/expo/expo/pull/15123) by [@esamelson](https://github.com/esamelson))
++- Fix `RCTBridge` initialized twice on startup. ([#15142](https://github.com/expo/expo/pull/15142) by [@kudo](https://github.com/kudo))
++
++### 💡 Others
++
++- Add error when entryfile is not found in expo-updates scripts. ([#15234](https://github.com/expo/expo/pull/15234) by [@AamuLumi](https://github.com/AamuLumi))
++- Update `@expo/config` and `@expo/metro-config` dependencies. ([#14801](https://github.com/expo/expo/pull/14801) by [@Simek](https://github.com/Simek))
++- Refactor and unify Loader classes on Android. ([#14334](https://github.com/expo/expo/pull/14334) by [@esamelson](https://github.com/esamelson))
++- Kotlinize expo-updates. ([#14818](https://github.com/expo/expo/pull/14334) by [@wschurman](https://github.com/wschurman))
++
++## 0.10.9 — 2021-10-29
++
++_This version does not introduce any user-facing changes._
++
++## 0.10.8 — 2021-10-29
++
++### 🐛 Bug fixes
++
++- Fix Android app.manifest not generated from [#14938](https://github.com/expo/expo/pull/14938) regression. ([#14953](https://github.com/expo/expo/pull/14953) by [@kudo](https://github.com/kudo))
++- Fix iOS app.manifest generation error in `eas build --local` mode. ([#14956](https://github.com/expo/expo/pull/14956) by [@kudo](https://github.com/kudo))
++
++## 0.10.7 — 2021-10-29
++
++_This version does not introduce any user-facing changes._
++
++## 0.10.6 — 2021-10-28
++
++### 🐛 Bug fixes
++
++- Fix Android app.manifest not generated when in OneSignal gradle plugin integration. ([#14938](https://github.com/expo/expo/pull/14938) by [@kudo](https://github.com/kudo))
++
++## 0.10.5 — 2021-10-21
++
++_This version does not introduce any user-facing changes._
++
++## 0.10.4 — 2021-10-15
++
++### 🐛 Bug fixes
++
++- Fix auto setup `EXUpdatesAppDelegate` breaking reanimated installation. ([#14755](https://github.com/expo/expo/pull/14755) by [@kudo](https://github.com/kudo))
++
++## 0.10.3 — 2021-10-12
++
++### 🐛 Bug fixes
++
++- Fix `Updates.reloadAsync` behavior in bare apps when a new update is available (downloaded). ([#14706](https://github.com/expo/expo/pull/14706) by [@esamelson](https://github.com/esamelson))
++
++## 0.10.2 — 2021-10-01
++
++### 🐛 Bug fixes
++
++- Fix expo-screen-orientation breaking for expo-updates + expo-splash-screen integration. ([#14519](https://github.com/expo/expo/pull/14519) by [@kudo](https://github.com/kudo))
++
++## 0.10.1 — 2021-09-28
++
++### 🎉 New features
++
++- [android] Make asset "type" key nullable ([#14499](https://github.com/expo/expo/pull/14499) by [@jkhales](https://github.com/jkhales))
++
++## 0.10.0 — 2021-09-28
++
++### 🐛 Bug fixes
++
++- Fix building errors from use_frameworks! in Podfile. ([#14523](https://github.com/expo/expo/pull/14523) by [@kudo](https://github.com/kudo))
++
++### 💡 Others
++
++- Updated `@expo/config`, `@expo/webpack-config`, `@expo/metro-config` ([#14443](https://github.com/expo/expo/pull/14443) by [@EvanBacon](https://github.com/EvanBacon))
++
++## 0.9.3 — 2021-09-16
++
++_This version does not introduce any user-facing changes._
++
++## 0.9.2 — 2021-09-16
++
++### 🛠 Breaking changes
++
++- Dropped support for iOS 11.0 ([#14383](https://github.com/expo/expo/pull/14383) by [@cruzach](https://github.com/cruzach))
++
++### 🐛 Bug fixes
++
++- Fixing app.manifest does not generated from Xcode build phase script. ([#14438](https://github.com/expo/expo/pull/14438) by [@kudo](https://github.com/kudo))
++
++## 0.9.1 — 2021-09-09
++
++_This version does not introduce any user-facing changes._
++
++## 0.9.0 — 2021-09-09
++
++### 🎉 New features
++
++- Updated `@expo/config-plugins` from `3.1.0` to `4.0.2` ([#14788](https://github.com/expo/expo/pull/14788) by [@jkhales](https://github.com/jkhales))
++- Version expo-updates plugin by importing from @expo/config-plugins@3.0.7. This allows the update url to be defined in app.confg ([#13981](https://github.com/expo/expo/pull/13981) by [@jkhales](https://github.com/jkhales))
++- Store assets with filename = key.fileExtension. ([#13801](https://github.com/expo/expo/pull/13801) by [@jkhales](https://github.com/jkhales))
++- Use stable manifest ID where applicable. ([#12964](https://github.com/expo/expo/pull/12964) by [@wschurman](https://github.com/wschurman))
++- Update NewManifest field paths for new extra field format. ([#13398](https://github.com/expo/expo/pull/13398) by [@wschurman](https://github.com/wschurman))
++- Update location of EAS projectId in new manifest. ([#13739](https://github.com/expo/expo/pull/13739) by [@wschurman](https://github.com/wschurman))
++- Update location of scopeKey in new manifest. ([#13817](https://github.com/expo/expo/pull/13817) by [@wschurman](https://github.com/wschurman))
++- Introduce automatically setup where iOS AppDelegate or Android MainApplication customization is not necessary. ([#14198](https://github.com/expo/expo/pull/14198) by [@kudo](https://github.com/kudo))
++
++### 🐛 Bug fixes
++
++- Fix `PROJECT_ROOT` path resolution in `create-manifest-ios.sh` and in `createManifest.js` ([#13439](https://github.com/expo/expo/pull/13439) by [@ajsmth](https://github.com/ajsmth))
++- Fix erroneous manifest JSON direct access. ([#13906](https://github.com/expo/expo/pull/13906) by [@wschurman](https://github.com/wschurman))
++- Fixed `userInterfaceStyle` not being applied when only set in root `expo` options and not in `expo.android` options. ([#13959](https://github.com/expo/expo/pull/13959) by [@mrousavy](https://github.com/mrousavy))
++
++## 0.8.5 — 2021-09-02
++
++### 💡 Others
++
++- Skip running build scripts during iOS debug builds and add support for `SKIP_BUNDLING`/`FORCE_BUNDLING` environment variables. ([#14116](https://github.com/expo/expo/pull/14116) by [@fson](https://github.com/fson))
++
++## 0.8.4 — 2021-08-06
++
++### 🐛 Bug fixes
++
++- Fix config plugin to properly set the updates URL based on `getAccountUsername` from `@expo/config`. ([#13909](https://github.com/expo/expo/pull/13909) by [@brentvatne](https://github.com/brentvatne))
++- Fixed issue with dev-launcher integration where configuration was not set at the correct time, which caused issues when trying to open multiple different published apps. ([#13926](https://github.com/expo/expo/pull/13926) by [@esamelson](https://github.com/esamelson))
++
++## 0.8.3 — 2021-07-28
++
++### 🛠 Breaking changes
++
++- Revert [#12734](https://github.com/expo/expo/pull/12734). expo-asset@8.3.3 or above requires expo-updates to specify assets with file extensions. ([#13733](https://github.com/expo/expo/pull/13733) by [@jkhales](https://github.com/jkhales))
++
++## 0.8.2 — 2021-07-13
++
++### 🐛 Bug fixes
++
++- Remove usage of deprecated `[RCTBridge reload]` method. ([#13501](https://github.com/expo/expo/pull/13501) by [@esamelson](https://github.com/esamelson))
++- Remove side effects from UpdatesDevLauncherController.initialize() method. ([#13555](https://github.com/expo/expo/pull/13555) by [@esamelson](https://github.com/esamelson))
++
++## 0.8.1 — 2021-07-08
++
++_This version does not introduce any user-facing changes._
++
++## 0.8.0 — 2021-06-24
++
++### 🛠 Breaking changes
++
++- Added reset method to UpdatesDevLauncherController. ([#13346](https://github.com/expo/expo/pull/13346) by [@esamelson](https://github.com/esamelson))
++
++## 0.7.3 — 2021-06-24
++
++_This version does not introduce any user-facing changes._
++
++## 0.7.2 — 2021-06-23
++
++_This version does not introduce any user-facing changes._
++
++## 0.7.1 — 2021-06-22
++
++### 🐛 Bug fixes
++
++- Improve behavior of dev client (with updates integration) when developer is logged out of expo-cli. ([#13310](https://github.com/expo/expo/pull/13310) by [@esamelson](https://github.com/esamelson))
++
++## 0.7.0 — 2021-06-16
++
++### 🎉 New features
++
++- Backport runtimeVersion to classic Updates ([#13283](https://github.com/expo/expo/pull/13283) by [@jkhales](https://github.com/jkhales))
++
++## 0.7.0-rc.2 — 2021-06-10
++
++### 🛠 Breaking changes
++
++- Renamed the iOS protocol in expo-updates-interface to EXUpdatesExternalInterface. ([#13214](https://github.com/expo/expo/pull/13214) by [@esamelson](https://github.com/esamelson))
++
++## 0.7.0-rc.1 — 2021-06-08
++
++### 🐛 Bug fixes
++
++- Fixed prebuild issues with missing imports.
++
++## 0.7.0-rc.0 — 2021-06-08
++
++### 🛠 Breaking changes
++
++- Rename new manifest field updateMetadata to metadata ([#12831](https://github.com/expo/expo/pull/12831) by [@jkhales](https://github.com/jkhales))
++- Save asset with a key that does not include an extension. This introduces an implicit dependency on expo-asset@8.3.2 or above. ([#12734](https://github.com/expo/expo/pull/12734) by [@jkhales](https://github.com/jkhales))
++- Add last_accessed column to updates table schema, and rename metadata -> manifest. ([#12768](https://github.com/expo/expo/pull/12768) by [@esamelson](https://github.com/esamelson))
++- Add non-destructive database migration for the above change. ([#12820](https://github.com/expo/expo/pull/12820) by [@esamelson](https://github.com/esamelson))
++- Add new manifest2 field and make existing field optional. ([#12817](https://github.com/expo/expo/pull/12817) by [@wschurman](https://github.com/wschurman))
++
++### 🎉 New features
++
++- Convert manifest definitions and tests to kotlin. ([#12479](https://github.com/expo/expo/pull/12479) by [@wschurman](https://github.com/wschurman))
++- Start converting untyped manifest JSON objects into well-specified classes. ([#12506](https://github.com/expo/expo/pull/12506) by [@wschurman](https://github.com/wschurman))
++- Finish conversion to an interface for raw manifests. ([#12509](https://github.com/expo/expo/pull/12509) by [@wschurman](https://github.com/wschurman))
++- Add support for loading new manifests in Expo Go. ([#12521](https://github.com/expo/expo/pull/12521) by [@wschurman](https://github.com/wschurman))
++- Split SelectionPolicy into 3 separate interfaces. (Android: [#12606](https://github.com/expo/expo/pull/12606) and iOS: [#12682](https://github.com/expo/expo/pull/12682) by [@esamelson](https://github.com/esamelson))
++- Add DatabaseIntegrityCheck and tests. (Android: [#12607](https://github.com/expo/expo/pull/12607) and [#12754](https://github.com/expo/expo/pull/12754), and iOS: [#12683](https://github.com/expo/expo/pull/12683) by [@esamelson](https://github.com/esamelson))
++- Add onAssetLoaded progress callback to remote loader. (Android: [#12608](https://github.com/expo/expo/pull/12608) and iOS: [#12684](https://github.com/expo/expo/pull/12684) by [@esamelson](https://github.com/esamelson))
++- Add setter and resetter for SelectionPolicy. (Android: [#12609](https://github.com/expo/expo/pull/12609) and iOS: [#12685](https://github.com/expo/expo/pull/12685) by [@esamelson](https://github.com/esamelson))
++- Convert most remaining usages of JSON manifest to RawManifest. ([#12600](https://github.com/expo/expo/pull/12600) by [@wschurman](https://github.com/wschurman))
++- Factor out raw manifest into wrapper class. ([#12631](https://github.com/expo/expo/pull/12631) by [@wschurman](https://github.com/wschurman))
++- Remove code to handle nested root level manifest key. ([#12736](https://github.com/expo/expo/pull/12736) by [@wschurman](https://github.com/wschurman))
++- Move scope check from reaper to selection policy. ([#12769](https://github.com/expo/expo/pull/12769) by [@esamelson](https://github.com/esamelson))
++- Add ReaperSelectionPolicyDevelopmentClient, implement in Expo Go. ([#12770](https://github.com/expo/expo/pull/12770) by [@esamelson](https://github.com/esamelson))
++- Add UpdatesDevLauncherController for development client integration. (Android: [#13032](https://github.com/expo/expo/pull/13032) and iOS: ([#13112](https://github.com/expo/expo/pull/13112)) by [@esamelson](https://github.com/esamelson))
++
++### 🐛 Bug fixes
++
++- Enable kotlin in all modules. ([#12716](https://github.com/expo/expo/pull/12716) by [@wschurman](https://github.com/wschurman))
++- Rename Update.metadata -> manifest in internal module classes. ([#12818](https://github.com/expo/expo/pull/12818) by [@esamelson](https://github.com/esamelson))
++- Reset selection policy in UpdatesDevLauncherController ([#13113](https://github.com/expo/expo/pull/13113) by [@esamelson](https://github.com/esamelson))
++- UpdatesDevLauncherController: make Update nullable in onSuccess callback ([#13136](https://github.com/expo/expo/pull/13136) by [@esamelson](https://github.com/esamelson))
++
++### 💡 Others
++
++- Refactored uuid imports to v7 style. ([#13037](https://github.com/expo/expo/pull/13037) by [@giautm](https://github.com/giautm))
++
++## 0.6.0 — 2021-04-13
++
++### 🛠 Breaking changes
++
++- (android) remove UPDATES_CONFIGURATION_USES_LEGACY_MANIFEST_KEY constant and start respecting cache-control headers for all manifest responses. Please ensure your server defined cache-control headers are configured correctly if you are self-hosted to avoid issues such as [#13872](https://github.com/expo/expo/issues/13872) ([#12181](https://github.com/expo/expo/pull/12181) by [@jkhales](https://github.com/jkhales))
++- (ios) remove EXUpdatesUsesLegacyManifest Plist constant and start respecting cache-control headers for all manifest responses Please ensure your server defined cache-control headers are configured correctly if you are self-hosted to avoid issues such as [#13872](https://github.com/expo/expo/issues/13872) ([#12249](https://github.com/expo/expo/pull/12249) by [@jkhales](https://github.com/jkhales))
++- crash if EXUpdatesRequestHeaders is not a dictionary (ios). ([#12457](https://github.com/expo/expo/pull/12457) by [@jkhales](https://github.com/jkhales))
++
++### 🎉 New features
++
++- add method to read stringified requestHeaders. ([#12229](https://github.com/expo/expo/pull/12229) by [@jkhales](https://github.com/jkhales))
++
++### 🐛 Bug fixes
++
++- Fixed Updates module methods in Android Expo Go by refactoring FileDownloader to have mostly instance methods rather than static methods.
++- Fixed local assets URIs on Android to be compliant with File URI specification. Now file URI takes the form of `file:///*` instead of `file:/*`. ([#12428](https://github.com/expo/expo/pull/12428) by [@tsapeta](https://github.com/tsapeta))
++- Fixed Updates module methods not rejecting properly in iOS managed workflow apps where updates are disabled.
++- Fixed uncaught exception in parseDateString on Android API 21-23. ([#12492](https://github.com/expo/expo/pull/12492) by [mrs2296](https://github.com/mrs2296))
++- Improved error message in createManifest script when there is an error getting the project's metro config.
++
++## 0.5.3 — 2021-03-30
++
++_This version does not introduce any user-facing changes._
++
++## 0.5.2 — 2021-03-23
++
++### 🎉 New features
++
++- Updated `@expo/metro-config` with deprecated `.expo.*` extension support and improved error stack traces. ([#12252](https://github.com/expo/expo/pull/12252) by [@EvanBacon](https://github.com/EvanBacon))
++- Wrap native bundle script error in regex. ([#12185](https://github.com/expo/expo/pull/12185) by [@EvanBacon](https://github.com/EvanBacon))
++
++## 0.5.1 — 2021-03-11
++
++### 🐛 Bug fixes
++
++- Add prebuilt xcframework
++
++## 0.5.0 — 2021-03-10
++
++### ⚠️ Notices
++
++- The package is now shipped with prebuilt binaries on iOS. You can read more about it on [expo.fyi/prebuilt-modules](https://expo.fyi/prebuilt-modules). ([#11224](https://github.com/expo/expo/pull/11224) by [@tsapeta](https://github.com/tsapeta))
++
++### 🛠 Breaking changes
++
++- Dropped support for iOS 10.0 ([#11344](https://github.com/expo/expo/pull/11344) by [@tsapeta](https://github.com/tsapeta))
++
++### 🎉 New features
++
++- Created config plugin. ([#11981](https://github.com/expo/expo/pull/11981) by [@EvanBacon](https://github.com/EvanBacon))
++- Updated Android build configuration to target Android 11 (added support for Android SDK 30). ([#11647](https://github.com/expo/expo/pull/11647) by [@bbarthec](https://github.com/bbarthec))
++- Added alpha support for EAS update manifest format ([#11050](https://github.com/expo/expo/pull/11050) by [@esamelson](https://github.com/esamelson))
++- add ability for android clients to handle header signatures. ([#11897](https://github.com/expo/expo/pull/11897) by [@jkhales](https://github.com/jkhales))
++- Added `SelectionPolicyFilterAware` to support EAS Update's manifest filters feature ([#11748](https://github.com/expo/expo/pull/11748) by [@esamelson](https://github.com/esamelson))
++- Parse & persist data from EAS Update manifest headers ([#11961](https://github.com/expo/expo/pull/11961), [#11967](https://github.com/expo/expo/pull/11967), and [#12026](https://github.com/expo/expo/pull/12026) by [@esamelson](https://github.com/esamelson))
++- Accept signature in header (iOS). ([#11930](https://github.com/expo/expo/pull/11930) by [@jkhales](https://github.com/jkhales))
++- Switch to SelectionPolicyFilterAware and use persisted manifest filters ([#11993](https://github.com/expo/expo/pull/11993) by [@esamelson](https://github.com/esamelson))
++- Make manifest filters key search case-insensitive ([#12015](https://github.com/expo/expo/pull/12015) by [@esamelson](https://github.com/esamelson))
++- Send persisted serverDefinedHeaders in manifest requests ([#11994](https://github.com/expo/expo/pull/11994) by [@esamelson](https://github.com/esamelson))
++- Only require signatures with expo go (android). ([#12027](https://github.com/expo/expo/pull/12027) by [@jkhales](https://github.com/jkhales))
++- Only require signatures with expo go (iOS). ([#12072](https://github.com/expo/expo/pull/12072) by [@jkhales](https://github.com/jkhales))
++- Make asset keys nullable ([#12110](https://github.com/expo/expo/pull/12110) and [#12111](https://github.com/expo/expo/pull/12111) by [@esamelson](https://github.com/esamelson))
++
++### 🐛 Bug fixes
++
++- Removed `fbjs` dependency ([#11396](https://github.com/expo/expo/pull/11396) by [@cruzach](https://github.com/cruzach))
++- On iOS, use default NSURLCache for manifest public key rather than caching it manually.
++- Use `console.warn` message rather than hard crashing if neither runtime nor SDK version are configured (requires a corresponding update to the `expo` package) ([#11367](https://github.com/expo/expo/pull/11367) by [@esamelson](https://github.com/esamelson))
++- Fixed discrepancies across platforms regarding required fields in manifests ([#11562](https://github.com/expo/expo/pull/11562) by [@esamelson](https://github.com/esamelson))
++- Improved support for `assetUrlOverride` in legacy self-hosted apps ([#11601](https://github.com/expo/expo/pull/11601))
++- Stop expecting data and publicManifest root level keys for EAS manifests ([#11613](https://github.com/expo/expo/pull/11613) by [@esamelson](https://github.com/esamelson))
++- Stop overriding cache-control headers for non-legacy manifests ([#11875](https://github.com/expo/expo/pull/11875) by [@esamelson](https://github.com/esamelson))
++- Remove peerDependencies and unimodulePeerDependencies from Expo modules. ([#11980](https://github.com/expo/expo/pull/11980) by [@brentvatne](https://github.com/brentvatne))
++
++## 0.4.2 - 2020-02-16
++
++### 🎉 New features
++
++- Keep current update and one older update, for safety and to make rollbacks faster ([#11449](https://github.com/expo/expo/pull/11449) by [@esamelson](https://github.com/esamelson))
++
++### 🐛 Bug fixes
++
++- Improved thread safety around reaping ([#11447](https://github.com/expo/expo/pull/11447) by [@esamelson](https://github.com/esamelson))
++- Fixed support for Android Gradle plugin 4.1+ ([#11926](https://github.com/expo/expo/pull/11926) by [@esamelson](https://github.com/esamelson))
++
++## 0.4.1 — 2020-11-25
++
++### 🛠 Breaking changes
++
++- This version adds an internal database migration, which means that when a user's device upgrades from an app with `expo-updates@0.3.x` to an app with `expo-updates@0.4.x`, any updates they had previously downloaded will no longer be accessible.
++  - For **managed workflow apps**, this is inconsequential as this upgrade will be part of a major SDK version upgrade. You do not need to do anything if your app is made using the managed workflow.
++  - For **bare workflow apps**, this means updates downloaded on clients running `expo-updates@0.3.x` will need to be redownloaded in order to run after those clients are upgraded to `expo-updates@0.4.x`. We recommend incrementing your runtime/SDK version after updating to `expo-updates@0.4.x`, and republishing any OTA updates that you do not intend to distribute embedded in your application binary.
++
++## 0.4.0 — 2020-11-17
++
++### 🛠 Breaking changes
++
++- On iOS enabled `use_frameworks!` usage by replacing `React` dependency with `React-Core`. ([#11057](https://github.com/expo/expo/pull/11057) by [@bbarthec](https://github.com/bbarthec))
++
++### 🐛 Bug fixes
++
++- Fixed issue in **managed workflow** where `reloadAsync` doesn't reload the app if called immediately after the app starts. ([#10917](https://github.com/expo/expo/pull/10917) and [#10918](https://github.com/expo/expo/pull/10918) by [@esamelson](https://github.com/esamelson))
++
++## 0.3.5 — 2020-10-02
++
++_This version does not introduce any user-facing changes._
++
++## 0.3.4 — 2020-09-22
++
++### 🐛 Bug fixes
++
++- Fixed `NSInvalidArgumentException` being thrown in bare applications on iOS (unrecognized selector `appLoaderTask:didFinishBackgroundUpdateWithStatus:update:error:` sent to instance of `EXUpdatesAppController`). ([#10289](https://github.com/expo/expo/issues/10289) by [@sjchmiela](https://github.com/sjchmiela))
++
++## 0.3.3 — 2020-09-21
++
++_This version does not introduce any user-facing changes._
++
++## 0.3.2 — 2020-09-16
++
++_This version does not introduce any user-facing changes._
++
++## 0.3.1 — 2020-08-26
++
++_This version does not introduce any user-facing changes._
++
++## 0.3.0 — 2020-08-18
++
++### 🎉 New features
++
++- Easier to follow installation instructions by moving them to the Expo documentation ([#9145](https://github.com/expo/expo/pull/9145)).
++
++## 0.2.12 — 2020-07-24
++
++### 🐛 Bug fixes
++
++- Fetch asset manifest through programmatic CLI interface instead of depending on a running React Native CLI server, so `./gradlew :app:assembleRelease` works as expected without needing to run `react-native start` beforehand. ([#9372](https://github.com/expo/expo/pull/9372)).
++
++## 0.2.11 — 2020-06-29
++
++### 🐛 Bug fixes
++
++- Fixed an issue where the publish workflow was broken on Android. Note that the publish workflow will not be supported in a future version of expo-updates, so we recommend [switching to the no-publish workflow](https://blog.expo.dev/over-the-air-updates-from-expo-are-now-even-easier-to-use-376e2213fabf).
++
++## 0.2.10 — 2020-06-23
++
++### 🐛 Bug fixes
++
++- Fixed reading the `expo.modules.updates.ENABLED` setting from AndroidManifest.xml.
++- Improved the error message logged when an embedded manifest cannot be found.
++
++## 0.2.9 — 2020-06-15
++
++### 🐛 Bug fixes
++
++- Fixed issue where launch screen on iOS doesn't show whilst updates are being retrieved if it is contained within a storyboard instead of a nib. ([#8750](https://github.com/expo/expo/pull/8750) by [@MattsTheChief](https://github.com/MattsTheChief))
++- Fixed an issue where the REACT_NATIVE_PACKAGER_HOSTNAME env var was not respected in the build scripts for iOS or Android.
++
++## 0.2.8 — 2020-05-29
++
++_This version does not introduce any user-facing changes._
++
++## 0.2.7 - 2020-05-27
++
++### 🐛 Bug fixes
++
++- Added a better error message to the `create-manifest-ios.sh` script in case the Xcode shell cannot find the node binary.
++- Added an optional `bundleIn${targetName}` field to Gradle build script config. ([#8464](https://github.com/expo/expo/pull/8464) by [@rickysullivan](https://github.com/rickysullivan))
++- Fixed a bug on iOS with bundling assets from outside the project root.
++
++## 0.2.6 — 2020-05-27
++
++_This version does not introduce any user-facing changes._
++
++## 0.2.5
++
++### 🐛 Bug fixes
++
++- Fixed broken Android builds on Windows.
++
++## 0.2.4
++
++### 🐛 Bug fixes
++
++- Support monorepos ([#8419](https://github.com/expo/expo/pull/8419) by [@janicduplessis](https://github.com/janicduplessis))
++- Support entry file configuration in Xcode/gradle build scripts ([#8415](https://github.com/expo/expo/pull/8415) and [#8418](https://github.com/expo/expo/pull/8418) by [@janicduplessis](https://github.com/janicduplessis))
++- Added a more helpful error message when trying to run a build without the packager server running.
++
++## 0.2.3
++
++### 🐛 Bug fixes
++
++- Temporarily vendor `filterPlatformAssetScales` method from `@react-native-community/cli` in order to fix builds when `npm` was used to install dependencies (rather than `yarn`).
++- Fixed an issue on iOS where calling the JS module methods in development mode, after publishing at least one update, would crash the app.
++
++## 0.2.2
++
++### 🐛 Bug fixes
++
++- Fixed an issue on iOS where expo-updates expected more assets to be embedded than actually are by the React Native CLI.
++- Added a better error message on iOS when embedded assets are missing.
++
++## 0.2.1
++
++### 🐛 Bug fixes
++
++- Added a better error message to the `createManifest` script when project does not have the `hashAssetFiles` plugin configured.
++
++## 0.2.0
++
++### 🎉 New features
++
++- Added support for the **no-publish workflow**. In this workflow, release builds of both iOS and Android apps will create and embed a new update at build-time from the JS code currently on disk, rather than embedding a copy of the most recently published update. For more information, along with upgrade instructions if you're upgrading from 0.1.x and would like to use the no-publish workflow, read [this blog post](https://blog.expo.dev/over-the-air-updates-from-expo-are-now-even-easier-to-use-376e2213fabf).
++- Added `Updates.updateId` and `Updates.releaseChannel` constant exports
++
++### 🐛 Bug fixes
++
++- Fixed an issue with recovering from an unexpectedly deleted asset on iOS.
++- Fixed handling of invalid EXPO_UDPATE_URL values on Android.
++- Updates Configuration Conditional From Equal To Prefix Check. ([#8225](https://github.com/expo/expo/pull/8225) by [@thorbenprimke](https://github.com/thorbenprimke))
++
++## 0.1.3
++
++### 🐛 Bug fixes
++
++- Fixed some issues with `runtimeVersion` on Android for apps using `expo export`.
++
++## 0.1.2
++
++### 🐛 Bug fixes
++
++- Fixed SSR support on Web. ([#7625](https://github.com/expo/expo/pull/7625) by [@EvanBacon](https://github.com/EvanBacon))
++
++## 0.1.1
++
++### 🐛 Bug fixes
++
++- Fixed 'unable to resolve class GradleVersion' when using Gradle 5. ([#7577](https://github.com/expo/expo/pull/7577) by [@IjzerenHein](https://github.com/IjzerenHein))
++
++## 0.1.0
++
++Initial public beta 🎉
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.constants.d.ts b/node_modules/expo-updates/build/UpdatesProvider.constants.d.ts
 new file mode 100644
-index 0000000..f2425dc
+index 0000000..fe75d1a
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.constants.d.ts
-@@ -0,0 +1,40 @@
+@@ -0,0 +1,41 @@
 +import type { CurrentlyRunningInfo } from './UpdatesProvider.types';
 +export declare const currentlyRunning: CurrentlyRunningInfo;
 +/**
-+ * Enumeration of the different possible event types emitted by Updates provider methods
++ * Enumeration of the different possible event types passed into calls to the optional
++ * `providerEventHandler` of [`useUpdates()`](#useupdatesprovidereventhandler).
 + */
 +export declare enum UpdatesProviderEventType {
 +    /**
@@ -47,18 +793,18 @@ index 0000000..f2425dc
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.constants.d.ts.map b/node_modules/expo-updates/build/UpdatesProvider.constants.d.ts.map
 new file mode 100644
-index 0000000..320745e
+index 0000000..28570e7
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.constants.d.ts.map
 @@ -0,0 +1 @@
-+{"version":3,"file":"UpdatesProvider.constants.d.ts","sourceRoot":"","sources":["../src/UpdatesProvider.constants.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,yBAAyB,CAAC;AAIpE,eAAO,MAAM,gBAAgB,EAAE,oBAQ9B,CAAC;AAEF;;GAEG;AACH,oBAAY,wBAAwB;IAClC;;OAEG;IACH,WAAW,gBAAgB;IAC3B;;OAEG;IACH,cAAc,mBAAmB;IACjC;;OAEG;IACH,WAAW,gBAAgB;IAC3B;;OAEG;IACH,cAAc,mBAAmB;IACjC;;OAEG;IACH,iBAAiB,sBAAsB;IACvC;;OAEG;IACH,cAAc,mBAAmB;IACjC;;OAEG;IACH,SAAS,cAAc;IACvB;;OAEG;IACH,SAAS,cAAc;CACxB"}
++{"version":3,"file":"UpdatesProvider.constants.d.ts","sourceRoot":"","sources":["../src/UpdatesProvider.constants.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,yBAAyB,CAAC;AAIpE,eAAO,MAAM,gBAAgB,EAAE,oBAQ9B,CAAC;AAEF;;;GAGG;AACH,oBAAY,wBAAwB;IAClC;;OAEG;IACH,WAAW,gBAAgB;IAC3B;;OAEG;IACH,cAAc,mBAAmB;IACjC;;OAEG;IACH,WAAW,gBAAgB;IAC3B;;OAEG;IACH,cAAc,mBAAmB;IACjC;;OAEG;IACH,iBAAiB,sBAAsB;IACvC;;OAEG;IACH,cAAc,mBAAmB;IACjC;;OAEG;IACH,SAAS,cAAc;IACvB;;OAEG;IACH,SAAS,cAAc;CACxB"}
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.constants.js b/node_modules/expo-updates/build/UpdatesProvider.constants.js
 new file mode 100644
-index 0000000..f0a6fe3
+index 0000000..5c0445d
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.constants.js
-@@ -0,0 +1,51 @@
+@@ -0,0 +1,52 @@
 +import * as Updates from './Updates';
 +/////// Constants and enums  ////////
 +// The currently running info, constructed from Updates constants
@@ -72,7 +818,8 @@ index 0000000..f0a6fe3
 +    runtimeVersion: Updates.runtimeVersion,
 +};
 +/**
-+ * Enumeration of the different possible event types emitted by Updates provider methods
++ * Enumeration of the different possible event types passed into calls to the optional
++ * `providerEventHandler` of [`useUpdates()`](#useupdatesprovidereventhandler).
 + */
 +export var UpdatesProviderEventType;
 +(function (UpdatesProviderEventType) {
@@ -113,15 +860,15 @@ index 0000000..f0a6fe3
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.constants.js.map b/node_modules/expo-updates/build/UpdatesProvider.constants.js.map
 new file mode 100644
-index 0000000..d61c88f
+index 0000000..f73607f
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.constants.js.map
 @@ -0,0 +1 @@
-+{"version":3,"file":"UpdatesProvider.constants.js","sourceRoot":"","sources":["../src/UpdatesProvider.constants.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,OAAO,MAAM,WAAW,CAAC;AAErC,qCAAqC;AAErC,iEAAiE;AACjE,MAAM,CAAC,MAAM,gBAAgB,GAAyB;IACpD,QAAQ,EAAE,OAAO,CAAC,QAAQ;IAC1B,OAAO,EAAE,OAAO,CAAC,OAAO;IACxB,SAAS,EAAE,OAAO,CAAC,SAAS;IAC5B,gBAAgB,EAAE,OAAO,CAAC,gBAAgB;IAC1C,iBAAiB,EAAE,OAAO,CAAC,iBAAiB;IAC5C,QAAQ,EAAE,OAAO,CAAC,QAAQ;IAC1B,cAAc,EAAE,OAAO,CAAC,cAAc;CACvC,CAAC;AAEF;;GAEG;AACH,MAAM,CAAN,IAAY,wBAiCX;AAjCD,WAAY,wBAAwB;IAClC;;OAEG;IACH,uDAA2B,CAAA;IAC3B;;OAEG;IACH,6DAAiC,CAAA;IACjC;;OAEG;IACH,uDAA2B,CAAA;IAC3B;;OAEG;IACH,6DAAiC,CAAA;IACjC;;OAEG;IACH,mEAAuC,CAAA;IACvC;;OAEG;IACH,6DAAiC,CAAA;IACjC;;OAEG;IACH,mDAAuB,CAAA;IACvB;;OAEG;IACH,mDAAuB,CAAA;AACzB,CAAC,EAjCW,wBAAwB,KAAxB,wBAAwB,QAiCnC","sourcesContent":["import * as Updates from './Updates';\nimport type { CurrentlyRunningInfo } from './UpdatesProvider.types';\n/////// Constants and enums  ////////\n\n// The currently running info, constructed from Updates constants\nexport const currentlyRunning: CurrentlyRunningInfo = {\n  updateId: Updates.updateId,\n  channel: Updates.channel,\n  createdAt: Updates.createdAt,\n  isEmbeddedLaunch: Updates.isEmbeddedLaunch,\n  isEmergencyLaunch: Updates.isEmergencyLaunch,\n  manifest: Updates.manifest,\n  runtimeVersion: Updates.runtimeVersion,\n};\n\n/**\n * Enumeration of the different possible event types emitted by Updates provider methods\n */\nexport enum UpdatesProviderEventType {\n  /**\n   * Type of event emitted when `checkForUpdate()` starts.\n   */\n  CHECK_START = 'check_start',\n  /**\n   * Type of event emitted when `checkForUpdate()` completes successfully.\n   */\n  CHECK_COMPLETE = 'check_complete',\n  /**\n   * Type of event emitted when `checkForUpdate()` completes with an error.\n   */\n  CHECK_ERROR = 'check_error',\n  /**\n   * Type of event emitted when update download starts.\n   */\n  DOWNLOAD_START = 'download_start',\n  /**\n   * Type of event emitted when update download completes successfully.\n   */\n  DOWNLOAD_COMPLETE = 'download_complete',\n  /**\n   * Type of event emitted when update download completes with an error.\n   */\n  DOWNLOAD_ERROR = 'download_error',\n  /**\n   * Type of event emitted when `runUpdate()` starts.\n   */\n  RUN_START = 'run_start',\n  /**\n   * Type of event emitted when `runUpdate()` completes with an error.\n   */\n  RUN_ERROR = 'run_error',\n}\n"]}
++{"version":3,"file":"UpdatesProvider.constants.js","sourceRoot":"","sources":["../src/UpdatesProvider.constants.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,OAAO,MAAM,WAAW,CAAC;AAErC,qCAAqC;AAErC,iEAAiE;AACjE,MAAM,CAAC,MAAM,gBAAgB,GAAyB;IACpD,QAAQ,EAAE,OAAO,CAAC,QAAQ;IAC1B,OAAO,EAAE,OAAO,CAAC,OAAO;IACxB,SAAS,EAAE,OAAO,CAAC,SAAS;IAC5B,gBAAgB,EAAE,OAAO,CAAC,gBAAgB;IAC1C,iBAAiB,EAAE,OAAO,CAAC,iBAAiB;IAC5C,QAAQ,EAAE,OAAO,CAAC,QAAQ;IAC1B,cAAc,EAAE,OAAO,CAAC,cAAc;CACvC,CAAC;AAEF;;;GAGG;AACH,MAAM,CAAN,IAAY,wBAiCX;AAjCD,WAAY,wBAAwB;IAClC;;OAEG;IACH,uDAA2B,CAAA;IAC3B;;OAEG;IACH,6DAAiC,CAAA;IACjC;;OAEG;IACH,uDAA2B,CAAA;IAC3B;;OAEG;IACH,6DAAiC,CAAA;IACjC;;OAEG;IACH,mEAAuC,CAAA;IACvC;;OAEG;IACH,6DAAiC,CAAA;IACjC;;OAEG;IACH,mDAAuB,CAAA;IACvB;;OAEG;IACH,mDAAuB,CAAA;AACzB,CAAC,EAjCW,wBAAwB,KAAxB,wBAAwB,QAiCnC","sourcesContent":["import * as Updates from './Updates';\nimport type { CurrentlyRunningInfo } from './UpdatesProvider.types';\n/////// Constants and enums  ////////\n\n// The currently running info, constructed from Updates constants\nexport const currentlyRunning: CurrentlyRunningInfo = {\n  updateId: Updates.updateId,\n  channel: Updates.channel,\n  createdAt: Updates.createdAt,\n  isEmbeddedLaunch: Updates.isEmbeddedLaunch,\n  isEmergencyLaunch: Updates.isEmergencyLaunch,\n  manifest: Updates.manifest,\n  runtimeVersion: Updates.runtimeVersion,\n};\n\n/**\n * Enumeration of the different possible event types passed into calls to the optional\n * `providerEventHandler` of [`useUpdates()`](#useupdatesprovidereventhandler).\n */\nexport enum UpdatesProviderEventType {\n  /**\n   * Type of event emitted when `checkForUpdate()` starts.\n   */\n  CHECK_START = 'check_start',\n  /**\n   * Type of event emitted when `checkForUpdate()` completes successfully.\n   */\n  CHECK_COMPLETE = 'check_complete',\n  /**\n   * Type of event emitted when `checkForUpdate()` completes with an error.\n   */\n  CHECK_ERROR = 'check_error',\n  /**\n   * Type of event emitted when update download starts.\n   */\n  DOWNLOAD_START = 'download_start',\n  /**\n   * Type of event emitted when update download completes successfully.\n   */\n  DOWNLOAD_COMPLETE = 'download_complete',\n  /**\n   * Type of event emitted when update download completes with an error.\n   */\n  DOWNLOAD_ERROR = 'download_error',\n  /**\n   * Type of event emitted when `runUpdate()` starts.\n   */\n  RUN_START = 'run_start',\n  /**\n   * Type of event emitted when `runUpdate()` completes with an error.\n   */\n  RUN_ERROR = 'run_error',\n}\n"]}
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.d.ts b/node_modules/expo-updates/build/UpdatesProvider.d.ts
 new file mode 100644
-index 0000000..16417b2
+index 0000000..6f0e0d7
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.d.ts
 @@ -0,0 +1,111 @@
@@ -130,7 +877,7 @@ index 0000000..16417b2
 + * Downloads and runs an update, if one is available.
 + * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
 + */
-+declare const downloadAndRunUpdate: (providerEventHandler?: ((event: UpdatesProviderEvent) => void) | undefined) => never;
++declare const downloadAndRunUpdate: () => never;
 +/**
 + * Downloads an update, if one is available, using `Updates.fetchUpdateAsync()`.
 + * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
@@ -203,10 +950,10 @@ index 0000000..16417b2
 + * export default function UpdatesDemo() {
 + *   const { updatesInfo, checkForUpdate, downloadAndRunUpdate } = useUpdates();
 + *
-+ *   const { currentlyRunning, updateAvailable } = updatesInfo;
++ *   const { currentlyRunning, availableUpdate } = updatesInfo;
 + *
 + *   // If true, we show the button to download and run the update
-+ *   const showDownloadButton = updateAvailable !== undefined;
++ *   const showDownloadButton = availableUpdate !== undefined;
 + *
 + *   // Show whether or not we are running embedded code or an update
 + *   const runTypeMessage = updatesInfo.currentlyRunning.isEmbeddedLaunch
@@ -239,23 +986,23 @@ index 0000000..16417b2
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.d.ts.map b/node_modules/expo-updates/build/UpdatesProvider.d.ts.map
 new file mode 100644
-index 0000000..7be807d
+index 0000000..e260da7
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.d.ts.map
 @@ -0,0 +1 @@
-+{"version":3,"file":"UpdatesProvider.d.ts","sourceRoot":"","sources":["../src/UpdatesProvider.tsx"],"names":[],"mappings":"AAKA,OAAO,KAAK,EAAE,WAAW,EAAE,oBAAoB,EAAE,MAAM,yBAAyB,CAAC;AAyBjF;;;GAGG;AACH,QAAA,MAAM,oBAAoB,mCAAmC,oBAAoB,KAAK,IAAI,uBAIzF,CAAC;AAEF;;;GAGG;AACH,QAAA,MAAM,cAAc,aAInB,CAAC;AAEF;;;;GAIG;AACH,QAAA,MAAM,SAAS,aAId,CAAC;AAEF;;;;GAIG;AACH,QAAA,MAAM,cAAc,aAInB,CAAC;AAEF;;;;;GAKG;AACH,QAAA,MAAM,cAAc,YAAa,MAAM,UAItC,CAAC;AAIF;;;;;;;;;;;;;;;;;;;;;;GAsBG;AACH,QAAA,MAAM,eAAe,UAAW;IAAE,QAAQ,EAAE,GAAG,CAAA;CAAE,gBAehD,CAAC;AAEF;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;GA4CG;AACH,QAAA,MAAM,UAAU,mCAAmC,oBAAoB,KAAK,IAAI;;;;;;8BA0CnD,MAAM;CASlC,CAAC;AAEF,OAAO,EACL,eAAe,EACf,UAAU,EACV,cAAc,EACd,cAAc,EACd,oBAAoB,EACpB,SAAS,EACT,cAAc,GACf,CAAC"}
++{"version":3,"file":"UpdatesProvider.d.ts","sourceRoot":"","sources":["../src/UpdatesProvider.tsx"],"names":[],"mappings":"AAKA,OAAO,KAAK,EAAE,WAAW,EAAE,oBAAoB,EAAE,MAAM,yBAAyB,CAAC;AAyBjF;;;GAGG;AACH,QAAA,MAAM,oBAAoB,aAIzB,CAAC;AAEF;;;GAGG;AACH,QAAA,MAAM,cAAc,aAInB,CAAC;AAEF;;;;GAIG;AACH,QAAA,MAAM,SAAS,aAId,CAAC;AAEF;;;;GAIG;AACH,QAAA,MAAM,cAAc,aAInB,CAAC;AAEF;;;;;GAKG;AACH,QAAA,MAAM,cAAc,YAAa,MAAM,UAItC,CAAC;AAIF;;;;;;;;;;;;;;;;;;;;;;GAsBG;AACH,QAAA,MAAM,eAAe,UAAW;IAAE,QAAQ,EAAE,GAAG,CAAA;CAAE,gBAehD,CAAC;AAEF;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;GA4CG;AACH,QAAA,MAAM,UAAU,mCAAmC,oBAAoB,KAAK,IAAI;;;;;;8BA4CnD,MAAM;CAWlC,CAAC;AAEF,OAAO,EACL,eAAe,EACf,UAAU,EACV,cAAc,EACd,cAAc,EACd,oBAAoB,EACpB,SAAS,EACT,cAAc,GACf,CAAC"}
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.js b/node_modules/expo-updates/build/UpdatesProvider.js
 new file mode 100644
-index 0000000..8561b13
+index 0000000..a7f57e4
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.js
-@@ -0,0 +1,182 @@
+@@ -0,0 +1,184 @@
 +import React, { createContext, useContext, useState } from 'react';
 +import * as Updates from './Updates';
 +import { useUpdateEvents } from './UpdatesHooks';
 +import { currentlyRunning } from './UpdatesProvider.constants';
-+import { checkForUpdateAndReturnNewUpdatesInfoAsync, downloadUpdateAsync, downloadAndRunUpdateAsync, runUpdateAsync, updatesInfoFromEvent, } from './UpdatesProvider.utils';
++import { checkForUpdateAndReturnAvailableAsync, downloadUpdateAsync, downloadAndRunUpdateAsync, runUpdateAsync, updatesInfoFromEvent, } from './UpdatesProvider.utils';
 +// The context provided to the app
 +const UpdatesContext = createContext({
 +    updatesInfo: {
@@ -268,7 +1015,7 @@ index 0000000..8561b13
 + * Downloads and runs an update, if one is available.
 + * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
 + */
-+const downloadAndRunUpdate = (providerEventHandler) => {
++const downloadAndRunUpdate = () => {
 +    throw new Error('This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.');
 +};
 +/**
@@ -361,10 +1108,10 @@ index 0000000..8561b13
 + * export default function UpdatesDemo() {
 + *   const { updatesInfo, checkForUpdate, downloadAndRunUpdate } = useUpdates();
 + *
-+ *   const { currentlyRunning, updateAvailable } = updatesInfo;
++ *   const { currentlyRunning, availableUpdate } = updatesInfo;
 + *
 + *   // If true, we show the button to download and run the update
-+ *   const showDownloadButton = updateAvailable !== undefined;
++ *   const showDownloadButton = availableUpdate !== undefined;
 + *
 + *   // Show whether or not we are running embedded code or an update
 + *   const runTypeMessage = updatesInfo.currentlyRunning.isEmbeddedLaunch
@@ -391,43 +1138,45 @@ index 0000000..8561b13
 +    return {
 +        updatesInfo,
 +        checkForUpdate: () => {
-+            checkForUpdateAndReturnNewUpdatesInfoAsync(updatesInfo, providerEventHandler).then((result) => setUpdatesInfo(result));
++            checkForUpdateAndReturnAvailableAsync(providerEventHandler)
++                .then((availableUpdate) => setUpdatesInfo({
++                ...updatesInfo,
++                lastCheckForUpdateTime: new Date(),
++                availableUpdate,
++            }))
++                .catch((error) => setUpdatesInfo({ ...updatesInfo, lastCheckForUpdateTime: new Date(), error }));
 +        },
 +        downloadAndRunUpdate: () => {
-+            downloadAndRunUpdateAsync(providerEventHandler).then((error) => {
-+                if (error) {
-+                    setUpdatesInfo({
-+                        ...updatesInfo,
-+                        error,
-+                    });
-+                }
++            downloadAndRunUpdateAsync(providerEventHandler).catch((error) => {
++                setUpdatesInfo({
++                    ...updatesInfo,
++                    error,
++                });
 +            });
 +        },
 +        downloadUpdate: () => {
-+            downloadUpdateAsync(providerEventHandler).then((error) => {
-+                if (error) {
-+                    setUpdatesInfo({
-+                        ...updatesInfo,
-+                        error,
-+                    });
-+                }
++            downloadUpdateAsync(providerEventHandler).catch((error) => {
++                setUpdatesInfo({
++                    ...updatesInfo,
++                    error,
++                });
 +            });
 +        },
 +        runUpdate: () => {
-+            runUpdateAsync(providerEventHandler).then((error) => {
-+                if (error) {
-+                    setUpdatesInfo({
-+                        ...updatesInfo,
-+                        error,
-+                    });
-+                }
++            runUpdateAsync(providerEventHandler).catch((error) => {
++                setUpdatesInfo({
++                    ...updatesInfo,
++                    error,
++                });
 +            });
 +        },
 +        readLogEntries: (maxAge = 3600000) => {
-+            Updates.readLogEntriesAsync(maxAge).then((result) => setUpdatesInfo({
++            Updates.readLogEntriesAsync(maxAge)
++                .then((logEntries) => setUpdatesInfo({
 +                ...updatesInfo,
-+                logEntries: result,
-+            }));
++                logEntries,
++            }))
++                .catch((error) => setUpdatesInfo({ ...updatesInfo, error }));
 +        },
 +    };
 +};
@@ -436,26 +1185,33 @@ index 0000000..8561b13
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.js.map b/node_modules/expo-updates/build/UpdatesProvider.js.map
 new file mode 100644
-index 0000000..f7b1ffe
+index 0000000..634a958
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.js.map
 @@ -0,0 +1 @@
-+{"version":3,"file":"UpdatesProvider.js","sourceRoot":"","sources":["../src/UpdatesProvider.tsx"],"names":[],"mappings":"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","sourcesContent":["import React, { createContext, useContext, useState } from 'react';\n\nimport * as Updates from './Updates';\nimport { useUpdateEvents } from './UpdatesHooks';\nimport { currentlyRunning } from './UpdatesProvider.constants';\nimport type { UpdatesInfo, UpdatesProviderEvent } from './UpdatesProvider.types';\nimport {\n  checkForUpdateAndReturnNewUpdatesInfoAsync,\n  downloadUpdateAsync,\n  downloadAndRunUpdateAsync,\n  runUpdateAsync,\n  updatesInfoFromEvent,\n} from './UpdatesProvider.utils';\n\n// Context that includes getter and setter for the updates info\ntype UpdatesContextType = {\n  updatesInfo: UpdatesInfo;\n  setUpdatesInfo: (updates: UpdatesInfo) => void;\n};\n\n// The context provided to the app\nconst UpdatesContext: React.Context<UpdatesContextType> = createContext({\n  updatesInfo: {\n    currentlyRunning,\n  },\n  setUpdatesInfo: (_) => {},\n});\n\n///////////// Exported functions /////////////\n\n/**\n * Downloads and runs an update, if one is available.\n * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n */\nconst downloadAndRunUpdate = (providerEventHandler?: (event: UpdatesProviderEvent) => void) => {\n  throw new Error(\n    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'\n  );\n};\n\n/**\n * Downloads an update, if one is available, using `Updates.fetchUpdateAsync()`.\n * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n */\nconst downloadUpdate = () => {\n  throw new Error(\n    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'\n  );\n};\n\n/**\n * Runs an update by calling `Updates.reloadAsync()`. This should not be called unless there is an available update\n * that has already been successfully downloaded using [`downloadUpdate()`](#downloadupdate).\n * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n */\nconst runUpdate = () => {\n  throw new Error(\n    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'\n  );\n};\n\n/**\n * Calls `Updates.checkForUpdateAsync()` and uses the passed in setter\n * to refresh the [`UpdatesInfo`](#updatesinfo).\n * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n */\nconst checkForUpdate = () => {\n  throw new Error(\n    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'\n  );\n};\n\n/**\n * Calls `Updates.readLogEntriesAsync()` and sets the `logEntries` property in the [`UpdatesInfo`](#updatesinfo) structure to the results.\n * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n *\n * @param maxAge Sets the max age of retrieved log entries in milliseconds. Default to 3600000 ms (1 hour).\n */\nconst readLogEntries = (maxAge?: number) => {\n  throw new Error(\n    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'\n  );\n};\n\n/////// Provider and hook ///////////\n\n/**\n * Provides the Updates React context. Includes an [`UpdateEvent`](#updateevent) listener\n * that will set the context automatically, if automatic updates are enabled and a new\n * update is available. This is required if application code uses the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n * @param props Context will be provided to `props.children`\n * @returns the provider.\n * @example\n * ```jsx App.tsx\n * import * as Updates from 'expo-updates';\n *\n * const { UpdatesProvider } = Updates.Provider;\n *\n * import UpdatesDemo from './src/UpdatesDemo';\n *\n * export default function App() {\n *   return (\n *     <UpdatesProvider>\n *       <UpdatesDemo />\n *     </UpdatesProvider>\n *   );\n * }\n * ```\n */\nconst UpdatesProvider = (props: { children: any }) => {\n  const [updatesInfo, setUpdatesInfo] = useState({\n    currentlyRunning,\n  });\n  // Set up listener for events from automatic update requests\n  // that happen on startup, and use events to refresh the updates info\n  // context\n  useUpdateEvents((event) => {\n    setUpdatesInfo(updatesInfoFromEvent(event));\n  });\n  return (\n    <UpdatesContext.Provider value={{ updatesInfo, setUpdatesInfo }}>\n      {props.children}\n    </UpdatesContext.Provider>\n  );\n};\n\n/**\n * Hook that obtains the Updates info structure and functions.\n * Requires that application code be inside an [`UpdatesProvider`](#updatesproviderprops).\n * @param providerEventHandler Optional handler. If present, the handler will be called on\n * start, completion, and error in checkForUpdate, downloadUpdate, and downloadAndRunUpdate methods.\n * download starts, and again when download completes (successfully or not).\n * @returns the [`UpdatesInfo`](#updatesinfo) structure and associated methods. When using the provider,\n * the methods returned by this hook should be used instead of [`checkForUpdateAsync`](#updatescheckforupdateasync),\n * [`fetchUpdateAsync`](#updatesfetchupdateasync), [`readLogEntriesAsync`](#updatesreadlogentriesasync),\n * and [`reloadAsync`](#updatesreloadasync).\n * @example\n * ```jsx UpdatesDemo.tsx\n * import { StatusBar } from 'expo-status-bar';\n * import React from 'react';\n * import { Pressable, Text, View } from 'react-native';\n * import * as Updates from 'expo-updates';\n *\n * const { useUpdates } = Updates.Provider;\n *\n * export default function UpdatesDemo() {\n *   const { updatesInfo, checkForUpdate, downloadAndRunUpdate } = useUpdates();\n *\n *   const { currentlyRunning, updateAvailable } = updatesInfo;\n *\n *   // If true, we show the button to download and run the update\n *   const showDownloadButton = updateAvailable !== undefined;\n *\n *   // Show whether or not we are running embedded code or an update\n *   const runTypeMessage = updatesInfo.currentlyRunning.isEmbeddedLaunch\n *     ? 'This app is running from built-in code'\n *     : 'This app is running an update';\n *\n *   return (\n *     <View style={styles.container}>\n *       <Text style={styles.headerText}>Updates Demo</Text>\n *       <Text>{runTypeMessage}</Text>\n *       <Button pressHandler={checkForUpdate} text=\"Check manually for updates\" />\n *       {showDownloadButton ? (\n *         <Button pressHandler={downloadAndRunUpdate} text=\"Download and run update\" />\n *       ) : null}\n *       <StatusBar style=\"auto\" />\n *     </View>\n *   );\n * }\n */\nconst useUpdates = (providerEventHandler?: (event: UpdatesProviderEvent) => void) => {\n  // Get updates info value and setter from provider\n  const { updatesInfo, setUpdatesInfo } = useContext(UpdatesContext);\n\n  // Return the updates info and the user facing functions\n  return {\n    updatesInfo,\n    checkForUpdate: () => {\n      checkForUpdateAndReturnNewUpdatesInfoAsync(updatesInfo, providerEventHandler).then((result) =>\n        setUpdatesInfo(result)\n      );\n    },\n    downloadAndRunUpdate: () => {\n      downloadAndRunUpdateAsync(providerEventHandler).then((error) => {\n        if (error) {\n          setUpdatesInfo({\n            ...updatesInfo,\n            error,\n          });\n        }\n      });\n    },\n    downloadUpdate: () => {\n      downloadUpdateAsync(providerEventHandler).then((error) => {\n        if (error) {\n          setUpdatesInfo({\n            ...updatesInfo,\n            error,\n          });\n        }\n      });\n    },\n    runUpdate: () => {\n      runUpdateAsync(providerEventHandler).then((error) => {\n        if (error) {\n          setUpdatesInfo({\n            ...updatesInfo,\n            error,\n          });\n        }\n      });\n    },\n    readLogEntries: (maxAge: number = 3600000) => {\n      Updates.readLogEntriesAsync(maxAge).then((result) =>\n        setUpdatesInfo({\n          ...updatesInfo,\n          logEntries: result,\n        })\n      );\n    },\n  };\n};\n\nexport {\n  UpdatesProvider,\n  useUpdates,\n  checkForUpdate,\n  downloadUpdate,\n  downloadAndRunUpdate,\n  runUpdate,\n  readLogEntries,\n};\n"]}
++{"version":3,"file":"UpdatesProvider.js","sourceRoot":"","sources":["../src/UpdatesProvider.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,EAAE,aAAa,EAAE,UAAU,EAAE,QAAQ,EAAE,MAAM,OAAO,CAAC;AAEnE,OAAO,KAAK,OAAO,MAAM,WAAW,CAAC;AACrC,OAAO,EAAE,eAAe,EAAE,MAAM,gBAAgB,CAAC;AACjD,OAAO,EAAE,gBAAgB,EAAE,MAAM,6BAA6B,CAAC;AAE/D,OAAO,EACL,qCAAqC,EACrC,mBAAmB,EACnB,yBAAyB,EACzB,cAAc,EACd,oBAAoB,GACrB,MAAM,yBAAyB,CAAC;AAQjC,kCAAkC;AAClC,MAAM,cAAc,GAAsC,aAAa,CAAC;IACtE,WAAW,EAAE;QACX,gBAAgB;KACjB;IACD,cAAc,EAAE,CAAC,CAAC,EAAE,EAAE,GAAE,CAAC;CAC1B,CAAC,CAAC;AAEH,8CAA8C;AAE9C;;;GAGG;AACH,MAAM,oBAAoB,GAAG,GAAG,EAAE;IAChC,MAAM,IAAI,KAAK,CACb,uJAAuJ,CACxJ,CAAC;AACJ,CAAC,CAAC;AAEF;;;GAGG;AACH,MAAM,cAAc,GAAG,GAAG,EAAE;IAC1B,MAAM,IAAI,KAAK,CACb,uJAAuJ,CACxJ,CAAC;AACJ,CAAC,CAAC;AAEF;;;;GAIG;AACH,MAAM,SAAS,GAAG,GAAG,EAAE;IACrB,MAAM,IAAI,KAAK,CACb,uJAAuJ,CACxJ,CAAC;AACJ,CAAC,CAAC;AAEF;;;;GAIG;AACH,MAAM,cAAc,GAAG,GAAG,EAAE;IAC1B,MAAM,IAAI,KAAK,CACb,uJAAuJ,CACxJ,CAAC;AACJ,CAAC,CAAC;AAEF;;;;;GAKG;AACH,MAAM,cAAc,GAAG,CAAC,MAAe,EAAE,EAAE;IACzC,MAAM,IAAI,KAAK,CACb,uJAAuJ,CACxJ,CAAC;AACJ,CAAC,CAAC;AAEF,qCAAqC;AAErC;;;;;;;;;;;;;;;;;;;;;;GAsBG;AACH,MAAM,eAAe,GAAG,CAAC,KAAwB,EAAE,EAAE;IACnD,MAAM,CAAC,WAAW,EAAE,cAAc,CAAC,GAAG,QAAQ,CAAC;QAC7C,gBAAgB;KACjB,CAAC,CAAC;IACH,4DAA4D;IAC5D,qEAAqE;IACrE,UAAU;IACV,eAAe,CAAC,CAAC,KAAK,EAAE,EAAE;QACxB,cAAc,CAAC,oBAAoB,CAAC,KAAK,CAAC,CAAC,CAAC;IAC9C,CAAC,CAAC,CAAC;IACH,OAAO,CACL,oBAAC,cAAc,CAAC,QAAQ,IAAC,KAAK,EAAE,EAAE,WAAW,EAAE,cAAc,EAAE,IAC5D,KAAK,CAAC,QAAQ,CACS,CAC3B,CAAC;AACJ,CAAC,CAAC;AAEF;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;GA4CG;AACH,MAAM,UAAU,GAAG,CAAC,oBAA4D,EAAE,EAAE;IAClF,kDAAkD;IAClD,MAAM,EAAE,WAAW,EAAE,cAAc,EAAE,GAAG,UAAU,CAAC,cAAc,CAAC,CAAC;IAEnE,wDAAwD;IACxD,OAAO;QACL,WAAW;QACX,cAAc,EAAE,GAAG,EAAE;YACnB,qCAAqC,CAAC,oBAAoB,CAAC;iBACxD,IAAI,CAAC,CAAC,eAAe,EAAE,EAAE,CACxB,cAAc,CAAC;gBACb,GAAG,WAAW;gBACd,sBAAsB,EAAE,IAAI,IAAI,EAAE;gBAClC,eAAe;aAChB,CAAC,CACH;iBACA,KAAK,CAAC,CAAC,KAAK,EAAE,EAAE,CACf,cAAc,CAAC,EAAE,GAAG,WAAW,EAAE,sBAAsB,EAAE,IAAI,IAAI,EAAE,EAAE,KAAK,EAAE,CAAC,CAC9E,CAAC;QACN,CAAC;QACD,oBAAoB,EAAE,GAAG,EAAE;YACzB,yBAAyB,CAAC,oBAAoB,CAAC,CAAC,KAAK,CAAC,CAAC,KAAK,EAAE,EAAE;gBAC9D,cAAc,CAAC;oBACb,GAAG,WAAW;oBACd,KAAK;iBACN,CAAC,CAAC;YACL,CAAC,CAAC,CAAC;QACL,CAAC;QACD,cAAc,EAAE,GAAG,EAAE;YACnB,mBAAmB,CAAC,oBAAoB,CAAC,CAAC,KAAK,CAAC,CAAC,KAAK,EAAE,EAAE;gBACxD,cAAc,CAAC;oBACb,GAAG,WAAW;oBACd,KAAK;iBACN,CAAC,CAAC;YACL,CAAC,CAAC,CAAC;QACL,CAAC;QACD,SAAS,EAAE,GAAG,EAAE;YACd,cAAc,CAAC,oBAAoB,CAAC,CAAC,KAAK,CAAC,CAAC,KAAK,EAAE,EAAE;gBACnD,cAAc,CAAC;oBACb,GAAG,WAAW;oBACd,KAAK;iBACN,CAAC,CAAC;YACL,CAAC,CAAC,CAAC;QACL,CAAC;QACD,cAAc,EAAE,CAAC,SAAiB,OAAO,EAAE,EAAE;YAC3C,OAAO,CAAC,mBAAmB,CAAC,MAAM,CAAC;iBAChC,IAAI,CAAC,CAAC,UAAU,EAAE,EAAE,CACnB,cAAc,CAAC;gBACb,GAAG,WAAW;gBACd,UAAU;aACX,CAAC,CACH;iBACA,KAAK,CAAC,CAAC,KAAK,EAAE,EAAE,CAAC,cAAc,CAAC,EAAE,GAAG,WAAW,EAAE,KAAK,EAAE,CAAC,CAAC,CAAC;QACjE,CAAC;KACF,CAAC;AACJ,CAAC,CAAC;AAEF,OAAO,EACL,eAAe,EACf,UAAU,EACV,cAAc,EACd,cAAc,EACd,oBAAoB,EACpB,SAAS,EACT,cAAc,GACf,CAAC","sourcesContent":["import React, { createContext, useContext, useState } from 'react';\n\nimport * as Updates from './Updates';\nimport { useUpdateEvents } from './UpdatesHooks';\nimport { currentlyRunning } from './UpdatesProvider.constants';\nimport type { UpdatesInfo, UpdatesProviderEvent } from './UpdatesProvider.types';\nimport {\n  checkForUpdateAndReturnAvailableAsync,\n  downloadUpdateAsync,\n  downloadAndRunUpdateAsync,\n  runUpdateAsync,\n  updatesInfoFromEvent,\n} from './UpdatesProvider.utils';\n\n// Context that includes getter and setter for the updates info\ntype UpdatesContextType = {\n  updatesInfo: UpdatesInfo;\n  setUpdatesInfo: (updates: UpdatesInfo) => void;\n};\n\n// The context provided to the app\nconst UpdatesContext: React.Context<UpdatesContextType> = createContext({\n  updatesInfo: {\n    currentlyRunning,\n  },\n  setUpdatesInfo: (_) => {},\n});\n\n///////////// Exported functions /////////////\n\n/**\n * Downloads and runs an update, if one is available.\n * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n */\nconst downloadAndRunUpdate = () => {\n  throw new Error(\n    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'\n  );\n};\n\n/**\n * Downloads an update, if one is available, using `Updates.fetchUpdateAsync()`.\n * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n */\nconst downloadUpdate = () => {\n  throw new Error(\n    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'\n  );\n};\n\n/**\n * Runs an update by calling `Updates.reloadAsync()`. This should not be called unless there is an available update\n * that has already been successfully downloaded using [`downloadUpdate()`](#downloadupdate).\n * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n */\nconst runUpdate = () => {\n  throw new Error(\n    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'\n  );\n};\n\n/**\n * Calls `Updates.checkForUpdateAsync()` and uses the passed in setter\n * to refresh the [`UpdatesInfo`](#updatesinfo).\n * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n */\nconst checkForUpdate = () => {\n  throw new Error(\n    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'\n  );\n};\n\n/**\n * Calls `Updates.readLogEntriesAsync()` and sets the `logEntries` property in the [`UpdatesInfo`](#updatesinfo) structure to the results.\n * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n *\n * @param maxAge Sets the max age of retrieved log entries in milliseconds. Default to 3600000 ms (1 hour).\n */\nconst readLogEntries = (maxAge?: number) => {\n  throw new Error(\n    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'\n  );\n};\n\n/////// Provider and hook ///////////\n\n/**\n * Provides the Updates React context. Includes an [`UpdateEvent`](#updateevent) listener\n * that will set the context automatically, if automatic updates are enabled and a new\n * update is available. This is required if application code uses the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n * @param props Context will be provided to `props.children`\n * @returns the provider.\n * @example\n * ```jsx App.tsx\n * import * as Updates from 'expo-updates';\n *\n * const { UpdatesProvider } = Updates.Provider;\n *\n * import UpdatesDemo from './src/UpdatesDemo';\n *\n * export default function App() {\n *   return (\n *     <UpdatesProvider>\n *       <UpdatesDemo />\n *     </UpdatesProvider>\n *   );\n * }\n * ```\n */\nconst UpdatesProvider = (props: { children: any }) => {\n  const [updatesInfo, setUpdatesInfo] = useState({\n    currentlyRunning,\n  });\n  // Set up listener for events from automatic update requests\n  // that happen on startup, and use events to refresh the updates info\n  // context\n  useUpdateEvents((event) => {\n    setUpdatesInfo(updatesInfoFromEvent(event));\n  });\n  return (\n    <UpdatesContext.Provider value={{ updatesInfo, setUpdatesInfo }}>\n      {props.children}\n    </UpdatesContext.Provider>\n  );\n};\n\n/**\n * Hook that obtains the Updates info structure and functions.\n * Requires that application code be inside an [`UpdatesProvider`](#updatesproviderprops).\n * @param providerEventHandler Optional handler. If present, the handler will be called on\n * start, completion, and error in checkForUpdate, downloadUpdate, and downloadAndRunUpdate methods.\n * download starts, and again when download completes (successfully or not).\n * @returns the [`UpdatesInfo`](#updatesinfo) structure and associated methods. When using the provider,\n * the methods returned by this hook should be used instead of [`checkForUpdateAsync`](#updatescheckforupdateasync),\n * [`fetchUpdateAsync`](#updatesfetchupdateasync), [`readLogEntriesAsync`](#updatesreadlogentriesasync),\n * and [`reloadAsync`](#updatesreloadasync).\n * @example\n * ```jsx UpdatesDemo.tsx\n * import { StatusBar } from 'expo-status-bar';\n * import React from 'react';\n * import { Pressable, Text, View } from 'react-native';\n * import * as Updates from 'expo-updates';\n *\n * const { useUpdates } = Updates.Provider;\n *\n * export default function UpdatesDemo() {\n *   const { updatesInfo, checkForUpdate, downloadAndRunUpdate } = useUpdates();\n *\n *   const { currentlyRunning, availableUpdate } = updatesInfo;\n *\n *   // If true, we show the button to download and run the update\n *   const showDownloadButton = availableUpdate !== undefined;\n *\n *   // Show whether or not we are running embedded code or an update\n *   const runTypeMessage = updatesInfo.currentlyRunning.isEmbeddedLaunch\n *     ? 'This app is running from built-in code'\n *     : 'This app is running an update';\n *\n *   return (\n *     <View style={styles.container}>\n *       <Text style={styles.headerText}>Updates Demo</Text>\n *       <Text>{runTypeMessage}</Text>\n *       <Button pressHandler={checkForUpdate} text=\"Check manually for updates\" />\n *       {showDownloadButton ? (\n *         <Button pressHandler={downloadAndRunUpdate} text=\"Download and run update\" />\n *       ) : null}\n *       <StatusBar style=\"auto\" />\n *     </View>\n *   );\n * }\n */\nconst useUpdates = (providerEventHandler?: (event: UpdatesProviderEvent) => void) => {\n  // Get updates info value and setter from provider\n  const { updatesInfo, setUpdatesInfo } = useContext(UpdatesContext);\n\n  // Return the updates info and the user facing functions\n  return {\n    updatesInfo,\n    checkForUpdate: () => {\n      checkForUpdateAndReturnAvailableAsync(providerEventHandler)\n        .then((availableUpdate) =>\n          setUpdatesInfo({\n            ...updatesInfo,\n            lastCheckForUpdateTime: new Date(),\n            availableUpdate,\n          })\n        )\n        .catch((error) =>\n          setUpdatesInfo({ ...updatesInfo, lastCheckForUpdateTime: new Date(), error })\n        );\n    },\n    downloadAndRunUpdate: () => {\n      downloadAndRunUpdateAsync(providerEventHandler).catch((error) => {\n        setUpdatesInfo({\n          ...updatesInfo,\n          error,\n        });\n      });\n    },\n    downloadUpdate: () => {\n      downloadUpdateAsync(providerEventHandler).catch((error) => {\n        setUpdatesInfo({\n          ...updatesInfo,\n          error,\n        });\n      });\n    },\n    runUpdate: () => {\n      runUpdateAsync(providerEventHandler).catch((error) => {\n        setUpdatesInfo({\n          ...updatesInfo,\n          error,\n        });\n      });\n    },\n    readLogEntries: (maxAge: number = 3600000) => {\n      Updates.readLogEntriesAsync(maxAge)\n        .then((logEntries) =>\n          setUpdatesInfo({\n            ...updatesInfo,\n            logEntries,\n          })\n        )\n        .catch((error) => setUpdatesInfo({ ...updatesInfo, error }));\n    },\n  };\n};\n\nexport {\n  UpdatesProvider,\n  useUpdates,\n  checkForUpdate,\n  downloadUpdate,\n  downloadAndRunUpdate,\n  runUpdate,\n  readLogEntries,\n};\n"]}
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.types.d.ts b/node_modules/expo-updates/build/UpdatesProvider.types.d.ts
 new file mode 100644
-index 0000000..673a029
+index 0000000..0ab64db
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.types.d.ts
-@@ -0,0 +1,109 @@
+@@ -0,0 +1,120 @@
 +import type { Manifest, UpdatesLogEntry } from './Updates.types';
 +import type { UpdatesProviderEventType } from './UpdatesProvider.constants';
 +/**
-+ * An event emitted by Updates.Provider methods [`checkForUpdate()`](#checkforupdate), [`downloadUpdate()`](#downloadupdate),
-+ * or [`downloadAndRunUpdate()`](#downloadandrunupdate)
++ * An event passed into the optional `providerEventHandler` parameter of [`useUpdates()`](#useupdatesprovidereventhandler).
++ * Updates.Provider methods [`checkForUpdate()`](#checkforupdate), [`downloadUpdate()`](#downloadupdate),
++ * or [`downloadAndRunUpdate()`](#downloadandrunupdate), all make calls to the event handler.
 + */
 +export type UpdatesProviderEvent = {
++    /**
++     * One of the possible provider event types.
++     */
 +    type: UpdatesProviderEventType;
++    /**
++     * For event types associated with errors, this will contain the error object that caused the event.
++     */
 +    error?: Error;
 +};
 +/**
@@ -511,6 +1267,10 @@ index 0000000..673a029
 +     */
 +    runtimeVersion: string | null;
 +};
++/**
++ * Structure representing an available update that has been returned by a call to [`checkForUpdate()`](#checkforupdate)
++ * or an [`UpdateEvent`](#updateevent) emitted by native code.
++ */
 +export type AvailableUpdateInfo = {
 +    /**
 +     * The UUID that uniquely identifies thls update. The
@@ -528,7 +1288,7 @@ index 0000000..673a029
 +    manifest: Partial<Manifest>;
 +};
 +/**
-+ * Combined updates info structure provided by UpdatesProvider.
++ * Combined updates info structure provided by [`UpdatesProvider`](#updatesprovider).
 + */
 +export type UpdatesInfo = {
 +    /**
@@ -537,7 +1297,7 @@ index 0000000..673a029
 +    currentlyRunning: CurrentlyRunningInfo;
 +    /**
 +     * If a new available update has been found, either by using checkForUpdate(),
-+     * or by the [`UpdateEvent`](#updateevent) listener in [`useUpdates`](#useupdates),
++     * or by the [`UpdateEvent`](#updateevent) listener in [`useUpdates`](#useupdatesprovidereventhandler),
 +     * this will contain the information for that update.
 +     */
 +    availableUpdate?: AvailableUpdateInfo;
@@ -552,7 +1312,7 @@ index 0000000..673a029
 +     */
 +    lastCheckForUpdateTime?: Date;
 +    /**
-+     * If present, contains expo-updates log entries returned by the `getLogEntries()` method (see [`useUpdates()`](#useupdates).)
++     * If present, contains expo-updates log entries returned by the `getLogEntries()` method (see [`useUpdates()`](#useupdatesprovidereventhandler).)
 +     */
 +    logEntries?: UpdatesLogEntry[];
 +};
@@ -560,11 +1320,11 @@ index 0000000..673a029
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.types.d.ts.map b/node_modules/expo-updates/build/UpdatesProvider.types.d.ts.map
 new file mode 100644
-index 0000000..1e561e6
+index 0000000..843e5df
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.types.d.ts.map
 @@ -0,0 +1 @@
-+{"version":3,"file":"UpdatesProvider.types.d.ts","sourceRoot":"","sources":["../src/UpdatesProvider.types.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,QAAQ,EAAE,eAAe,EAAE,MAAM,iBAAiB,CAAC;AACjE,OAAO,KAAK,EAAE,wBAAwB,EAAE,MAAM,6BAA6B,CAAC;AAE5E;;;GAGG;AACH,MAAM,MAAM,oBAAoB,GAAG;IACjC,IAAI,EAAE,wBAAwB,CAAC;IAC/B,KAAK,CAAC,EAAE,KAAK,CAAC;CACf,CAAC;AAEF;;;GAGG;AACH,MAAM,MAAM,oBAAoB,GAAG;IACjC;;;;;OAKG;IACH,QAAQ,EAAE,MAAM,GAAG,IAAI,CAAC;IACxB;;OAEG;IACH,OAAO,EAAE,MAAM,GAAG,IAAI,CAAC;IACvB;;;;;;OAMG;IACH,SAAS,EAAE,IAAI,GAAG,IAAI,CAAC;IACvB;;;OAGG;IACH,gBAAgB,EAAE,OAAO,CAAC;IAC1B;;;;;;;;OAQG;IACH,iBAAiB,EAAE,OAAO,CAAC;IAC3B;;;;;;;OAOG;IACH,QAAQ,EAAE,OAAO,CAAC,QAAQ,CAAC,CAAC;IAC5B;;OAEG;IACH,cAAc,EAAE,MAAM,GAAG,IAAI,CAAC;CAC/B,CAAC;AAEF,MAAM,MAAM,mBAAmB,GAAG;IAChC;;;;OAIG;IACH,QAAQ,EAAE,MAAM,GAAG,IAAI,CAAC;IACxB;;OAEG;IACH,SAAS,EAAE,IAAI,GAAG,IAAI,CAAC;IACvB;;OAEG;IACH,QAAQ,EAAE,OAAO,CAAC,QAAQ,CAAC,CAAC;CAC7B,CAAC;AACF;;GAEG;AACH,MAAM,MAAM,WAAW,GAAG;IACxB;;OAEG;IACH,gBAAgB,EAAE,oBAAoB,CAAC;IACvC;;;;OAIG;IACH,eAAe,CAAC,EAAE,mBAAmB,CAAC;IACtC;;;OAGG;IACH,KAAK,CAAC,EAAE,KAAK,CAAC;IACd;;;OAGG;IACH,sBAAsB,CAAC,EAAE,IAAI,CAAC;IAC9B;;OAEG;IACH,UAAU,CAAC,EAAE,eAAe,EAAE,CAAC;CAChC,CAAC"}
++{"version":3,"file":"UpdatesProvider.types.d.ts","sourceRoot":"","sources":["../src/UpdatesProvider.types.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,QAAQ,EAAE,eAAe,EAAE,MAAM,iBAAiB,CAAC;AACjE,OAAO,KAAK,EAAE,wBAAwB,EAAE,MAAM,6BAA6B,CAAC;AAE5E;;;;GAIG;AACH,MAAM,MAAM,oBAAoB,GAAG;IACjC;;OAEG;IACH,IAAI,EAAE,wBAAwB,CAAC;IAC/B;;OAEG;IACH,KAAK,CAAC,EAAE,KAAK,CAAC;CACf,CAAC;AAEF;;;GAGG;AACH,MAAM,MAAM,oBAAoB,GAAG;IACjC;;;;;OAKG;IACH,QAAQ,EAAE,MAAM,GAAG,IAAI,CAAC;IACxB;;OAEG;IACH,OAAO,EAAE,MAAM,GAAG,IAAI,CAAC;IACvB;;;;;;OAMG;IACH,SAAS,EAAE,IAAI,GAAG,IAAI,CAAC;IACvB;;;OAGG;IACH,gBAAgB,EAAE,OAAO,CAAC;IAC1B;;;;;;;;OAQG;IACH,iBAAiB,EAAE,OAAO,CAAC;IAC3B;;;;;;;OAOG;IACH,QAAQ,EAAE,OAAO,CAAC,QAAQ,CAAC,CAAC;IAC5B;;OAEG;IACH,cAAc,EAAE,MAAM,GAAG,IAAI,CAAC;CAC/B,CAAC;AAEF;;;GAGG;AACH,MAAM,MAAM,mBAAmB,GAAG;IAChC;;;;OAIG;IACH,QAAQ,EAAE,MAAM,GAAG,IAAI,CAAC;IACxB;;OAEG;IACH,SAAS,EAAE,IAAI,GAAG,IAAI,CAAC;IACvB;;OAEG;IACH,QAAQ,EAAE,OAAO,CAAC,QAAQ,CAAC,CAAC;CAC7B,CAAC;AAEF;;GAEG;AACH,MAAM,MAAM,WAAW,GAAG;IACxB;;OAEG;IACH,gBAAgB,EAAE,oBAAoB,CAAC;IACvC;;;;OAIG;IACH,eAAe,CAAC,EAAE,mBAAmB,CAAC;IACtC;;;OAGG;IACH,KAAK,CAAC,EAAE,KAAK,CAAC;IACd;;;OAGG;IACH,sBAAsB,CAAC,EAAE,IAAI,CAAC;IAC9B;;OAEG;IACH,UAAU,CAAC,EAAE,eAAe,EAAE,CAAC;CAChC,CAAC"}
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.types.js b/node_modules/expo-updates/build/UpdatesProvider.types.js
 new file mode 100644
@@ -577,56 +1337,49 @@ index 0000000..70fa59e
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.types.js.map b/node_modules/expo-updates/build/UpdatesProvider.types.js.map
 new file mode 100644
-index 0000000..ae17faf
+index 0000000..f177a86
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.types.js.map
 @@ -0,0 +1 @@
-+{"version":3,"file":"UpdatesProvider.types.js","sourceRoot":"","sources":["../src/UpdatesProvider.types.ts"],"names":[],"mappings":"","sourcesContent":["import type { Manifest, UpdatesLogEntry } from './Updates.types';\nimport type { UpdatesProviderEventType } from './UpdatesProvider.constants';\n\n/**\n * An event emitted by Updates.Provider methods [`checkForUpdate()`](#checkforupdate), [`downloadUpdate()`](#downloadupdate),\n * or [`downloadAndRunUpdate()`](#downloadandrunupdate)\n */\nexport type UpdatesProviderEvent = {\n  type: UpdatesProviderEventType;\n  error?: Error;\n};\n\n/**\n * Structure encapsulating information on the currently running app\n * (either the embedded bundle or a downloaded update).\n */\nexport type CurrentlyRunningInfo = {\n  /**\n   * The UUID that uniquely identifies the currently running update if `expo-updates` is enabled. The\n   * UUID is represented in its canonical string form (`xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`) and\n   * will always use lowercase letters. In development mode, or any other environment in which\n   * `expo-updates` is disabled, this value is `null`.\n   */\n  updateId: string | null;\n  /**\n   * The channel name of the current build, if configured for use with EAS Update. Null otherwise.\n   */\n  channel: string | null;\n  /**\n   * If `expo-updates` is enabled, this is a `Date` object representing the creation time of the update\n   * that's currently running (whether it was embedded or downloaded at runtime).\n   *\n   * In development mode, or any other environment in which `expo-updates` is disabled, this value is\n   * null.\n   */\n  createdAt: Date | null;\n  /**\n   * This will be true if the currently running update is the one embedded in the build,\n   * and not one downloaded from the updates server.\n   */\n  isEmbeddedLaunch: boolean;\n  /**\n   * `expo-updates` does its very best to always launch monotonically newer versions of your app so\n   * you don't need to worry about backwards compatibility when you put out an update. In very rare\n   * cases, it's possible that `expo-updates` may need to fall back to the update that's embedded in\n   * the app binary, even after newer updates have been downloaded and run (an \"emergency launch\").\n   * This boolean will be `true` if the app is launching under this fallback mechanism and `false`\n   * otherwise. If you are concerned about backwards compatibility of future updates to your app, you\n   * can use this constant to provide special behavior for this rare case.\n   */\n  isEmergencyLaunch: boolean;\n  /**\n   * If `expo-updates` is enabled, this is the\n   * [manifest](/workflow/expo-go#manifest) object for the update that's currently\n   * running.\n   *\n   * In development mode, or any other environment in which `expo-updates` is disabled, this object is\n   * empty.\n   */\n  manifest: Partial<Manifest>;\n  /**\n   * The runtime version of the current build.\n   */\n  runtimeVersion: string | null;\n};\n\nexport type AvailableUpdateInfo = {\n  /**\n   * The UUID that uniquely identifies thls update. The\n   * UUID is represented in its canonical string form (`xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`) and\n   * will always use lowercase letters.\n   */\n  updateId: string | null;\n  /**\n   * A `Date` object representing the creation time of this update.\n   */\n  createdAt: Date | null;\n  /**\n   * The manifest for this update.\n   */\n  manifest: Partial<Manifest>;\n};\n/**\n * Combined updates info structure provided by UpdatesProvider.\n */\nexport type UpdatesInfo = {\n  /**\n   * Information on the currently running app\n   */\n  currentlyRunning: CurrentlyRunningInfo;\n  /**\n   * If a new available update has been found, either by using checkForUpdate(),\n   * or by the [`UpdateEvent`](#updateevent) listener in [`useUpdates`](#useupdates),\n   * this will contain the information for that update.\n   */\n  availableUpdate?: AvailableUpdateInfo;\n  /**\n   * If an error is returned by any of the APIs to check for, download, or launch updates,\n   * the error description will appear here.\n   */\n  error?: Error;\n  /**\n   * A `Date` object representing the last time this client checked for an available update,\n   * or undefined if no check has yet occurred since the app started.\n   */\n  lastCheckForUpdateTime?: Date;\n  /**\n   * If present, contains expo-updates log entries returned by the `getLogEntries()` method (see [`useUpdates()`](#useupdates).)\n   */\n  logEntries?: UpdatesLogEntry[];\n};\n"]}
++{"version":3,"file":"UpdatesProvider.types.js","sourceRoot":"","sources":["../src/UpdatesProvider.types.ts"],"names":[],"mappings":"","sourcesContent":["import type { Manifest, UpdatesLogEntry } from './Updates.types';\nimport type { UpdatesProviderEventType } from './UpdatesProvider.constants';\n\n/**\n * An event passed into the optional `providerEventHandler` parameter of [`useUpdates()`](#useupdatesprovidereventhandler).\n * Updates.Provider methods [`checkForUpdate()`](#checkforupdate), [`downloadUpdate()`](#downloadupdate),\n * or [`downloadAndRunUpdate()`](#downloadandrunupdate), all make calls to the event handler.\n */\nexport type UpdatesProviderEvent = {\n  /**\n   * One of the possible provider event types.\n   */\n  type: UpdatesProviderEventType;\n  /**\n   * For event types associated with errors, this will contain the error object that caused the event.\n   */\n  error?: Error;\n};\n\n/**\n * Structure encapsulating information on the currently running app\n * (either the embedded bundle or a downloaded update).\n */\nexport type CurrentlyRunningInfo = {\n  /**\n   * The UUID that uniquely identifies the currently running update if `expo-updates` is enabled. The\n   * UUID is represented in its canonical string form (`xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`) and\n   * will always use lowercase letters. In development mode, or any other environment in which\n   * `expo-updates` is disabled, this value is `null`.\n   */\n  updateId: string | null;\n  /**\n   * The channel name of the current build, if configured for use with EAS Update. Null otherwise.\n   */\n  channel: string | null;\n  /**\n   * If `expo-updates` is enabled, this is a `Date` object representing the creation time of the update\n   * that's currently running (whether it was embedded or downloaded at runtime).\n   *\n   * In development mode, or any other environment in which `expo-updates` is disabled, this value is\n   * null.\n   */\n  createdAt: Date | null;\n  /**\n   * This will be true if the currently running update is the one embedded in the build,\n   * and not one downloaded from the updates server.\n   */\n  isEmbeddedLaunch: boolean;\n  /**\n   * `expo-updates` does its very best to always launch monotonically newer versions of your app so\n   * you don't need to worry about backwards compatibility when you put out an update. In very rare\n   * cases, it's possible that `expo-updates` may need to fall back to the update that's embedded in\n   * the app binary, even after newer updates have been downloaded and run (an \"emergency launch\").\n   * This boolean will be `true` if the app is launching under this fallback mechanism and `false`\n   * otherwise. If you are concerned about backwards compatibility of future updates to your app, you\n   * can use this constant to provide special behavior for this rare case.\n   */\n  isEmergencyLaunch: boolean;\n  /**\n   * If `expo-updates` is enabled, this is the\n   * [manifest](/workflow/expo-go#manifest) object for the update that's currently\n   * running.\n   *\n   * In development mode, or any other environment in which `expo-updates` is disabled, this object is\n   * empty.\n   */\n  manifest: Partial<Manifest>;\n  /**\n   * The runtime version of the current build.\n   */\n  runtimeVersion: string | null;\n};\n\n/**\n * Structure representing an available update that has been returned by a call to [`checkForUpdate()`](#checkforupdate)\n * or an [`UpdateEvent`](#updateevent) emitted by native code.\n */\nexport type AvailableUpdateInfo = {\n  /**\n   * The UUID that uniquely identifies thls update. The\n   * UUID is represented in its canonical string form (`xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`) and\n   * will always use lowercase letters.\n   */\n  updateId: string | null;\n  /**\n   * A `Date` object representing the creation time of this update.\n   */\n  createdAt: Date | null;\n  /**\n   * The manifest for this update.\n   */\n  manifest: Partial<Manifest>;\n};\n\n/**\n * Combined updates info structure provided by [`UpdatesProvider`](#updatesprovider).\n */\nexport type UpdatesInfo = {\n  /**\n   * Information on the currently running app\n   */\n  currentlyRunning: CurrentlyRunningInfo;\n  /**\n   * If a new available update has been found, either by using checkForUpdate(),\n   * or by the [`UpdateEvent`](#updateevent) listener in [`useUpdates`](#useupdatesprovidereventhandler),\n   * this will contain the information for that update.\n   */\n  availableUpdate?: AvailableUpdateInfo;\n  /**\n   * If an error is returned by any of the APIs to check for, download, or launch updates,\n   * the error description will appear here.\n   */\n  error?: Error;\n  /**\n   * A `Date` object representing the last time this client checked for an available update,\n   * or undefined if no check has yet occurred since the app started.\n   */\n  lastCheckForUpdateTime?: Date;\n  /**\n   * If present, contains expo-updates log entries returned by the `getLogEntries()` method (see [`useUpdates()`](#useupdatesprovidereventhandler).)\n   */\n  logEntries?: UpdatesLogEntry[];\n};\n"]}
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.utils.d.ts b/node_modules/expo-updates/build/UpdatesProvider.utils.d.ts
 new file mode 100644
-index 0000000..4e6b152
+index 0000000..b12d0e3
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.utils.d.ts
-@@ -0,0 +1,14 @@
+@@ -0,0 +1,13 @@
 +import type { Manifest, UpdateEvent } from './Updates.types';
-+import type { UpdatesInfo, UpdatesProviderEvent } from './UpdatesProvider.types';
-+export declare const delay: (timeout: number) => Promise<unknown>;
++import type { AvailableUpdateInfo, UpdatesInfo, UpdatesProviderEvent } from './UpdatesProvider.types';
 +export declare const availableUpdateFromManifest: (manifest: Partial<Manifest> | undefined) => {
 +    updateId: string | null;
 +    createdAt: Date | null;
 +    manifest: Partial<import("expo-constants/build/Constants.types").AppManifest> | Partial<import("expo-constants/build/Constants.types").Manifest>;
 +} | undefined;
 +export declare const updatesInfoFromEvent: (event: UpdateEvent) => UpdatesInfo;
-+export declare const checkForUpdateAndReturnNewUpdatesInfoAsync: (updatesInfo: UpdatesInfo, providerEventHandler?: (event: UpdatesProviderEvent) => void) => Promise<UpdatesInfo>;
-+export declare const downloadUpdateAsync: (providerEventHandler?: ((event: UpdatesProviderEvent) => void) | undefined) => Promise<any>;
-+export declare const runUpdateAsync: (providerEventHandler?: ((event: UpdatesProviderEvent) => void) | undefined) => Promise<any>;
-+export declare const downloadAndRunUpdateAsync: (providerEventHandler?: ((event: UpdatesProviderEvent) => void) | undefined) => Promise<any>;
++export declare const checkForUpdateAndReturnAvailableAsync: (providerEventHandler?: (event: UpdatesProviderEvent) => void) => Promise<AvailableUpdateInfo | undefined>;
++export declare const downloadUpdateAsync: (providerEventHandler?: ((event: UpdatesProviderEvent) => void) | undefined) => Promise<void>;
++export declare const runUpdateAsync: (providerEventHandler?: ((event: UpdatesProviderEvent) => void) | undefined) => Promise<void>;
++export declare const downloadAndRunUpdateAsync: (providerEventHandler?: ((event: UpdatesProviderEvent) => void) | undefined) => Promise<void>;
 +//# sourceMappingURL=UpdatesProvider.utils.d.ts.map
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.utils.d.ts.map b/node_modules/expo-updates/build/UpdatesProvider.utils.d.ts.map
 new file mode 100644
-index 0000000..e58237a
+index 0000000..093de2d
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.utils.d.ts.map
 @@ -0,0 +1 @@
-+{"version":3,"file":"UpdatesProvider.utils.d.ts","sourceRoot":"","sources":["../src/UpdatesProvider.utils.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,QAAQ,EAAE,WAAW,EAAE,MAAM,iBAAiB,CAAC;AAE7D,OAAO,KAAK,EAAE,WAAW,EAAE,oBAAoB,EAAE,MAAM,yBAAyB,CAAC;AAKjF,eAAO,MAAM,KAAK,YAAa,MAAM,qBAIpC,CAAC;AAGF,eAAO,MAAM,2BAA2B,aAAc,QAAQ,QAAQ,CAAC,GAAG,SAAS;;;;aAQlF,CAAC;AAGF,eAAO,MAAM,oBAAoB,UAAW,WAAW,KAAG,WAqBzD,CAAC;AAGF,eAAO,MAAM,0CAA0C,EAAE,CACvD,WAAW,EAAE,WAAW,EACxB,oBAAoB,CAAC,EAAE,CAAC,KAAK,EAAE,oBAAoB,KAAK,IAAI,KACzD,OAAO,CAAC,WAAW,CA2BvB,CAAC;AAGF,eAAO,MAAM,mBAAmB,mCACC,oBAAoB,KAAK,IAAI,8BAa7D,CAAC;AAGF,eAAO,MAAM,cAAc,mCACM,oBAAoB,KAAK,IAAI,8BAW7D,CAAC;AAGF,eAAO,MAAM,yBAAyB,mCACL,oBAAoB,KAAK,IAAI,8BAO7D,CAAC"}
++{"version":3,"file":"UpdatesProvider.utils.d.ts","sourceRoot":"","sources":["../src/UpdatesProvider.utils.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,QAAQ,EAAE,WAAW,EAAE,MAAM,iBAAiB,CAAC;AAE7D,OAAO,KAAK,EACV,mBAAmB,EACnB,WAAW,EACX,oBAAoB,EACrB,MAAM,yBAAyB,CAAC;AAKjC,eAAO,MAAM,2BAA2B,aAAc,QAAQ,QAAQ,CAAC,GAAG,SAAS;;;;aAQlF,CAAC;AAGF,eAAO,MAAM,oBAAoB,UAAW,WAAW,KAAG,WAqBzD,CAAC;AAGF,eAAO,MAAM,qCAAqC,EAAE,CAClD,oBAAoB,CAAC,EAAE,CAAC,KAAK,EAAE,oBAAoB,KAAK,IAAI,KACzD,OAAO,CAAC,mBAAmB,GAAG,SAAS,CAe3C,CAAC;AAGF,eAAO,MAAM,mBAAmB,mCACC,oBAAoB,KAAK,IAAI,+BAY7D,CAAC;AAGF,eAAO,MAAM,cAAc,mCACM,oBAAoB,KAAK,IAAI,+BAU7D,CAAC;AAGF,eAAO,MAAM,yBAAyB,mCACL,oBAAoB,KAAK,IAAI,+BAI7D,CAAC"}
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.utils.js b/node_modules/expo-updates/build/UpdatesProvider.utils.js
 new file mode 100644
-index 0000000..6b5f748
+index 0000000..7f5a7b4
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.utils.js
-@@ -0,0 +1,112 @@
+@@ -0,0 +1,89 @@
 +import * as Updates from './Updates';
 +import { UpdatesProviderEventType, currentlyRunning } from './UpdatesProvider.constants';
 +/////// Internal functions ////////
-+// Promise wrapper for setTimeout()
-+export const delay = (timeout) => {
-+    return new Promise((resolve) => {
-+        setTimeout(resolve, timeout);
-+    });
-+};
 +// Constructs the availableUpdate from the update manifest
 +export const availableUpdateFromManifest = (manifest) => {
 +    return manifest
@@ -663,34 +1416,22 @@ index 0000000..6b5f748
 +    }
 +};
 +// Implementation of checkForUpdate
-+export const checkForUpdateAndReturnNewUpdatesInfoAsync = async (updatesInfo, providerEventHandler) => {
++export const checkForUpdateAndReturnAvailableAsync = async (providerEventHandler) => {
 +    try {
 +        providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_START });
 +        const checkResult = await Updates.checkForUpdateAsync();
 +        providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_COMPLETE });
-+        const lastCheckForUpdateTime = new Date();
 +        if (checkResult.isAvailable) {
-+            return {
-+                ...updatesInfo,
-+                availableUpdate: availableUpdateFromManifest(checkResult.manifest),
-+                lastCheckForUpdateTime,
-+            };
++            return availableUpdateFromManifest(checkResult.manifest);
 +        }
 +        else {
-+            return {
-+                ...updatesInfo,
-+                lastCheckForUpdateTime,
-+            };
++            return undefined;
 +        }
 +    }
 +    catch (error) {
-+        const lastCheckForUpdateTime = new Date();
-+        providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_ERROR });
-+        return {
-+            ...updatesInfo,
-+            lastCheckForUpdateTime,
-+            error,
-+        };
++        providerEventHandler &&
++            providerEventHandler({ type: UpdatesProviderEventType.CHECK_ERROR, error });
++        throw error;
 +    }
 +};
 +// Implementation of downloadUpdate
@@ -700,12 +1441,11 @@ index 0000000..6b5f748
 +        await Updates.fetchUpdateAsync();
 +        providerEventHandler &&
 +            providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_COMPLETE });
-+        return null;
 +    }
 +    catch (error) {
 +        providerEventHandler &&
 +            providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_ERROR, error });
-+        return error;
++        throw error;
 +    }
 +};
 +// Implementation of runUpdate
@@ -713,31 +1453,27 @@ index 0000000..6b5f748
 +    try {
 +        providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.RUN_START });
 +        await Updates.reloadAsync();
-+        return null;
 +    }
 +    catch (error) {
 +        providerEventHandler &&
 +            providerEventHandler({ type: UpdatesProviderEventType.RUN_ERROR, error });
-+        return error;
++        throw error;
 +    }
 +};
 +// Implementation of downloadAndRunUpdate
 +export const downloadAndRunUpdateAsync = async (providerEventHandler) => {
-+    const error = await downloadUpdateAsync(providerEventHandler);
-+    if (error) {
-+        return error;
-+    }
-+    return await runUpdateAsync(providerEventHandler);
++    await downloadUpdateAsync(providerEventHandler);
++    await runUpdateAsync(providerEventHandler);
 +};
 +//# sourceMappingURL=UpdatesProvider.utils.js.map
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/UpdatesProvider.utils.js.map b/node_modules/expo-updates/build/UpdatesProvider.utils.js.map
 new file mode 100644
-index 0000000..0f9e26e
+index 0000000..e4ffa01
 --- /dev/null
 +++ b/node_modules/expo-updates/build/UpdatesProvider.utils.js.map
 @@ -0,0 +1 @@
-+{"version":3,"file":"UpdatesProvider.utils.js","sourceRoot":"","sources":["../src/UpdatesProvider.utils.ts"],"names":[],"mappings":"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","sourcesContent":["import * as Updates from './Updates';\nimport type { Manifest, UpdateEvent } from './Updates.types';\nimport { UpdatesProviderEventType, currentlyRunning } from './UpdatesProvider.constants';\nimport type { UpdatesInfo, UpdatesProviderEvent } from './UpdatesProvider.types';\n\n/////// Internal functions ////////\n\n// Promise wrapper for setTimeout()\nexport const delay = (timeout: number) => {\n  return new Promise((resolve) => {\n    setTimeout(resolve, timeout);\n  });\n};\n\n// Constructs the availableUpdate from the update manifest\nexport const availableUpdateFromManifest = (manifest: Partial<Manifest> | undefined) => {\n  return manifest\n    ? {\n        updateId: manifest?.id ? manifest?.id : null,\n        createdAt: manifest?.createdAt ? new Date(manifest?.createdAt) : null,\n        manifest,\n      }\n    : undefined;\n};\n\n// Constructs the UpdatesInfo from an event\nexport const updatesInfoFromEvent = (event: UpdateEvent): UpdatesInfo => {\n  const lastCheckForUpdateTime = new Date();\n  if (event.type === Updates.UpdateEventType.NO_UPDATE_AVAILABLE) {\n    return {\n      currentlyRunning,\n      lastCheckForUpdateTime,\n    };\n  } else if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {\n    return {\n      currentlyRunning,\n      availableUpdate: availableUpdateFromManifest(event.manifest),\n      lastCheckForUpdateTime,\n    };\n  } else {\n    // event type === ERROR\n    return {\n      currentlyRunning,\n      error: new Error(event.message),\n      lastCheckForUpdateTime,\n    };\n  }\n};\n\n// Implementation of checkForUpdate\nexport const checkForUpdateAndReturnNewUpdatesInfoAsync: (\n  updatesInfo: UpdatesInfo,\n  providerEventHandler?: (event: UpdatesProviderEvent) => void\n) => Promise<UpdatesInfo> = async (updatesInfo, providerEventHandler) => {\n  try {\n    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_START });\n    const checkResult = await Updates.checkForUpdateAsync();\n    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_COMPLETE });\n    const lastCheckForUpdateTime = new Date();\n    if (checkResult.isAvailable) {\n      return {\n        ...updatesInfo,\n        availableUpdate: availableUpdateFromManifest(checkResult.manifest),\n        lastCheckForUpdateTime,\n      };\n    } else {\n      return {\n        ...updatesInfo,\n        lastCheckForUpdateTime,\n      };\n    }\n  } catch (error: any) {\n    const lastCheckForUpdateTime = new Date();\n    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_ERROR });\n    return {\n      ...updatesInfo,\n      lastCheckForUpdateTime,\n      error,\n    };\n  }\n};\n\n// Implementation of downloadUpdate\nexport const downloadUpdateAsync = async (\n  providerEventHandler?: (event: UpdatesProviderEvent) => void\n) => {\n  try {\n    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_START });\n    await Updates.fetchUpdateAsync();\n    providerEventHandler &&\n      providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_COMPLETE });\n    return null;\n  } catch (error: any) {\n    providerEventHandler &&\n      providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_ERROR, error });\n    return error;\n  }\n};\n\n// Implementation of runUpdate\nexport const runUpdateAsync = async (\n  providerEventHandler?: (event: UpdatesProviderEvent) => void\n) => {\n  try {\n    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.RUN_START });\n    await Updates.reloadAsync();\n    return null;\n  } catch (error: any) {\n    providerEventHandler &&\n      providerEventHandler({ type: UpdatesProviderEventType.RUN_ERROR, error });\n    return error;\n  }\n};\n\n// Implementation of downloadAndRunUpdate\nexport const downloadAndRunUpdateAsync = async (\n  providerEventHandler?: (event: UpdatesProviderEvent) => void\n) => {\n  const error = await downloadUpdateAsync(providerEventHandler);\n  if (error) {\n    return error;\n  }\n  return await runUpdateAsync(providerEventHandler);\n};\n"]}
++{"version":3,"file":"UpdatesProvider.utils.js","sourceRoot":"","sources":["../src/UpdatesProvider.utils.ts"],"names":[],"mappings":"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","sourcesContent":["import * as Updates from './Updates';\nimport type { Manifest, UpdateEvent } from './Updates.types';\nimport { UpdatesProviderEventType, currentlyRunning } from './UpdatesProvider.constants';\nimport type {\n  AvailableUpdateInfo,\n  UpdatesInfo,\n  UpdatesProviderEvent,\n} from './UpdatesProvider.types';\n\n/////// Internal functions ////////\n\n// Constructs the availableUpdate from the update manifest\nexport const availableUpdateFromManifest = (manifest: Partial<Manifest> | undefined) => {\n  return manifest\n    ? {\n        updateId: manifest?.id ? manifest?.id : null,\n        createdAt: manifest?.createdAt ? new Date(manifest?.createdAt) : null,\n        manifest,\n      }\n    : undefined;\n};\n\n// Constructs the UpdatesInfo from an event\nexport const updatesInfoFromEvent = (event: UpdateEvent): UpdatesInfo => {\n  const lastCheckForUpdateTime = new Date();\n  if (event.type === Updates.UpdateEventType.NO_UPDATE_AVAILABLE) {\n    return {\n      currentlyRunning,\n      lastCheckForUpdateTime,\n    };\n  } else if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {\n    return {\n      currentlyRunning,\n      availableUpdate: availableUpdateFromManifest(event.manifest),\n      lastCheckForUpdateTime,\n    };\n  } else {\n    // event type === ERROR\n    return {\n      currentlyRunning,\n      error: new Error(event.message),\n      lastCheckForUpdateTime,\n    };\n  }\n};\n\n// Implementation of checkForUpdate\nexport const checkForUpdateAndReturnAvailableAsync: (\n  providerEventHandler?: (event: UpdatesProviderEvent) => void\n) => Promise<AvailableUpdateInfo | undefined> = async (providerEventHandler) => {\n  try {\n    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_START });\n    const checkResult = await Updates.checkForUpdateAsync();\n    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_COMPLETE });\n    if (checkResult.isAvailable) {\n      return availableUpdateFromManifest(checkResult.manifest);\n    } else {\n      return undefined;\n    }\n  } catch (error: any) {\n    providerEventHandler &&\n      providerEventHandler({ type: UpdatesProviderEventType.CHECK_ERROR, error });\n    throw error;\n  }\n};\n\n// Implementation of downloadUpdate\nexport const downloadUpdateAsync = async (\n  providerEventHandler?: (event: UpdatesProviderEvent) => void\n) => {\n  try {\n    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_START });\n    await Updates.fetchUpdateAsync();\n    providerEventHandler &&\n      providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_COMPLETE });\n  } catch (error: any) {\n    providerEventHandler &&\n      providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_ERROR, error });\n    throw error;\n  }\n};\n\n// Implementation of runUpdate\nexport const runUpdateAsync = async (\n  providerEventHandler?: (event: UpdatesProviderEvent) => void\n) => {\n  try {\n    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.RUN_START });\n    await Updates.reloadAsync();\n  } catch (error: any) {\n    providerEventHandler &&\n      providerEventHandler({ type: UpdatesProviderEventType.RUN_ERROR, error });\n    throw error;\n  }\n};\n\n// Implementation of downloadAndRunUpdate\nexport const downloadAndRunUpdateAsync = async (\n  providerEventHandler?: (event: UpdatesProviderEvent) => void\n) => {\n  await downloadUpdateAsync(providerEventHandler);\n  await runUpdateAsync(providerEventHandler);\n};\n"]}
 \ No newline at end of file
 diff --git a/node_modules/expo-updates/build/index.d.ts b/node_modules/expo-updates/build/index.d.ts
 index b67bbd5..0975eb6 100644
@@ -820,10 +1556,10 @@ index 3c9a535..2ac1933 100644
    } else {
 diff --git a/node_modules/expo-updates/src/UpdatesProvider.constants.ts b/node_modules/expo-updates/src/UpdatesProvider.constants.ts
 new file mode 100644
-index 0000000..3c237c8
+index 0000000..d4626fa
 --- /dev/null
 +++ b/node_modules/expo-updates/src/UpdatesProvider.constants.ts
-@@ -0,0 +1,52 @@
+@@ -0,0 +1,53 @@
 +import * as Updates from './Updates';
 +import type { CurrentlyRunningInfo } from './UpdatesProvider.types';
 +/////// Constants and enums  ////////
@@ -840,7 +1576,8 @@ index 0000000..3c237c8
 +};
 +
 +/**
-+ * Enumeration of the different possible event types emitted by Updates provider methods
++ * Enumeration of the different possible event types passed into calls to the optional
++ * `providerEventHandler` of [`useUpdates()`](#useupdatesprovidereventhandler).
 + */
 +export enum UpdatesProviderEventType {
 +  /**
@@ -878,10 +1615,10 @@ index 0000000..3c237c8
 +}
 diff --git a/node_modules/expo-updates/src/UpdatesProvider.tsx b/node_modules/expo-updates/src/UpdatesProvider.tsx
 new file mode 100644
-index 0000000..919d409
+index 0000000..d85db42
 --- /dev/null
 +++ b/node_modules/expo-updates/src/UpdatesProvider.tsx
-@@ -0,0 +1,233 @@
+@@ -0,0 +1,237 @@
 +import React, { createContext, useContext, useState } from 'react';
 +
 +import * as Updates from './Updates';
@@ -889,7 +1626,7 @@ index 0000000..919d409
 +import { currentlyRunning } from './UpdatesProvider.constants';
 +import type { UpdatesInfo, UpdatesProviderEvent } from './UpdatesProvider.types';
 +import {
-+  checkForUpdateAndReturnNewUpdatesInfoAsync,
++  checkForUpdateAndReturnAvailableAsync,
 +  downloadUpdateAsync,
 +  downloadAndRunUpdateAsync,
 +  runUpdateAsync,
@@ -916,7 +1653,7 @@ index 0000000..919d409
 + * Downloads and runs an update, if one is available.
 + * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
 + */
-+const downloadAndRunUpdate = (providerEventHandler?: (event: UpdatesProviderEvent) => void) => {
++const downloadAndRunUpdate = () => {
 +  throw new Error(
 +    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'
 +  );
@@ -1030,10 +1767,10 @@ index 0000000..919d409
 + * export default function UpdatesDemo() {
 + *   const { updatesInfo, checkForUpdate, downloadAndRunUpdate } = useUpdates();
 + *
-+ *   const { currentlyRunning, updateAvailable } = updatesInfo;
++ *   const { currentlyRunning, availableUpdate } = updatesInfo;
 + *
 + *   // If true, we show the button to download and run the update
-+ *   const showDownloadButton = updateAvailable !== undefined;
++ *   const showDownloadButton = availableUpdate !== undefined;
 + *
 + *   // Show whether or not we are running embedded code or an update
 + *   const runTypeMessage = updatesInfo.currentlyRunning.isEmbeddedLaunch
@@ -1061,47 +1798,51 @@ index 0000000..919d409
 +  return {
 +    updatesInfo,
 +    checkForUpdate: () => {
-+      checkForUpdateAndReturnNewUpdatesInfoAsync(updatesInfo, providerEventHandler).then((result) =>
-+        setUpdatesInfo(result)
-+      );
-+    },
-+    downloadAndRunUpdate: () => {
-+      downloadAndRunUpdateAsync(providerEventHandler).then((error) => {
-+        if (error) {
++      checkForUpdateAndReturnAvailableAsync(providerEventHandler)
++        .then((availableUpdate) =>
 +          setUpdatesInfo({
 +            ...updatesInfo,
-+            error,
-+          });
-+        }
++            lastCheckForUpdateTime: new Date(),
++            availableUpdate,
++          })
++        )
++        .catch((error) =>
++          setUpdatesInfo({ ...updatesInfo, lastCheckForUpdateTime: new Date(), error })
++        );
++    },
++    downloadAndRunUpdate: () => {
++      downloadAndRunUpdateAsync(providerEventHandler).catch((error) => {
++        setUpdatesInfo({
++          ...updatesInfo,
++          error,
++        });
 +      });
 +    },
 +    downloadUpdate: () => {
-+      downloadUpdateAsync(providerEventHandler).then((error) => {
-+        if (error) {
-+          setUpdatesInfo({
-+            ...updatesInfo,
-+            error,
-+          });
-+        }
++      downloadUpdateAsync(providerEventHandler).catch((error) => {
++        setUpdatesInfo({
++          ...updatesInfo,
++          error,
++        });
 +      });
 +    },
 +    runUpdate: () => {
-+      runUpdateAsync(providerEventHandler).then((error) => {
-+        if (error) {
-+          setUpdatesInfo({
-+            ...updatesInfo,
-+            error,
-+          });
-+        }
++      runUpdateAsync(providerEventHandler).catch((error) => {
++        setUpdatesInfo({
++          ...updatesInfo,
++          error,
++        });
 +      });
 +    },
 +    readLogEntries: (maxAge: number = 3600000) => {
-+      Updates.readLogEntriesAsync(maxAge).then((result) =>
-+        setUpdatesInfo({
-+          ...updatesInfo,
-+          logEntries: result,
-+        })
-+      );
++      Updates.readLogEntriesAsync(maxAge)
++        .then((logEntries) =>
++          setUpdatesInfo({
++            ...updatesInfo,
++            logEntries,
++          })
++        )
++        .catch((error) => setUpdatesInfo({ ...updatesInfo, error }));
 +    },
 +  };
 +};
@@ -1117,19 +1858,26 @@ index 0000000..919d409
 +};
 diff --git a/node_modules/expo-updates/src/UpdatesProvider.types.ts b/node_modules/expo-updates/src/UpdatesProvider.types.ts
 new file mode 100644
-index 0000000..058f89e
+index 0000000..81f555c
 --- /dev/null
 +++ b/node_modules/expo-updates/src/UpdatesProvider.types.ts
-@@ -0,0 +1,111 @@
+@@ -0,0 +1,123 @@
 +import type { Manifest, UpdatesLogEntry } from './Updates.types';
 +import type { UpdatesProviderEventType } from './UpdatesProvider.constants';
 +
 +/**
-+ * An event emitted by Updates.Provider methods [`checkForUpdate()`](#checkforupdate), [`downloadUpdate()`](#downloadupdate),
-+ * or [`downloadAndRunUpdate()`](#downloadandrunupdate)
++ * An event passed into the optional `providerEventHandler` parameter of [`useUpdates()`](#useupdatesprovidereventhandler).
++ * Updates.Provider methods [`checkForUpdate()`](#checkforupdate), [`downloadUpdate()`](#downloadupdate),
++ * or [`downloadAndRunUpdate()`](#downloadandrunupdate), all make calls to the event handler.
 + */
 +export type UpdatesProviderEvent = {
++  /**
++   * One of the possible provider event types.
++   */
 +  type: UpdatesProviderEventType;
++  /**
++   * For event types associated with errors, this will contain the error object that caused the event.
++   */
 +  error?: Error;
 +};
 +
@@ -1187,6 +1935,10 @@ index 0000000..058f89e
 +  runtimeVersion: string | null;
 +};
 +
++/**
++ * Structure representing an available update that has been returned by a call to [`checkForUpdate()`](#checkforupdate)
++ * or an [`UpdateEvent`](#updateevent) emitted by native code.
++ */
 +export type AvailableUpdateInfo = {
 +  /**
 +   * The UUID that uniquely identifies thls update. The
@@ -1203,8 +1955,9 @@ index 0000000..058f89e
 +   */
 +  manifest: Partial<Manifest>;
 +};
++
 +/**
-+ * Combined updates info structure provided by UpdatesProvider.
++ * Combined updates info structure provided by [`UpdatesProvider`](#updatesprovider).
 + */
 +export type UpdatesInfo = {
 +  /**
@@ -1213,7 +1966,7 @@ index 0000000..058f89e
 +  currentlyRunning: CurrentlyRunningInfo;
 +  /**
 +   * If a new available update has been found, either by using checkForUpdate(),
-+   * or by the [`UpdateEvent`](#updateevent) listener in [`useUpdates`](#useupdates),
++   * or by the [`UpdateEvent`](#updateevent) listener in [`useUpdates`](#useupdatesprovidereventhandler),
 +   * this will contain the information for that update.
 +   */
 +  availableUpdate?: AvailableUpdateInfo;
@@ -1228,29 +1981,26 @@ index 0000000..058f89e
 +   */
 +  lastCheckForUpdateTime?: Date;
 +  /**
-+   * If present, contains expo-updates log entries returned by the `getLogEntries()` method (see [`useUpdates()`](#useupdates).)
++   * If present, contains expo-updates log entries returned by the `getLogEntries()` method (see [`useUpdates()`](#useupdatesprovidereventhandler).)
 +   */
 +  logEntries?: UpdatesLogEntry[];
 +};
 diff --git a/node_modules/expo-updates/src/UpdatesProvider.utils.ts b/node_modules/expo-updates/src/UpdatesProvider.utils.ts
 new file mode 100644
-index 0000000..601272e
+index 0000000..79c58ee
 --- /dev/null
 +++ b/node_modules/expo-updates/src/UpdatesProvider.utils.ts
-@@ -0,0 +1,124 @@
+@@ -0,0 +1,103 @@
 +import * as Updates from './Updates';
 +import type { Manifest, UpdateEvent } from './Updates.types';
 +import { UpdatesProviderEventType, currentlyRunning } from './UpdatesProvider.constants';
-+import type { UpdatesInfo, UpdatesProviderEvent } from './UpdatesProvider.types';
++import type {
++  AvailableUpdateInfo,
++  UpdatesInfo,
++  UpdatesProviderEvent,
++} from './UpdatesProvider.types';
 +
 +/////// Internal functions ////////
-+
-+// Promise wrapper for setTimeout()
-+export const delay = (timeout: number) => {
-+  return new Promise((resolve) => {
-+    setTimeout(resolve, timeout);
-+  });
-+};
 +
 +// Constructs the availableUpdate from the update manifest
 +export const availableUpdateFromManifest = (manifest: Partial<Manifest> | undefined) => {
@@ -1288,35 +2038,22 @@ index 0000000..601272e
 +};
 +
 +// Implementation of checkForUpdate
-+export const checkForUpdateAndReturnNewUpdatesInfoAsync: (
-+  updatesInfo: UpdatesInfo,
++export const checkForUpdateAndReturnAvailableAsync: (
 +  providerEventHandler?: (event: UpdatesProviderEvent) => void
-+) => Promise<UpdatesInfo> = async (updatesInfo, providerEventHandler) => {
++) => Promise<AvailableUpdateInfo | undefined> = async (providerEventHandler) => {
 +  try {
 +    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_START });
 +    const checkResult = await Updates.checkForUpdateAsync();
 +    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_COMPLETE });
-+    const lastCheckForUpdateTime = new Date();
 +    if (checkResult.isAvailable) {
-+      return {
-+        ...updatesInfo,
-+        availableUpdate: availableUpdateFromManifest(checkResult.manifest),
-+        lastCheckForUpdateTime,
-+      };
++      return availableUpdateFromManifest(checkResult.manifest);
 +    } else {
-+      return {
-+        ...updatesInfo,
-+        lastCheckForUpdateTime,
-+      };
++      return undefined;
 +    }
 +  } catch (error: any) {
-+    const lastCheckForUpdateTime = new Date();
-+    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_ERROR });
-+    return {
-+      ...updatesInfo,
-+      lastCheckForUpdateTime,
-+      error,
-+    };
++    providerEventHandler &&
++      providerEventHandler({ type: UpdatesProviderEventType.CHECK_ERROR, error });
++    throw error;
 +  }
 +};
 +
@@ -1329,11 +2066,10 @@ index 0000000..601272e
 +    await Updates.fetchUpdateAsync();
 +    providerEventHandler &&
 +      providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_COMPLETE });
-+    return null;
 +  } catch (error: any) {
 +    providerEventHandler &&
 +      providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_ERROR, error });
-+    return error;
++    throw error;
 +  }
 +};
 +
@@ -1344,11 +2080,10 @@ index 0000000..601272e
 +  try {
 +    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.RUN_START });
 +    await Updates.reloadAsync();
-+    return null;
 +  } catch (error: any) {
 +    providerEventHandler &&
 +      providerEventHandler({ type: UpdatesProviderEventType.RUN_ERROR, error });
-+    return error;
++    throw error;
 +  }
 +};
 +
@@ -1356,18 +2091,15 @@ index 0000000..601272e
 +export const downloadAndRunUpdateAsync = async (
 +  providerEventHandler?: (event: UpdatesProviderEvent) => void
 +) => {
-+  const error = await downloadUpdateAsync(providerEventHandler);
-+  if (error) {
-+    return error;
-+  }
-+  return await runUpdateAsync(providerEventHandler);
++  await downloadUpdateAsync(providerEventHandler);
++  await runUpdateAsync(providerEventHandler);
 +};
 diff --git a/node_modules/expo-updates/src/__tests__/UpdatesProvider-test.ios.tsx b/node_modules/expo-updates/src/__tests__/UpdatesProvider-test.ios.tsx
 new file mode 100644
-index 0000000..5c9d647
+index 0000000..6483f84
 --- /dev/null
 +++ b/node_modules/expo-updates/src/__tests__/UpdatesProvider-test.ios.tsx
-@@ -0,0 +1,213 @@
+@@ -0,0 +1,340 @@
 +import { act, fireEvent, render, screen } from '@testing-library/react-native';
 +import '@testing-library/jest-native/extend-expect';
 +import React from 'react';
@@ -1375,7 +2107,14 @@ index 0000000..5c9d647
 +import * as Updates from '..';
 +import type { Manifest, UpdateEvent } from '..';
 +import ExpoUpdates from '../ExpoUpdates';
-+import { availableUpdateFromManifest, delay, updatesInfoFromEvent } from '../UpdatesProvider.utils';
++import {
++  checkForUpdate,
++  downloadUpdate,
++  downloadAndRunUpdate,
++  runUpdate,
++  readLogEntries,
++} from '../UpdatesProvider';
++import { availableUpdateFromManifest, updatesInfoFromEvent } from '../UpdatesProvider.utils';
 +import { UpdatesProviderTestApp } from './UpdatesProviderTestApp';
 +
 +const { UpdatesLogEntryCode, UpdatesLogEntryLevel, UpdateEventType } = Updates;
@@ -1433,17 +2172,80 @@ index 0000000..5c9d647
 +        manifest: mockManifest,
 +      });
 +      const buttonView = await screen.findByTestId('checkForUpdate');
-+      act(() => {
++      await act(async () => {
 +        fireEvent(buttonView, 'press');
 +      });
++      const lastCheckForUpdateTime = new Date();
 +      const updateIdView = await screen.findByTestId('availableUpdate_updateId');
 +      expect(updateIdView).toHaveTextContent('0000-2222');
++      const lastCheckForUpdateTimeView = await screen.findByTestId('lastCheckForUpdateTime');
++      expect(lastCheckForUpdateTimeView).toHaveTextContent(
++        // truncate the fractional part of the seconds value in the time
++        lastCheckForUpdateTime.toISOString().substring(0, 19)
++      );
 +      expect(providerEventHandler).toHaveBeenCalledTimes(2);
 +      expect(providerEventHandler).toHaveBeenCalledWith({
 +        type: Updates.UpdatesProviderEventType.CHECK_START,
 +      });
 +      expect(providerEventHandler).toHaveBeenCalledWith({
 +        type: Updates.UpdatesProviderEventType.CHECK_COMPLETE,
++      });
++    });
++
++    it('App with provider shows no available update after running checkForUpdate()', async () => {
++      const providerEventHandler = jest.fn();
++      render(
++        <UpdatesProvider>
++          <UpdatesProviderTestApp providerEventHandler={providerEventHandler} />
++        </UpdatesProvider>
++      );
++      ExpoUpdates.checkForUpdateAsync.mockReturnValueOnce({
++        isAvailable: false,
++      });
++      const buttonView = await screen.findByTestId('checkForUpdate');
++      await act(async () => {
++        fireEvent(buttonView, 'press');
++      });
++      const updateIdView = await screen.findByTestId('availableUpdate_updateId');
++      // No update so text is empty
++      expect(updateIdView).toHaveTextContent('');
++      const lastCheckForUpdateTime = new Date();
++      const lastCheckForUpdateTimeView = await screen.findByTestId('lastCheckForUpdateTime');
++      expect(lastCheckForUpdateTimeView).toHaveTextContent(
++        // truncate the fractional part of the seconds value in the time
++        lastCheckForUpdateTime.toISOString().substring(0, 19)
++      );
++      expect(providerEventHandler).toHaveBeenCalledTimes(2);
++      expect(providerEventHandler).toHaveBeenCalledWith({
++        type: Updates.UpdatesProviderEventType.CHECK_START,
++      });
++      expect(providerEventHandler).toHaveBeenCalledWith({
++        type: Updates.UpdatesProviderEventType.CHECK_COMPLETE,
++      });
++    });
++
++    it('App with provider handles error in checkForUpdate()', async () => {
++      const providerEventHandler = jest.fn();
++      render(
++        <UpdatesProvider>
++          <UpdatesProviderTestApp providerEventHandler={providerEventHandler} />
++        </UpdatesProvider>
++      );
++      const mockError = { code: 'ERR_TEST', message: 'test message' };
++      ExpoUpdates.checkForUpdateAsync.mockRejectedValueOnce(mockError);
++      const buttonView = await screen.findByTestId('checkForUpdate');
++      await act(async () => {
++        fireEvent(buttonView, 'press');
++      });
++      const errorView = await screen.findByTestId('error');
++      expect(errorView).toHaveTextContent('{"code":"ERR_TEST","message":"test message"}');
++      expect(providerEventHandler).toHaveBeenCalledTimes(2);
++      expect(providerEventHandler).toHaveBeenCalledWith({
++        type: Updates.UpdatesProviderEventType.CHECK_START,
++      });
++      expect(providerEventHandler).toHaveBeenCalledWith({
++        type: Updates.UpdatesProviderEventType.CHECK_ERROR,
++        error: mockError,
 +      });
 +    });
 +
@@ -1459,16 +2261,40 @@ index 0000000..5c9d647
 +        manifestString: '{"name": "test"}',
 +      });
 +      const buttonView = await screen.findByTestId('downloadUpdate');
-+      act(() => {
++      await act(async () => {
 +        fireEvent(buttonView, 'press');
 +      });
-+      await delay(1000);
 +      expect(providerEventHandler).toHaveBeenCalledTimes(2);
 +      expect(providerEventHandler).toHaveBeenCalledWith({
 +        type: Updates.UpdatesProviderEventType.DOWNLOAD_START,
 +      });
 +      expect(providerEventHandler).toHaveBeenCalledWith({
 +        type: Updates.UpdatesProviderEventType.DOWNLOAD_COMPLETE,
++      });
++    });
++
++    it('App with provider handles error during downloadUpdate()', async () => {
++      const providerEventHandler = jest.fn();
++      render(
++        <UpdatesProvider>
++          <UpdatesProviderTestApp providerEventHandler={providerEventHandler} />
++        </UpdatesProvider>
++      );
++      const mockError = { code: 'ERR_TEST', message: 'test message' };
++      ExpoUpdates.fetchUpdateAsync.mockRejectedValueOnce(mockError);
++      const buttonView = await screen.findByTestId('downloadUpdate');
++      await act(async () => {
++        fireEvent(buttonView, 'press');
++      });
++      const errorView = await screen.findByTestId('error');
++      expect(errorView).toHaveTextContent('{"code":"ERR_TEST","message":"test message"}');
++      expect(providerEventHandler).toHaveBeenCalledTimes(2);
++      expect(providerEventHandler).toHaveBeenCalledWith({
++        type: Updates.UpdatesProviderEventType.DOWNLOAD_START,
++      });
++      expect(providerEventHandler).toHaveBeenCalledWith({
++        type: Updates.UpdatesProviderEventType.DOWNLOAD_ERROR,
++        error: mockError,
 +      });
 +    });
 +
@@ -1485,10 +2311,9 @@ index 0000000..5c9d647
 +      });
 +      ExpoUpdates.reload.mockReturnValueOnce('');
 +      const buttonView = await screen.findByTestId('downloadAndRunUpdate');
-+      act(() => {
++      await act(async () => {
 +        fireEvent(buttonView, 'press');
 +      });
-+      await delay(1000);
 +      expect(providerEventHandler).toHaveBeenCalledTimes(3);
 +      expect(providerEventHandler).toHaveBeenCalledWith({
 +        type: Updates.UpdatesProviderEventType.DOWNLOAD_START,
@@ -1516,7 +2341,7 @@ index 0000000..5c9d647
 +        </UpdatesProvider>
 +      );
 +      const buttonView = await screen.findByTestId('readLogEntries');
-+      act(() => {
++      await act(async () => {
 +        fireEvent(buttonView, 'press');
 +      });
 +      const logEntryView = await screen.findByTestId('logEntry');
@@ -1580,13 +2405,47 @@ index 0000000..5c9d647
 +      expect(updatesInfo.error?.message).toEqual('It broke');
 +    });
 +  });
++
++  describe('Directly imported methods should throw', () => {
++    const testThatMethodThrows = (testMethod: () => void) => {
++      let mockError = null;
++      const method = () => {
++        try {
++          testMethod();
++        } catch (error) {
++          mockError = error;
++        }
++      };
++      method();
++      expect(mockError).not.toBeNull();
++    };
++    it('checkForUpdate', () => {
++      testThatMethodThrows(checkForUpdate);
++    });
++
++    it('downloadUpdate', () => {
++      testThatMethodThrows(downloadUpdate);
++    });
++
++    it('downloadAndRunUpdate', () => {
++      testThatMethodThrows(downloadAndRunUpdate);
++    });
++
++    it('runUpdate', () => {
++      testThatMethodThrows(runUpdate);
++    });
++
++    it('readLogEntries', () => {
++      testThatMethodThrows(readLogEntries);
++    });
++  });
 +});
 diff --git a/node_modules/expo-updates/src/__tests__/UpdatesProviderTestApp.tsx b/node_modules/expo-updates/src/__tests__/UpdatesProviderTestApp.tsx
 new file mode 100644
-index 0000000..4e7ea58
+index 0000000..17d3427
 --- /dev/null
 +++ b/node_modules/expo-updates/src/__tests__/UpdatesProviderTestApp.tsx
-@@ -0,0 +1,42 @@
+@@ -0,0 +1,44 @@
 +import React from 'react';
 +import { View, Text, Pressable } from 'react-native';
 +
@@ -1599,7 +2458,6 @@ index 0000000..4e7ea58
 +}) => {
 +  const { updatesInfo, checkForUpdate, downloadUpdate, downloadAndRunUpdate, readLogEntries } =
 +    useUpdates(props.providerEventHandler);
-+  const updateAvailable: boolean = updatesInfo.availableUpdate !== undefined;
 +  return (
 +    <View>
 +      {/* Currently running info */}
@@ -1610,17 +2468,20 @@ index 0000000..4e7ea58
 +          ? updatesInfo.currentlyRunning?.createdAt.toISOString()
 +          : ''}
 +      </Text>
++      {/* Last time there was a check for update */}
++      <Text testID="lastCheckForUpdateTime">
++        {updatesInfo?.lastCheckForUpdateTime?.toISOString().substring(0, 19) || ''}
++      </Text>
 +      {/* Available update, if one is present */}
-+      {updateAvailable ? (
-+        <Text testID="availableUpdate_updateId">{updatesInfo.availableUpdate?.updateId || ''}</Text>
-+      ) : null}
++      <Text testID="availableUpdate_updateId">{updatesInfo.availableUpdate?.updateId || ''}</Text>
 +      {/* Log entries, if they have been read */}
 +      {(updatesInfo.logEntries?.length || 0) > 0 ? (
 +        <Text testID="logEntry">
 +          {JSON.stringify(updatesInfo?.logEntries ? updatesInfo?.logEntries[0].message : '') || ''}
 +        </Text>
 +      ) : null}
-+      {/* Show}
++      {/* Error, if one has occurred */}
++      {updatesInfo?.error ? <Text testID="error">{JSON.stringify(updatesInfo?.error)}</Text> : null}
 +      {/* Buttons for test code to invoke methods */}
 +      <Pressable testID="checkForUpdate" onPress={() => checkForUpdate()} />
 +      <Pressable testID="downloadUpdate" onPress={() => downloadUpdate()} />
