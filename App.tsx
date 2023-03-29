@@ -1,5 +1,7 @@
 import React from 'react';
-import { UpdatesProvider } from './expo-updates-provider';
+import * as Updates from 'expo-updates';
+
+const { UpdatesProvider } = Updates.Provider;
 
 import UpdatesDemo from './src/UpdatesDemo';
 

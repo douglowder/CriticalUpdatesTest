@@ -1,6 +1,5 @@
 import * as ExpoSettings from 'expo-settings';
-import type { CurrentlyRunningInfo, AvailableUpdateInfo } from '../expo-updates-provider';
-import { extraPropertiesFromManifest } from '../expo-updates-provider';
+import type { CurrentlyRunningInfo, AvailableUpdateInfo } from 'expo-updates';
 
 const cacheTimeoutKey = 'EX_UPDATES_LAUNCH_WAIT_MS';
 
@@ -28,7 +27,8 @@ const infoBoxText = (
     '\n' +
     availableUpdateDescription(availableUpdate) +
     '\n' +
-    `Last check for update: ${lastCheckForUpdateTime}\n`
+    `Last check for update: ${lastCheckForUpdateTime}\n` +
+    `Error: ${JSON.stringify(error)}\n`
   );
 };
 
@@ -64,11 +64,11 @@ const availableUpdateDescription = (availableUpdate: AvailableUpdateInfo | undef
 };
 
 const manifestMessage = (manifest: any) => {
-  return extraPropertiesFromManifest(manifest).message || '';
+  return manifest?.extra?.expoClient?.extra?.message || '';
 };
 
 const isManifestCritical = (manifest: any) => {
-  return extraPropertiesFromManifest(manifest).critical || false;
+  return manifest?.extra?.expoClient?.extra?.critical || false;
 };
 
 // Promise wrapper for setTimeout()

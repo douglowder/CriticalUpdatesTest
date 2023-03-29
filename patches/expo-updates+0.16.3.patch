@@ -1,3 +1,787 @@
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.constants.d.ts b/node_modules/expo-updates/build/UpdatesProvider.constants.d.ts
+new file mode 100644
+index 0000000..f2425dc
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.constants.d.ts
+@@ -0,0 +1,40 @@
++import type { CurrentlyRunningInfo } from './UpdatesProvider.types';
++export declare const currentlyRunning: CurrentlyRunningInfo;
++/**
++ * Enumeration of the different possible event types emitted by Updates provider methods
++ */
++export declare enum UpdatesProviderEventType {
++    /**
++     * Type of event emitted when `checkForUpdate()` starts.
++     */
++    CHECK_START = "check_start",
++    /**
++     * Type of event emitted when `checkForUpdate()` completes successfully.
++     */
++    CHECK_COMPLETE = "check_complete",
++    /**
++     * Type of event emitted when `checkForUpdate()` completes with an error.
++     */
++    CHECK_ERROR = "check_error",
++    /**
++     * Type of event emitted when update download starts.
++     */
++    DOWNLOAD_START = "download_start",
++    /**
++     * Type of event emitted when update download completes successfully.
++     */
++    DOWNLOAD_COMPLETE = "download_complete",
++    /**
++     * Type of event emitted when update download completes with an error.
++     */
++    DOWNLOAD_ERROR = "download_error",
++    /**
++     * Type of event emitted when `runUpdate()` starts.
++     */
++    RUN_START = "run_start",
++    /**
++     * Type of event emitted when `runUpdate()` completes with an error.
++     */
++    RUN_ERROR = "run_error"
++}
++//# sourceMappingURL=UpdatesProvider.constants.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.constants.d.ts.map b/node_modules/expo-updates/build/UpdatesProvider.constants.d.ts.map
+new file mode 100644
+index 0000000..320745e
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.constants.d.ts.map
+@@ -0,0 +1 @@
++{"version":3,"file":"UpdatesProvider.constants.d.ts","sourceRoot":"","sources":["../src/UpdatesProvider.constants.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,yBAAyB,CAAC;AAIpE,eAAO,MAAM,gBAAgB,EAAE,oBAQ9B,CAAC;AAEF;;GAEG;AACH,oBAAY,wBAAwB;IAClC;;OAEG;IACH,WAAW,gBAAgB;IAC3B;;OAEG;IACH,cAAc,mBAAmB;IACjC;;OAEG;IACH,WAAW,gBAAgB;IAC3B;;OAEG;IACH,cAAc,mBAAmB;IACjC;;OAEG;IACH,iBAAiB,sBAAsB;IACvC;;OAEG;IACH,cAAc,mBAAmB;IACjC;;OAEG;IACH,SAAS,cAAc;IACvB;;OAEG;IACH,SAAS,cAAc;CACxB"}
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.constants.js b/node_modules/expo-updates/build/UpdatesProvider.constants.js
+new file mode 100644
+index 0000000..f0a6fe3
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.constants.js
+@@ -0,0 +1,51 @@
++import * as Updates from './Updates';
++/////// Constants and enums  ////////
++// The currently running info, constructed from Updates constants
++export const currentlyRunning = {
++    updateId: Updates.updateId,
++    channel: Updates.channel,
++    createdAt: Updates.createdAt,
++    isEmbeddedLaunch: Updates.isEmbeddedLaunch,
++    isEmergencyLaunch: Updates.isEmergencyLaunch,
++    manifest: Updates.manifest,
++    runtimeVersion: Updates.runtimeVersion,
++};
++/**
++ * Enumeration of the different possible event types emitted by Updates provider methods
++ */
++export var UpdatesProviderEventType;
++(function (UpdatesProviderEventType) {
++    /**
++     * Type of event emitted when `checkForUpdate()` starts.
++     */
++    UpdatesProviderEventType["CHECK_START"] = "check_start";
++    /**
++     * Type of event emitted when `checkForUpdate()` completes successfully.
++     */
++    UpdatesProviderEventType["CHECK_COMPLETE"] = "check_complete";
++    /**
++     * Type of event emitted when `checkForUpdate()` completes with an error.
++     */
++    UpdatesProviderEventType["CHECK_ERROR"] = "check_error";
++    /**
++     * Type of event emitted when update download starts.
++     */
++    UpdatesProviderEventType["DOWNLOAD_START"] = "download_start";
++    /**
++     * Type of event emitted when update download completes successfully.
++     */
++    UpdatesProviderEventType["DOWNLOAD_COMPLETE"] = "download_complete";
++    /**
++     * Type of event emitted when update download completes with an error.
++     */
++    UpdatesProviderEventType["DOWNLOAD_ERROR"] = "download_error";
++    /**
++     * Type of event emitted when `runUpdate()` starts.
++     */
++    UpdatesProviderEventType["RUN_START"] = "run_start";
++    /**
++     * Type of event emitted when `runUpdate()` completes with an error.
++     */
++    UpdatesProviderEventType["RUN_ERROR"] = "run_error";
++})(UpdatesProviderEventType || (UpdatesProviderEventType = {}));
++//# sourceMappingURL=UpdatesProvider.constants.js.map
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.constants.js.map b/node_modules/expo-updates/build/UpdatesProvider.constants.js.map
+new file mode 100644
+index 0000000..d61c88f
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.constants.js.map
+@@ -0,0 +1 @@
++{"version":3,"file":"UpdatesProvider.constants.js","sourceRoot":"","sources":["../src/UpdatesProvider.constants.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,OAAO,MAAM,WAAW,CAAC;AAErC,qCAAqC;AAErC,iEAAiE;AACjE,MAAM,CAAC,MAAM,gBAAgB,GAAyB;IACpD,QAAQ,EAAE,OAAO,CAAC,QAAQ;IAC1B,OAAO,EAAE,OAAO,CAAC,OAAO;IACxB,SAAS,EAAE,OAAO,CAAC,SAAS;IAC5B,gBAAgB,EAAE,OAAO,CAAC,gBAAgB;IAC1C,iBAAiB,EAAE,OAAO,CAAC,iBAAiB;IAC5C,QAAQ,EAAE,OAAO,CAAC,QAAQ;IAC1B,cAAc,EAAE,OAAO,CAAC,cAAc;CACvC,CAAC;AAEF;;GAEG;AACH,MAAM,CAAN,IAAY,wBAiCX;AAjCD,WAAY,wBAAwB;IAClC;;OAEG;IACH,uDAA2B,CAAA;IAC3B;;OAEG;IACH,6DAAiC,CAAA;IACjC;;OAEG;IACH,uDAA2B,CAAA;IAC3B;;OAEG;IACH,6DAAiC,CAAA;IACjC;;OAEG;IACH,mEAAuC,CAAA;IACvC;;OAEG;IACH,6DAAiC,CAAA;IACjC;;OAEG;IACH,mDAAuB,CAAA;IACvB;;OAEG;IACH,mDAAuB,CAAA;AACzB,CAAC,EAjCW,wBAAwB,KAAxB,wBAAwB,QAiCnC","sourcesContent":["import * as Updates from './Updates';\nimport type { CurrentlyRunningInfo } from './UpdatesProvider.types';\n/////// Constants and enums  ////////\n\n// The currently running info, constructed from Updates constants\nexport const currentlyRunning: CurrentlyRunningInfo = {\n  updateId: Updates.updateId,\n  channel: Updates.channel,\n  createdAt: Updates.createdAt,\n  isEmbeddedLaunch: Updates.isEmbeddedLaunch,\n  isEmergencyLaunch: Updates.isEmergencyLaunch,\n  manifest: Updates.manifest,\n  runtimeVersion: Updates.runtimeVersion,\n};\n\n/**\n * Enumeration of the different possible event types emitted by Updates provider methods\n */\nexport enum UpdatesProviderEventType {\n  /**\n   * Type of event emitted when `checkForUpdate()` starts.\n   */\n  CHECK_START = 'check_start',\n  /**\n   * Type of event emitted when `checkForUpdate()` completes successfully.\n   */\n  CHECK_COMPLETE = 'check_complete',\n  /**\n   * Type of event emitted when `checkForUpdate()` completes with an error.\n   */\n  CHECK_ERROR = 'check_error',\n  /**\n   * Type of event emitted when update download starts.\n   */\n  DOWNLOAD_START = 'download_start',\n  /**\n   * Type of event emitted when update download completes successfully.\n   */\n  DOWNLOAD_COMPLETE = 'download_complete',\n  /**\n   * Type of event emitted when update download completes with an error.\n   */\n  DOWNLOAD_ERROR = 'download_error',\n  /**\n   * Type of event emitted when `runUpdate()` starts.\n   */\n  RUN_START = 'run_start',\n  /**\n   * Type of event emitted when `runUpdate()` completes with an error.\n   */\n  RUN_ERROR = 'run_error',\n}\n"]}
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.d.ts b/node_modules/expo-updates/build/UpdatesProvider.d.ts
+new file mode 100644
+index 0000000..16417b2
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.d.ts
+@@ -0,0 +1,111 @@
++import type { UpdatesInfo, UpdatesProviderEvent } from './UpdatesProvider.types';
++/**
++ * Downloads and runs an update, if one is available.
++ * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ */
++declare const downloadAndRunUpdate: (providerEventHandler?: ((event: UpdatesProviderEvent) => void) | undefined) => never;
++/**
++ * Downloads an update, if one is available, using `Updates.fetchUpdateAsync()`.
++ * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ */
++declare const downloadUpdate: () => never;
++/**
++ * Runs an update by calling `Updates.reloadAsync()`. This should not be called unless there is an available update
++ * that has already been successfully downloaded using [`downloadUpdate()`](#downloadupdate).
++ * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ */
++declare const runUpdate: () => never;
++/**
++ * Calls `Updates.checkForUpdateAsync()` and uses the passed in setter
++ * to refresh the [`UpdatesInfo`](#updatesinfo).
++ * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ */
++declare const checkForUpdate: () => never;
++/**
++ * Calls `Updates.readLogEntriesAsync()` and sets the `logEntries` property in the [`UpdatesInfo`](#updatesinfo) structure to the results.
++ * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ *
++ * @param maxAge Sets the max age of retrieved log entries in milliseconds. Default to 3600000 ms (1 hour).
++ */
++declare const readLogEntries: (maxAge?: number) => never;
++/**
++ * Provides the Updates React context. Includes an [`UpdateEvent`](#updateevent) listener
++ * that will set the context automatically, if automatic updates are enabled and a new
++ * update is available. This is required if application code uses the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ * @param props Context will be provided to `props.children`
++ * @returns the provider.
++ * @example
++ * ```jsx App.tsx
++ * import * as Updates from 'expo-updates';
++ *
++ * const { UpdatesProvider } = Updates.Provider;
++ *
++ * import UpdatesDemo from './src/UpdatesDemo';
++ *
++ * export default function App() {
++ *   return (
++ *     <UpdatesProvider>
++ *       <UpdatesDemo />
++ *     </UpdatesProvider>
++ *   );
++ * }
++ * ```
++ */
++declare const UpdatesProvider: (props: {
++    children: any;
++}) => JSX.Element;
++/**
++ * Hook that obtains the Updates info structure and functions.
++ * Requires that application code be inside an [`UpdatesProvider`](#updatesproviderprops).
++ * @param providerEventHandler Optional handler. If present, the handler will be called on
++ * start, completion, and error in checkForUpdate, downloadUpdate, and downloadAndRunUpdate methods.
++ * download starts, and again when download completes (successfully or not).
++ * @returns the [`UpdatesInfo`](#updatesinfo) structure and associated methods. When using the provider,
++ * the methods returned by this hook should be used instead of [`checkForUpdateAsync`](#updatescheckforupdateasync),
++ * [`fetchUpdateAsync`](#updatesfetchupdateasync), [`readLogEntriesAsync`](#updatesreadlogentriesasync),
++ * and [`reloadAsync`](#updatesreloadasync).
++ * @example
++ * ```jsx UpdatesDemo.tsx
++ * import { StatusBar } from 'expo-status-bar';
++ * import React from 'react';
++ * import { Pressable, Text, View } from 'react-native';
++ * import * as Updates from 'expo-updates';
++ *
++ * const { useUpdates } = Updates.Provider;
++ *
++ * export default function UpdatesDemo() {
++ *   const { updatesInfo, checkForUpdate, downloadAndRunUpdate } = useUpdates();
++ *
++ *   const { currentlyRunning, updateAvailable } = updatesInfo;
++ *
++ *   // If true, we show the button to download and run the update
++ *   const showDownloadButton = updateAvailable !== undefined;
++ *
++ *   // Show whether or not we are running embedded code or an update
++ *   const runTypeMessage = updatesInfo.currentlyRunning.isEmbeddedLaunch
++ *     ? 'This app is running from built-in code'
++ *     : 'This app is running an update';
++ *
++ *   return (
++ *     <View style={styles.container}>
++ *       <Text style={styles.headerText}>Updates Demo</Text>
++ *       <Text>{runTypeMessage}</Text>
++ *       <Button pressHandler={checkForUpdate} text="Check manually for updates" />
++ *       {showDownloadButton ? (
++ *         <Button pressHandler={downloadAndRunUpdate} text="Download and run update" />
++ *       ) : null}
++ *       <StatusBar style="auto" />
++ *     </View>
++ *   );
++ * }
++ */
++declare const useUpdates: (providerEventHandler?: ((event: UpdatesProviderEvent) => void) | undefined) => {
++    updatesInfo: UpdatesInfo;
++    checkForUpdate: () => void;
++    downloadAndRunUpdate: () => void;
++    downloadUpdate: () => void;
++    runUpdate: () => void;
++    readLogEntries: (maxAge?: number) => void;
++};
++export { UpdatesProvider, useUpdates, checkForUpdate, downloadUpdate, downloadAndRunUpdate, runUpdate, readLogEntries, };
++//# sourceMappingURL=UpdatesProvider.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.d.ts.map b/node_modules/expo-updates/build/UpdatesProvider.d.ts.map
+new file mode 100644
+index 0000000..7be807d
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.d.ts.map
+@@ -0,0 +1 @@
++{"version":3,"file":"UpdatesProvider.d.ts","sourceRoot":"","sources":["../src/UpdatesProvider.tsx"],"names":[],"mappings":"AAKA,OAAO,KAAK,EAAE,WAAW,EAAE,oBAAoB,EAAE,MAAM,yBAAyB,CAAC;AAyBjF;;;GAGG;AACH,QAAA,MAAM,oBAAoB,mCAAmC,oBAAoB,KAAK,IAAI,uBAIzF,CAAC;AAEF;;;GAGG;AACH,QAAA,MAAM,cAAc,aAInB,CAAC;AAEF;;;;GAIG;AACH,QAAA,MAAM,SAAS,aAId,CAAC;AAEF;;;;GAIG;AACH,QAAA,MAAM,cAAc,aAInB,CAAC;AAEF;;;;;GAKG;AACH,QAAA,MAAM,cAAc,YAAa,MAAM,UAItC,CAAC;AAIF;;;;;;;;;;;;;;;;;;;;;;GAsBG;AACH,QAAA,MAAM,eAAe,UAAW;IAAE,QAAQ,EAAE,GAAG,CAAA;CAAE,gBAehD,CAAC;AAEF;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;GA4CG;AACH,QAAA,MAAM,UAAU,mCAAmC,oBAAoB,KAAK,IAAI;;;;;;8BA0CnD,MAAM;CASlC,CAAC;AAEF,OAAO,EACL,eAAe,EACf,UAAU,EACV,cAAc,EACd,cAAc,EACd,oBAAoB,EACpB,SAAS,EACT,cAAc,GACf,CAAC"}
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.js b/node_modules/expo-updates/build/UpdatesProvider.js
+new file mode 100644
+index 0000000..8561b13
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.js
+@@ -0,0 +1,182 @@
++import React, { createContext, useContext, useState } from 'react';
++import * as Updates from './Updates';
++import { useUpdateEvents } from './UpdatesHooks';
++import { currentlyRunning } from './UpdatesProvider.constants';
++import { checkForUpdateAndReturnNewUpdatesInfoAsync, downloadUpdateAsync, downloadAndRunUpdateAsync, runUpdateAsync, updatesInfoFromEvent, } from './UpdatesProvider.utils';
++// The context provided to the app
++const UpdatesContext = createContext({
++    updatesInfo: {
++        currentlyRunning,
++    },
++    setUpdatesInfo: (_) => { },
++});
++///////////// Exported functions /////////////
++/**
++ * Downloads and runs an update, if one is available.
++ * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ */
++const downloadAndRunUpdate = (providerEventHandler) => {
++    throw new Error('This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.');
++};
++/**
++ * Downloads an update, if one is available, using `Updates.fetchUpdateAsync()`.
++ * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ */
++const downloadUpdate = () => {
++    throw new Error('This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.');
++};
++/**
++ * Runs an update by calling `Updates.reloadAsync()`. This should not be called unless there is an available update
++ * that has already been successfully downloaded using [`downloadUpdate()`](#downloadupdate).
++ * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ */
++const runUpdate = () => {
++    throw new Error('This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.');
++};
++/**
++ * Calls `Updates.checkForUpdateAsync()` and uses the passed in setter
++ * to refresh the [`UpdatesInfo`](#updatesinfo).
++ * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ */
++const checkForUpdate = () => {
++    throw new Error('This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.');
++};
++/**
++ * Calls `Updates.readLogEntriesAsync()` and sets the `logEntries` property in the [`UpdatesInfo`](#updatesinfo) structure to the results.
++ * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ *
++ * @param maxAge Sets the max age of retrieved log entries in milliseconds. Default to 3600000 ms (1 hour).
++ */
++const readLogEntries = (maxAge) => {
++    throw new Error('This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.');
++};
++/////// Provider and hook ///////////
++/**
++ * Provides the Updates React context. Includes an [`UpdateEvent`](#updateevent) listener
++ * that will set the context automatically, if automatic updates are enabled and a new
++ * update is available. This is required if application code uses the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ * @param props Context will be provided to `props.children`
++ * @returns the provider.
++ * @example
++ * ```jsx App.tsx
++ * import * as Updates from 'expo-updates';
++ *
++ * const { UpdatesProvider } = Updates.Provider;
++ *
++ * import UpdatesDemo from './src/UpdatesDemo';
++ *
++ * export default function App() {
++ *   return (
++ *     <UpdatesProvider>
++ *       <UpdatesDemo />
++ *     </UpdatesProvider>
++ *   );
++ * }
++ * ```
++ */
++const UpdatesProvider = (props) => {
++    const [updatesInfo, setUpdatesInfo] = useState({
++        currentlyRunning,
++    });
++    // Set up listener for events from automatic update requests
++    // that happen on startup, and use events to refresh the updates info
++    // context
++    useUpdateEvents((event) => {
++        setUpdatesInfo(updatesInfoFromEvent(event));
++    });
++    return (React.createElement(UpdatesContext.Provider, { value: { updatesInfo, setUpdatesInfo } }, props.children));
++};
++/**
++ * Hook that obtains the Updates info structure and functions.
++ * Requires that application code be inside an [`UpdatesProvider`](#updatesproviderprops).
++ * @param providerEventHandler Optional handler. If present, the handler will be called on
++ * start, completion, and error in checkForUpdate, downloadUpdate, and downloadAndRunUpdate methods.
++ * download starts, and again when download completes (successfully or not).
++ * @returns the [`UpdatesInfo`](#updatesinfo) structure and associated methods. When using the provider,
++ * the methods returned by this hook should be used instead of [`checkForUpdateAsync`](#updatescheckforupdateasync),
++ * [`fetchUpdateAsync`](#updatesfetchupdateasync), [`readLogEntriesAsync`](#updatesreadlogentriesasync),
++ * and [`reloadAsync`](#updatesreloadasync).
++ * @example
++ * ```jsx UpdatesDemo.tsx
++ * import { StatusBar } from 'expo-status-bar';
++ * import React from 'react';
++ * import { Pressable, Text, View } from 'react-native';
++ * import * as Updates from 'expo-updates';
++ *
++ * const { useUpdates } = Updates.Provider;
++ *
++ * export default function UpdatesDemo() {
++ *   const { updatesInfo, checkForUpdate, downloadAndRunUpdate } = useUpdates();
++ *
++ *   const { currentlyRunning, updateAvailable } = updatesInfo;
++ *
++ *   // If true, we show the button to download and run the update
++ *   const showDownloadButton = updateAvailable !== undefined;
++ *
++ *   // Show whether or not we are running embedded code or an update
++ *   const runTypeMessage = updatesInfo.currentlyRunning.isEmbeddedLaunch
++ *     ? 'This app is running from built-in code'
++ *     : 'This app is running an update';
++ *
++ *   return (
++ *     <View style={styles.container}>
++ *       <Text style={styles.headerText}>Updates Demo</Text>
++ *       <Text>{runTypeMessage}</Text>
++ *       <Button pressHandler={checkForUpdate} text="Check manually for updates" />
++ *       {showDownloadButton ? (
++ *         <Button pressHandler={downloadAndRunUpdate} text="Download and run update" />
++ *       ) : null}
++ *       <StatusBar style="auto" />
++ *     </View>
++ *   );
++ * }
++ */
++const useUpdates = (providerEventHandler) => {
++    // Get updates info value and setter from provider
++    const { updatesInfo, setUpdatesInfo } = useContext(UpdatesContext);
++    // Return the updates info and the user facing functions
++    return {
++        updatesInfo,
++        checkForUpdate: () => {
++            checkForUpdateAndReturnNewUpdatesInfoAsync(updatesInfo, providerEventHandler).then((result) => setUpdatesInfo(result));
++        },
++        downloadAndRunUpdate: () => {
++            downloadAndRunUpdateAsync(providerEventHandler).then((error) => {
++                if (error) {
++                    setUpdatesInfo({
++                        ...updatesInfo,
++                        error,
++                    });
++                }
++            });
++        },
++        downloadUpdate: () => {
++            downloadUpdateAsync(providerEventHandler).then((error) => {
++                if (error) {
++                    setUpdatesInfo({
++                        ...updatesInfo,
++                        error,
++                    });
++                }
++            });
++        },
++        runUpdate: () => {
++            runUpdateAsync(providerEventHandler).then((error) => {
++                if (error) {
++                    setUpdatesInfo({
++                        ...updatesInfo,
++                        error,
++                    });
++                }
++            });
++        },
++        readLogEntries: (maxAge = 3600000) => {
++            Updates.readLogEntriesAsync(maxAge).then((result) => setUpdatesInfo({
++                ...updatesInfo,
++                logEntries: result,
++            }));
++        },
++    };
++};
++export { UpdatesProvider, useUpdates, checkForUpdate, downloadUpdate, downloadAndRunUpdate, runUpdate, readLogEntries, };
++//# sourceMappingURL=UpdatesProvider.js.map
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.js.map b/node_modules/expo-updates/build/UpdatesProvider.js.map
+new file mode 100644
+index 0000000..f7b1ffe
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.js.map
+@@ -0,0 +1 @@
++{"version":3,"file":"UpdatesProvider.js","sourceRoot":"","sources":["../src/UpdatesProvider.tsx"],"names":[],"mappings":"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","sourcesContent":["import React, { createContext, useContext, useState } from 'react';\n\nimport * as Updates from './Updates';\nimport { useUpdateEvents } from './UpdatesHooks';\nimport { currentlyRunning } from './UpdatesProvider.constants';\nimport type { UpdatesInfo, UpdatesProviderEvent } from './UpdatesProvider.types';\nimport {\n  checkForUpdateAndReturnNewUpdatesInfoAsync,\n  downloadUpdateAsync,\n  downloadAndRunUpdateAsync,\n  runUpdateAsync,\n  updatesInfoFromEvent,\n} from './UpdatesProvider.utils';\n\n// Context that includes getter and setter for the updates info\ntype UpdatesContextType = {\n  updatesInfo: UpdatesInfo;\n  setUpdatesInfo: (updates: UpdatesInfo) => void;\n};\n\n// The context provided to the app\nconst UpdatesContext: React.Context<UpdatesContextType> = createContext({\n  updatesInfo: {\n    currentlyRunning,\n  },\n  setUpdatesInfo: (_) => {},\n});\n\n///////////// Exported functions /////////////\n\n/**\n * Downloads and runs an update, if one is available.\n * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n */\nconst downloadAndRunUpdate = (providerEventHandler?: (event: UpdatesProviderEvent) => void) => {\n  throw new Error(\n    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'\n  );\n};\n\n/**\n * Downloads an update, if one is available, using `Updates.fetchUpdateAsync()`.\n * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n */\nconst downloadUpdate = () => {\n  throw new Error(\n    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'\n  );\n};\n\n/**\n * Runs an update by calling `Updates.reloadAsync()`. This should not be called unless there is an available update\n * that has already been successfully downloaded using [`downloadUpdate()`](#downloadupdate).\n * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n */\nconst runUpdate = () => {\n  throw new Error(\n    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'\n  );\n};\n\n/**\n * Calls `Updates.checkForUpdateAsync()` and uses the passed in setter\n * to refresh the [`UpdatesInfo`](#updatesinfo).\n * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n */\nconst checkForUpdate = () => {\n  throw new Error(\n    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'\n  );\n};\n\n/**\n * Calls `Updates.readLogEntriesAsync()` and sets the `logEntries` property in the [`UpdatesInfo`](#updatesinfo) structure to the results.\n * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n *\n * @param maxAge Sets the max age of retrieved log entries in milliseconds. Default to 3600000 ms (1 hour).\n */\nconst readLogEntries = (maxAge?: number) => {\n  throw new Error(\n    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'\n  );\n};\n\n/////// Provider and hook ///////////\n\n/**\n * Provides the Updates React context. Includes an [`UpdateEvent`](#updateevent) listener\n * that will set the context automatically, if automatic updates are enabled and a new\n * update is available. This is required if application code uses the [`useUpdates`](#useupdatesprovidereventhandler) hook.\n * @param props Context will be provided to `props.children`\n * @returns the provider.\n * @example\n * ```jsx App.tsx\n * import * as Updates from 'expo-updates';\n *\n * const { UpdatesProvider } = Updates.Provider;\n *\n * import UpdatesDemo from './src/UpdatesDemo';\n *\n * export default function App() {\n *   return (\n *     <UpdatesProvider>\n *       <UpdatesDemo />\n *     </UpdatesProvider>\n *   );\n * }\n * ```\n */\nconst UpdatesProvider = (props: { children: any }) => {\n  const [updatesInfo, setUpdatesInfo] = useState({\n    currentlyRunning,\n  });\n  // Set up listener for events from automatic update requests\n  // that happen on startup, and use events to refresh the updates info\n  // context\n  useUpdateEvents((event) => {\n    setUpdatesInfo(updatesInfoFromEvent(event));\n  });\n  return (\n    <UpdatesContext.Provider value={{ updatesInfo, setUpdatesInfo }}>\n      {props.children}\n    </UpdatesContext.Provider>\n  );\n};\n\n/**\n * Hook that obtains the Updates info structure and functions.\n * Requires that application code be inside an [`UpdatesProvider`](#updatesproviderprops).\n * @param providerEventHandler Optional handler. If present, the handler will be called on\n * start, completion, and error in checkForUpdate, downloadUpdate, and downloadAndRunUpdate methods.\n * download starts, and again when download completes (successfully or not).\n * @returns the [`UpdatesInfo`](#updatesinfo) structure and associated methods. When using the provider,\n * the methods returned by this hook should be used instead of [`checkForUpdateAsync`](#updatescheckforupdateasync),\n * [`fetchUpdateAsync`](#updatesfetchupdateasync), [`readLogEntriesAsync`](#updatesreadlogentriesasync),\n * and [`reloadAsync`](#updatesreloadasync).\n * @example\n * ```jsx UpdatesDemo.tsx\n * import { StatusBar } from 'expo-status-bar';\n * import React from 'react';\n * import { Pressable, Text, View } from 'react-native';\n * import * as Updates from 'expo-updates';\n *\n * const { useUpdates } = Updates.Provider;\n *\n * export default function UpdatesDemo() {\n *   const { updatesInfo, checkForUpdate, downloadAndRunUpdate } = useUpdates();\n *\n *   const { currentlyRunning, updateAvailable } = updatesInfo;\n *\n *   // If true, we show the button to download and run the update\n *   const showDownloadButton = updateAvailable !== undefined;\n *\n *   // Show whether or not we are running embedded code or an update\n *   const runTypeMessage = updatesInfo.currentlyRunning.isEmbeddedLaunch\n *     ? 'This app is running from built-in code'\n *     : 'This app is running an update';\n *\n *   return (\n *     <View style={styles.container}>\n *       <Text style={styles.headerText}>Updates Demo</Text>\n *       <Text>{runTypeMessage}</Text>\n *       <Button pressHandler={checkForUpdate} text=\"Check manually for updates\" />\n *       {showDownloadButton ? (\n *         <Button pressHandler={downloadAndRunUpdate} text=\"Download and run update\" />\n *       ) : null}\n *       <StatusBar style=\"auto\" />\n *     </View>\n *   );\n * }\n */\nconst useUpdates = (providerEventHandler?: (event: UpdatesProviderEvent) => void) => {\n  // Get updates info value and setter from provider\n  const { updatesInfo, setUpdatesInfo } = useContext(UpdatesContext);\n\n  // Return the updates info and the user facing functions\n  return {\n    updatesInfo,\n    checkForUpdate: () => {\n      checkForUpdateAndReturnNewUpdatesInfoAsync(updatesInfo, providerEventHandler).then((result) =>\n        setUpdatesInfo(result)\n      );\n    },\n    downloadAndRunUpdate: () => {\n      downloadAndRunUpdateAsync(providerEventHandler).then((error) => {\n        if (error) {\n          setUpdatesInfo({\n            ...updatesInfo,\n            error,\n          });\n        }\n      });\n    },\n    downloadUpdate: () => {\n      downloadUpdateAsync(providerEventHandler).then((error) => {\n        if (error) {\n          setUpdatesInfo({\n            ...updatesInfo,\n            error,\n          });\n        }\n      });\n    },\n    runUpdate: () => {\n      runUpdateAsync(providerEventHandler).then((error) => {\n        if (error) {\n          setUpdatesInfo({\n            ...updatesInfo,\n            error,\n          });\n        }\n      });\n    },\n    readLogEntries: (maxAge: number = 3600000) => {\n      Updates.readLogEntriesAsync(maxAge).then((result) =>\n        setUpdatesInfo({\n          ...updatesInfo,\n          logEntries: result,\n        })\n      );\n    },\n  };\n};\n\nexport {\n  UpdatesProvider,\n  useUpdates,\n  checkForUpdate,\n  downloadUpdate,\n  downloadAndRunUpdate,\n  runUpdate,\n  readLogEntries,\n};\n"]}
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.types.d.ts b/node_modules/expo-updates/build/UpdatesProvider.types.d.ts
+new file mode 100644
+index 0000000..673a029
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.types.d.ts
+@@ -0,0 +1,109 @@
++import type { Manifest, UpdatesLogEntry } from './Updates.types';
++import type { UpdatesProviderEventType } from './UpdatesProvider.constants';
++/**
++ * An event emitted by Updates.Provider methods [`checkForUpdate()`](#checkforupdate), [`downloadUpdate()`](#downloadupdate),
++ * or [`downloadAndRunUpdate()`](#downloadandrunupdate)
++ */
++export type UpdatesProviderEvent = {
++    type: UpdatesProviderEventType;
++    error?: Error;
++};
++/**
++ * Structure encapsulating information on the currently running app
++ * (either the embedded bundle or a downloaded update).
++ */
++export type CurrentlyRunningInfo = {
++    /**
++     * The UUID that uniquely identifies the currently running update if `expo-updates` is enabled. The
++     * UUID is represented in its canonical string form (`xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`) and
++     * will always use lowercase letters. In development mode, or any other environment in which
++     * `expo-updates` is disabled, this value is `null`.
++     */
++    updateId: string | null;
++    /**
++     * The channel name of the current build, if configured for use with EAS Update. Null otherwise.
++     */
++    channel: string | null;
++    /**
++     * If `expo-updates` is enabled, this is a `Date` object representing the creation time of the update
++     * that's currently running (whether it was embedded or downloaded at runtime).
++     *
++     * In development mode, or any other environment in which `expo-updates` is disabled, this value is
++     * null.
++     */
++    createdAt: Date | null;
++    /**
++     * This will be true if the currently running update is the one embedded in the build,
++     * and not one downloaded from the updates server.
++     */
++    isEmbeddedLaunch: boolean;
++    /**
++     * `expo-updates` does its very best to always launch monotonically newer versions of your app so
++     * you don't need to worry about backwards compatibility when you put out an update. In very rare
++     * cases, it's possible that `expo-updates` may need to fall back to the update that's embedded in
++     * the app binary, even after newer updates have been downloaded and run (an "emergency launch").
++     * This boolean will be `true` if the app is launching under this fallback mechanism and `false`
++     * otherwise. If you are concerned about backwards compatibility of future updates to your app, you
++     * can use this constant to provide special behavior for this rare case.
++     */
++    isEmergencyLaunch: boolean;
++    /**
++     * If `expo-updates` is enabled, this is the
++     * [manifest](/workflow/expo-go#manifest) object for the update that's currently
++     * running.
++     *
++     * In development mode, or any other environment in which `expo-updates` is disabled, this object is
++     * empty.
++     */
++    manifest: Partial<Manifest>;
++    /**
++     * The runtime version of the current build.
++     */
++    runtimeVersion: string | null;
++};
++export type AvailableUpdateInfo = {
++    /**
++     * The UUID that uniquely identifies thls update. The
++     * UUID is represented in its canonical string form (`xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`) and
++     * will always use lowercase letters.
++     */
++    updateId: string | null;
++    /**
++     * A `Date` object representing the creation time of this update.
++     */
++    createdAt: Date | null;
++    /**
++     * The manifest for this update.
++     */
++    manifest: Partial<Manifest>;
++};
++/**
++ * Combined updates info structure provided by UpdatesProvider.
++ */
++export type UpdatesInfo = {
++    /**
++     * Information on the currently running app
++     */
++    currentlyRunning: CurrentlyRunningInfo;
++    /**
++     * If a new available update has been found, either by using checkForUpdate(),
++     * or by the [`UpdateEvent`](#updateevent) listener in [`useUpdates`](#useupdates),
++     * this will contain the information for that update.
++     */
++    availableUpdate?: AvailableUpdateInfo;
++    /**
++     * If an error is returned by any of the APIs to check for, download, or launch updates,
++     * the error description will appear here.
++     */
++    error?: Error;
++    /**
++     * A `Date` object representing the last time this client checked for an available update,
++     * or undefined if no check has yet occurred since the app started.
++     */
++    lastCheckForUpdateTime?: Date;
++    /**
++     * If present, contains expo-updates log entries returned by the `getLogEntries()` method (see [`useUpdates()`](#useupdates).)
++     */
++    logEntries?: UpdatesLogEntry[];
++};
++//# sourceMappingURL=UpdatesProvider.types.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.types.d.ts.map b/node_modules/expo-updates/build/UpdatesProvider.types.d.ts.map
+new file mode 100644
+index 0000000..1e561e6
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.types.d.ts.map
+@@ -0,0 +1 @@
++{"version":3,"file":"UpdatesProvider.types.d.ts","sourceRoot":"","sources":["../src/UpdatesProvider.types.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,QAAQ,EAAE,eAAe,EAAE,MAAM,iBAAiB,CAAC;AACjE,OAAO,KAAK,EAAE,wBAAwB,EAAE,MAAM,6BAA6B,CAAC;AAE5E;;;GAGG;AACH,MAAM,MAAM,oBAAoB,GAAG;IACjC,IAAI,EAAE,wBAAwB,CAAC;IAC/B,KAAK,CAAC,EAAE,KAAK,CAAC;CACf,CAAC;AAEF;;;GAGG;AACH,MAAM,MAAM,oBAAoB,GAAG;IACjC;;;;;OAKG;IACH,QAAQ,EAAE,MAAM,GAAG,IAAI,CAAC;IACxB;;OAEG;IACH,OAAO,EAAE,MAAM,GAAG,IAAI,CAAC;IACvB;;;;;;OAMG;IACH,SAAS,EAAE,IAAI,GAAG,IAAI,CAAC;IACvB;;;OAGG;IACH,gBAAgB,EAAE,OAAO,CAAC;IAC1B;;;;;;;;OAQG;IACH,iBAAiB,EAAE,OAAO,CAAC;IAC3B;;;;;;;OAOG;IACH,QAAQ,EAAE,OAAO,CAAC,QAAQ,CAAC,CAAC;IAC5B;;OAEG;IACH,cAAc,EAAE,MAAM,GAAG,IAAI,CAAC;CAC/B,CAAC;AAEF,MAAM,MAAM,mBAAmB,GAAG;IAChC;;;;OAIG;IACH,QAAQ,EAAE,MAAM,GAAG,IAAI,CAAC;IACxB;;OAEG;IACH,SAAS,EAAE,IAAI,GAAG,IAAI,CAAC;IACvB;;OAEG;IACH,QAAQ,EAAE,OAAO,CAAC,QAAQ,CAAC,CAAC;CAC7B,CAAC;AACF;;GAEG;AACH,MAAM,MAAM,WAAW,GAAG;IACxB;;OAEG;IACH,gBAAgB,EAAE,oBAAoB,CAAC;IACvC;;;;OAIG;IACH,eAAe,CAAC,EAAE,mBAAmB,CAAC;IACtC;;;OAGG;IACH,KAAK,CAAC,EAAE,KAAK,CAAC;IACd;;;OAGG;IACH,sBAAsB,CAAC,EAAE,IAAI,CAAC;IAC9B;;OAEG;IACH,UAAU,CAAC,EAAE,eAAe,EAAE,CAAC;CAChC,CAAC"}
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.types.js b/node_modules/expo-updates/build/UpdatesProvider.types.js
+new file mode 100644
+index 0000000..70fa59e
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.types.js
+@@ -0,0 +1,2 @@
++export {};
++//# sourceMappingURL=UpdatesProvider.types.js.map
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.types.js.map b/node_modules/expo-updates/build/UpdatesProvider.types.js.map
+new file mode 100644
+index 0000000..ae17faf
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.types.js.map
+@@ -0,0 +1 @@
++{"version":3,"file":"UpdatesProvider.types.js","sourceRoot":"","sources":["../src/UpdatesProvider.types.ts"],"names":[],"mappings":"","sourcesContent":["import type { Manifest, UpdatesLogEntry } from './Updates.types';\nimport type { UpdatesProviderEventType } from './UpdatesProvider.constants';\n\n/**\n * An event emitted by Updates.Provider methods [`checkForUpdate()`](#checkforupdate), [`downloadUpdate()`](#downloadupdate),\n * or [`downloadAndRunUpdate()`](#downloadandrunupdate)\n */\nexport type UpdatesProviderEvent = {\n  type: UpdatesProviderEventType;\n  error?: Error;\n};\n\n/**\n * Structure encapsulating information on the currently running app\n * (either the embedded bundle or a downloaded update).\n */\nexport type CurrentlyRunningInfo = {\n  /**\n   * The UUID that uniquely identifies the currently running update if `expo-updates` is enabled. The\n   * UUID is represented in its canonical string form (`xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`) and\n   * will always use lowercase letters. In development mode, or any other environment in which\n   * `expo-updates` is disabled, this value is `null`.\n   */\n  updateId: string | null;\n  /**\n   * The channel name of the current build, if configured for use with EAS Update. Null otherwise.\n   */\n  channel: string | null;\n  /**\n   * If `expo-updates` is enabled, this is a `Date` object representing the creation time of the update\n   * that's currently running (whether it was embedded or downloaded at runtime).\n   *\n   * In development mode, or any other environment in which `expo-updates` is disabled, this value is\n   * null.\n   */\n  createdAt: Date | null;\n  /**\n   * This will be true if the currently running update is the one embedded in the build,\n   * and not one downloaded from the updates server.\n   */\n  isEmbeddedLaunch: boolean;\n  /**\n   * `expo-updates` does its very best to always launch monotonically newer versions of your app so\n   * you don't need to worry about backwards compatibility when you put out an update. In very rare\n   * cases, it's possible that `expo-updates` may need to fall back to the update that's embedded in\n   * the app binary, even after newer updates have been downloaded and run (an \"emergency launch\").\n   * This boolean will be `true` if the app is launching under this fallback mechanism and `false`\n   * otherwise. If you are concerned about backwards compatibility of future updates to your app, you\n   * can use this constant to provide special behavior for this rare case.\n   */\n  isEmergencyLaunch: boolean;\n  /**\n   * If `expo-updates` is enabled, this is the\n   * [manifest](/workflow/expo-go#manifest) object for the update that's currently\n   * running.\n   *\n   * In development mode, or any other environment in which `expo-updates` is disabled, this object is\n   * empty.\n   */\n  manifest: Partial<Manifest>;\n  /**\n   * The runtime version of the current build.\n   */\n  runtimeVersion: string | null;\n};\n\nexport type AvailableUpdateInfo = {\n  /**\n   * The UUID that uniquely identifies thls update. The\n   * UUID is represented in its canonical string form (`xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`) and\n   * will always use lowercase letters.\n   */\n  updateId: string | null;\n  /**\n   * A `Date` object representing the creation time of this update.\n   */\n  createdAt: Date | null;\n  /**\n   * The manifest for this update.\n   */\n  manifest: Partial<Manifest>;\n};\n/**\n * Combined updates info structure provided by UpdatesProvider.\n */\nexport type UpdatesInfo = {\n  /**\n   * Information on the currently running app\n   */\n  currentlyRunning: CurrentlyRunningInfo;\n  /**\n   * If a new available update has been found, either by using checkForUpdate(),\n   * or by the [`UpdateEvent`](#updateevent) listener in [`useUpdates`](#useupdates),\n   * this will contain the information for that update.\n   */\n  availableUpdate?: AvailableUpdateInfo;\n  /**\n   * If an error is returned by any of the APIs to check for, download, or launch updates,\n   * the error description will appear here.\n   */\n  error?: Error;\n  /**\n   * A `Date` object representing the last time this client checked for an available update,\n   * or undefined if no check has yet occurred since the app started.\n   */\n  lastCheckForUpdateTime?: Date;\n  /**\n   * If present, contains expo-updates log entries returned by the `getLogEntries()` method (see [`useUpdates()`](#useupdates).)\n   */\n  logEntries?: UpdatesLogEntry[];\n};\n"]}
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.utils.d.ts b/node_modules/expo-updates/build/UpdatesProvider.utils.d.ts
+new file mode 100644
+index 0000000..4e6b152
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.utils.d.ts
+@@ -0,0 +1,14 @@
++import type { Manifest, UpdateEvent } from './Updates.types';
++import type { UpdatesInfo, UpdatesProviderEvent } from './UpdatesProvider.types';
++export declare const delay: (timeout: number) => Promise<unknown>;
++export declare const availableUpdateFromManifest: (manifest: Partial<Manifest> | undefined) => {
++    updateId: string | null;
++    createdAt: Date | null;
++    manifest: Partial<import("expo-constants/build/Constants.types").AppManifest> | Partial<import("expo-constants/build/Constants.types").Manifest>;
++} | undefined;
++export declare const updatesInfoFromEvent: (event: UpdateEvent) => UpdatesInfo;
++export declare const checkForUpdateAndReturnNewUpdatesInfoAsync: (updatesInfo: UpdatesInfo, providerEventHandler?: (event: UpdatesProviderEvent) => void) => Promise<UpdatesInfo>;
++export declare const downloadUpdateAsync: (providerEventHandler?: ((event: UpdatesProviderEvent) => void) | undefined) => Promise<any>;
++export declare const runUpdateAsync: (providerEventHandler?: ((event: UpdatesProviderEvent) => void) | undefined) => Promise<any>;
++export declare const downloadAndRunUpdateAsync: (providerEventHandler?: ((event: UpdatesProviderEvent) => void) | undefined) => Promise<any>;
++//# sourceMappingURL=UpdatesProvider.utils.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.utils.d.ts.map b/node_modules/expo-updates/build/UpdatesProvider.utils.d.ts.map
+new file mode 100644
+index 0000000..e58237a
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.utils.d.ts.map
+@@ -0,0 +1 @@
++{"version":3,"file":"UpdatesProvider.utils.d.ts","sourceRoot":"","sources":["../src/UpdatesProvider.utils.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAE,QAAQ,EAAE,WAAW,EAAE,MAAM,iBAAiB,CAAC;AAE7D,OAAO,KAAK,EAAE,WAAW,EAAE,oBAAoB,EAAE,MAAM,yBAAyB,CAAC;AAKjF,eAAO,MAAM,KAAK,YAAa,MAAM,qBAIpC,CAAC;AAGF,eAAO,MAAM,2BAA2B,aAAc,QAAQ,QAAQ,CAAC,GAAG,SAAS;;;;aAQlF,CAAC;AAGF,eAAO,MAAM,oBAAoB,UAAW,WAAW,KAAG,WAqBzD,CAAC;AAGF,eAAO,MAAM,0CAA0C,EAAE,CACvD,WAAW,EAAE,WAAW,EACxB,oBAAoB,CAAC,EAAE,CAAC,KAAK,EAAE,oBAAoB,KAAK,IAAI,KACzD,OAAO,CAAC,WAAW,CA2BvB,CAAC;AAGF,eAAO,MAAM,mBAAmB,mCACC,oBAAoB,KAAK,IAAI,8BAa7D,CAAC;AAGF,eAAO,MAAM,cAAc,mCACM,oBAAoB,KAAK,IAAI,8BAW7D,CAAC;AAGF,eAAO,MAAM,yBAAyB,mCACL,oBAAoB,KAAK,IAAI,8BAO7D,CAAC"}
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.utils.js b/node_modules/expo-updates/build/UpdatesProvider.utils.js
+new file mode 100644
+index 0000000..6b5f748
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.utils.js
+@@ -0,0 +1,112 @@
++import * as Updates from './Updates';
++import { UpdatesProviderEventType, currentlyRunning } from './UpdatesProvider.constants';
++/////// Internal functions ////////
++// Promise wrapper for setTimeout()
++export const delay = (timeout) => {
++    return new Promise((resolve) => {
++        setTimeout(resolve, timeout);
++    });
++};
++// Constructs the availableUpdate from the update manifest
++export const availableUpdateFromManifest = (manifest) => {
++    return manifest
++        ? {
++            updateId: manifest?.id ? manifest?.id : null,
++            createdAt: manifest?.createdAt ? new Date(manifest?.createdAt) : null,
++            manifest,
++        }
++        : undefined;
++};
++// Constructs the UpdatesInfo from an event
++export const updatesInfoFromEvent = (event) => {
++    const lastCheckForUpdateTime = new Date();
++    if (event.type === Updates.UpdateEventType.NO_UPDATE_AVAILABLE) {
++        return {
++            currentlyRunning,
++            lastCheckForUpdateTime,
++        };
++    }
++    else if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {
++        return {
++            currentlyRunning,
++            availableUpdate: availableUpdateFromManifest(event.manifest),
++            lastCheckForUpdateTime,
++        };
++    }
++    else {
++        // event type === ERROR
++        return {
++            currentlyRunning,
++            error: new Error(event.message),
++            lastCheckForUpdateTime,
++        };
++    }
++};
++// Implementation of checkForUpdate
++export const checkForUpdateAndReturnNewUpdatesInfoAsync = async (updatesInfo, providerEventHandler) => {
++    try {
++        providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_START });
++        const checkResult = await Updates.checkForUpdateAsync();
++        providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_COMPLETE });
++        const lastCheckForUpdateTime = new Date();
++        if (checkResult.isAvailable) {
++            return {
++                ...updatesInfo,
++                availableUpdate: availableUpdateFromManifest(checkResult.manifest),
++                lastCheckForUpdateTime,
++            };
++        }
++        else {
++            return {
++                ...updatesInfo,
++                lastCheckForUpdateTime,
++            };
++        }
++    }
++    catch (error) {
++        const lastCheckForUpdateTime = new Date();
++        providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_ERROR });
++        return {
++            ...updatesInfo,
++            lastCheckForUpdateTime,
++            error,
++        };
++    }
++};
++// Implementation of downloadUpdate
++export const downloadUpdateAsync = async (providerEventHandler) => {
++    try {
++        providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_START });
++        await Updates.fetchUpdateAsync();
++        providerEventHandler &&
++            providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_COMPLETE });
++        return null;
++    }
++    catch (error) {
++        providerEventHandler &&
++            providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_ERROR, error });
++        return error;
++    }
++};
++// Implementation of runUpdate
++export const runUpdateAsync = async (providerEventHandler) => {
++    try {
++        providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.RUN_START });
++        await Updates.reloadAsync();
++        return null;
++    }
++    catch (error) {
++        providerEventHandler &&
++            providerEventHandler({ type: UpdatesProviderEventType.RUN_ERROR, error });
++        return error;
++    }
++};
++// Implementation of downloadAndRunUpdate
++export const downloadAndRunUpdateAsync = async (providerEventHandler) => {
++    const error = await downloadUpdateAsync(providerEventHandler);
++    if (error) {
++        return error;
++    }
++    return await runUpdateAsync(providerEventHandler);
++};
++//# sourceMappingURL=UpdatesProvider.utils.js.map
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/UpdatesProvider.utils.js.map b/node_modules/expo-updates/build/UpdatesProvider.utils.js.map
+new file mode 100644
+index 0000000..0f9e26e
+--- /dev/null
++++ b/node_modules/expo-updates/build/UpdatesProvider.utils.js.map
+@@ -0,0 +1 @@
++{"version":3,"file":"UpdatesProvider.utils.js","sourceRoot":"","sources":["../src/UpdatesProvider.utils.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,OAAO,MAAM,WAAW,CAAC;AAErC,OAAO,EAAE,wBAAwB,EAAE,gBAAgB,EAAE,MAAM,6BAA6B,CAAC;AAGzF,mCAAmC;AAEnC,mCAAmC;AACnC,MAAM,CAAC,MAAM,KAAK,GAAG,CAAC,OAAe,EAAE,EAAE;IACvC,OAAO,IAAI,OAAO,CAAC,CAAC,OAAO,EAAE,EAAE;QAC7B,UAAU,CAAC,OAAO,EAAE,OAAO,CAAC,CAAC;IAC/B,CAAC,CAAC,CAAC;AACL,CAAC,CAAC;AAEF,0DAA0D;AAC1D,MAAM,CAAC,MAAM,2BAA2B,GAAG,CAAC,QAAuC,EAAE,EAAE;IACrF,OAAO,QAAQ;QACb,CAAC,CAAC;YACE,QAAQ,EAAE,QAAQ,EAAE,EAAE,CAAC,CAAC,CAAC,QAAQ,EAAE,EAAE,CAAC,CAAC,CAAC,IAAI;YAC5C,SAAS,EAAE,QAAQ,EAAE,SAAS,CAAC,CAAC,CAAC,IAAI,IAAI,CAAC,QAAQ,EAAE,SAAS,CAAC,CAAC,CAAC,CAAC,IAAI;YACrE,QAAQ;SACT;QACH,CAAC,CAAC,SAAS,CAAC;AAChB,CAAC,CAAC;AAEF,2CAA2C;AAC3C,MAAM,CAAC,MAAM,oBAAoB,GAAG,CAAC,KAAkB,EAAe,EAAE;IACtE,MAAM,sBAAsB,GAAG,IAAI,IAAI,EAAE,CAAC;IAC1C,IAAI,KAAK,CAAC,IAAI,KAAK,OAAO,CAAC,eAAe,CAAC,mBAAmB,EAAE;QAC9D,OAAO;YACL,gBAAgB;YAChB,sBAAsB;SACvB,CAAC;KACH;SAAM,IAAI,KAAK,CAAC,IAAI,KAAK,OAAO,CAAC,eAAe,CAAC,gBAAgB,EAAE;QAClE,OAAO;YACL,gBAAgB;YAChB,eAAe,EAAE,2BAA2B,CAAC,KAAK,CAAC,QAAQ,CAAC;YAC5D,sBAAsB;SACvB,CAAC;KACH;SAAM;QACL,uBAAuB;QACvB,OAAO;YACL,gBAAgB;YAChB,KAAK,EAAE,IAAI,KAAK,CAAC,KAAK,CAAC,OAAO,CAAC;YAC/B,sBAAsB;SACvB,CAAC;KACH;AACH,CAAC,CAAC;AAEF,mCAAmC;AACnC,MAAM,CAAC,MAAM,0CAA0C,GAG3B,KAAK,EAAE,WAAW,EAAE,oBAAoB,EAAE,EAAE;IACtE,IAAI;QACF,oBAAoB,IAAI,oBAAoB,CAAC,EAAE,IAAI,EAAE,wBAAwB,CAAC,WAAW,EAAE,CAAC,CAAC;QAC7F,MAAM,WAAW,GAAG,MAAM,OAAO,CAAC,mBAAmB,EAAE,CAAC;QACxD,oBAAoB,IAAI,oBAAoB,CAAC,EAAE,IAAI,EAAE,wBAAwB,CAAC,cAAc,EAAE,CAAC,CAAC;QAChG,MAAM,sBAAsB,GAAG,IAAI,IAAI,EAAE,CAAC;QAC1C,IAAI,WAAW,CAAC,WAAW,EAAE;YAC3B,OAAO;gBACL,GAAG,WAAW;gBACd,eAAe,EAAE,2BAA2B,CAAC,WAAW,CAAC,QAAQ,CAAC;gBAClE,sBAAsB;aACvB,CAAC;SACH;aAAM;YACL,OAAO;gBACL,GAAG,WAAW;gBACd,sBAAsB;aACvB,CAAC;SACH;KACF;IAAC,OAAO,KAAU,EAAE;QACnB,MAAM,sBAAsB,GAAG,IAAI,IAAI,EAAE,CAAC;QAC1C,oBAAoB,IAAI,oBAAoB,CAAC,EAAE,IAAI,EAAE,wBAAwB,CAAC,WAAW,EAAE,CAAC,CAAC;QAC7F,OAAO;YACL,GAAG,WAAW;YACd,sBAAsB;YACtB,KAAK;SACN,CAAC;KACH;AACH,CAAC,CAAC;AAEF,mCAAmC;AACnC,MAAM,CAAC,MAAM,mBAAmB,GAAG,KAAK,EACtC,oBAA4D,EAC5D,EAAE;IACF,IAAI;QACF,oBAAoB,IAAI,oBAAoB,CAAC,EAAE,IAAI,EAAE,wBAAwB,CAAC,cAAc,EAAE,CAAC,CAAC;QAChG,MAAM,OAAO,CAAC,gBAAgB,EAAE,CAAC;QACjC,oBAAoB;YAClB,oBAAoB,CAAC,EAAE,IAAI,EAAE,wBAAwB,CAAC,iBAAiB,EAAE,CAAC,CAAC;QAC7E,OAAO,IAAI,CAAC;KACb;IAAC,OAAO,KAAU,EAAE;QACnB,oBAAoB;YAClB,oBAAoB,CAAC,EAAE,IAAI,EAAE,wBAAwB,CAAC,cAAc,EAAE,KAAK,EAAE,CAAC,CAAC;QACjF,OAAO,KAAK,CAAC;KACd;AACH,CAAC,CAAC;AAEF,8BAA8B;AAC9B,MAAM,CAAC,MAAM,cAAc,GAAG,KAAK,EACjC,oBAA4D,EAC5D,EAAE;IACF,IAAI;QACF,oBAAoB,IAAI,oBAAoB,CAAC,EAAE,IAAI,EAAE,wBAAwB,CAAC,SAAS,EAAE,CAAC,CAAC;QAC3F,MAAM,OAAO,CAAC,WAAW,EAAE,CAAC;QAC5B,OAAO,IAAI,CAAC;KACb;IAAC,OAAO,KAAU,EAAE;QACnB,oBAAoB;YAClB,oBAAoB,CAAC,EAAE,IAAI,EAAE,wBAAwB,CAAC,SAAS,EAAE,KAAK,EAAE,CAAC,CAAC;QAC5E,OAAO,KAAK,CAAC;KACd;AACH,CAAC,CAAC;AAEF,yCAAyC;AACzC,MAAM,CAAC,MAAM,yBAAyB,GAAG,KAAK,EAC5C,oBAA4D,EAC5D,EAAE;IACF,MAAM,KAAK,GAAG,MAAM,mBAAmB,CAAC,oBAAoB,CAAC,CAAC;IAC9D,IAAI,KAAK,EAAE;QACT,OAAO,KAAK,CAAC;KACd;IACD,OAAO,MAAM,cAAc,CAAC,oBAAoB,CAAC,CAAC;AACpD,CAAC,CAAC","sourcesContent":["import * as Updates from './Updates';\nimport type { Manifest, UpdateEvent } from './Updates.types';\nimport { UpdatesProviderEventType, currentlyRunning } from './UpdatesProvider.constants';\nimport type { UpdatesInfo, UpdatesProviderEvent } from './UpdatesProvider.types';\n\n/////// Internal functions ////////\n\n// Promise wrapper for setTimeout()\nexport const delay = (timeout: number) => {\n  return new Promise((resolve) => {\n    setTimeout(resolve, timeout);\n  });\n};\n\n// Constructs the availableUpdate from the update manifest\nexport const availableUpdateFromManifest = (manifest: Partial<Manifest> | undefined) => {\n  return manifest\n    ? {\n        updateId: manifest?.id ? manifest?.id : null,\n        createdAt: manifest?.createdAt ? new Date(manifest?.createdAt) : null,\n        manifest,\n      }\n    : undefined;\n};\n\n// Constructs the UpdatesInfo from an event\nexport const updatesInfoFromEvent = (event: UpdateEvent): UpdatesInfo => {\n  const lastCheckForUpdateTime = new Date();\n  if (event.type === Updates.UpdateEventType.NO_UPDATE_AVAILABLE) {\n    return {\n      currentlyRunning,\n      lastCheckForUpdateTime,\n    };\n  } else if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {\n    return {\n      currentlyRunning,\n      availableUpdate: availableUpdateFromManifest(event.manifest),\n      lastCheckForUpdateTime,\n    };\n  } else {\n    // event type === ERROR\n    return {\n      currentlyRunning,\n      error: new Error(event.message),\n      lastCheckForUpdateTime,\n    };\n  }\n};\n\n// Implementation of checkForUpdate\nexport const checkForUpdateAndReturnNewUpdatesInfoAsync: (\n  updatesInfo: UpdatesInfo,\n  providerEventHandler?: (event: UpdatesProviderEvent) => void\n) => Promise<UpdatesInfo> = async (updatesInfo, providerEventHandler) => {\n  try {\n    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_START });\n    const checkResult = await Updates.checkForUpdateAsync();\n    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_COMPLETE });\n    const lastCheckForUpdateTime = new Date();\n    if (checkResult.isAvailable) {\n      return {\n        ...updatesInfo,\n        availableUpdate: availableUpdateFromManifest(checkResult.manifest),\n        lastCheckForUpdateTime,\n      };\n    } else {\n      return {\n        ...updatesInfo,\n        lastCheckForUpdateTime,\n      };\n    }\n  } catch (error: any) {\n    const lastCheckForUpdateTime = new Date();\n    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_ERROR });\n    return {\n      ...updatesInfo,\n      lastCheckForUpdateTime,\n      error,\n    };\n  }\n};\n\n// Implementation of downloadUpdate\nexport const downloadUpdateAsync = async (\n  providerEventHandler?: (event: UpdatesProviderEvent) => void\n) => {\n  try {\n    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_START });\n    await Updates.fetchUpdateAsync();\n    providerEventHandler &&\n      providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_COMPLETE });\n    return null;\n  } catch (error: any) {\n    providerEventHandler &&\n      providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_ERROR, error });\n    return error;\n  }\n};\n\n// Implementation of runUpdate\nexport const runUpdateAsync = async (\n  providerEventHandler?: (event: UpdatesProviderEvent) => void\n) => {\n  try {\n    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.RUN_START });\n    await Updates.reloadAsync();\n    return null;\n  } catch (error: any) {\n    providerEventHandler &&\n      providerEventHandler({ type: UpdatesProviderEventType.RUN_ERROR, error });\n    return error;\n  }\n};\n\n// Implementation of downloadAndRunUpdate\nexport const downloadAndRunUpdateAsync = async (\n  providerEventHandler?: (event: UpdatesProviderEvent) => void\n) => {\n  const error = await downloadUpdateAsync(providerEventHandler);\n  if (error) {\n    return error;\n  }\n  return await runUpdateAsync(providerEventHandler);\n};\n"]}
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/index.d.ts b/node_modules/expo-updates/build/index.d.ts
+index b67bbd5..0975eb6 100644
+--- a/node_modules/expo-updates/build/index.d.ts
++++ b/node_modules/expo-updates/build/index.d.ts
+@@ -1,3 +1,6 @@
+ export * from './Updates';
+ export * from './UpdatesHooks';
++export * from './UpdatesProvider.types';
++export { UpdatesProviderEventType } from './UpdatesProvider.constants';
++export * as Provider from './UpdatesProvider';
+ //# sourceMappingURL=index.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/index.d.ts.map b/node_modules/expo-updates/build/index.d.ts.map
+index 314e2ba..7459b20 100644
+--- a/node_modules/expo-updates/build/index.d.ts.map
++++ b/node_modules/expo-updates/build/index.d.ts.map
+@@ -1 +1 @@
+-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,cAAc,WAAW,CAAC;AAC1B,cAAc,gBAAgB,CAAC"}
+\ No newline at end of file
++{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,cAAc,WAAW,CAAC;AAC1B,cAAc,gBAAgB,CAAC;AAC/B,cAAc,yBAAyB,CAAC;AACxC,OAAO,EAAE,wBAAwB,EAAE,MAAM,6BAA6B,CAAC;AACvE,OAAO,KAAK,QAAQ,MAAM,mBAAmB,CAAC"}
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/index.js b/node_modules/expo-updates/build/index.js
+index 10c0854..2c44952 100644
+--- a/node_modules/expo-updates/build/index.js
++++ b/node_modules/expo-updates/build/index.js
+@@ -1,3 +1,7 @@
+ export * from './Updates';
+ export * from './UpdatesHooks';
++export * from './UpdatesProvider.types';
++export { UpdatesProviderEventType } from './UpdatesProvider.constants';
++import * as Provider_1 from './UpdatesProvider';
++export { Provider_1 as Provider };
+ //# sourceMappingURL=index.js.map
+\ No newline at end of file
+diff --git a/node_modules/expo-updates/build/index.js.map b/node_modules/expo-updates/build/index.js.map
+index a252c10..b78fe8d 100644
+--- a/node_modules/expo-updates/build/index.js.map
++++ b/node_modules/expo-updates/build/index.js.map
+@@ -1 +1 @@
+-{"version":3,"file":"index.js","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,cAAc,WAAW,CAAC;AAC1B,cAAc,gBAAgB,CAAC","sourcesContent":["export * from './Updates';\nexport * from './UpdatesHooks';\n"]}
+\ No newline at end of file
++{"version":3,"file":"index.js","sourceRoot":"","sources":["../src/index.ts"],"names":[],"mappings":"AAAA,cAAc,WAAW,CAAC;AAC1B,cAAc,gBAAgB,CAAC;AAC/B,cAAc,yBAAyB,CAAC;AACxC,OAAO,EAAE,wBAAwB,EAAE,MAAM,6BAA6B,CAAC;4BAC7C,mBAAmB;uBAAjC,QAAQ","sourcesContent":["export * from './Updates';\nexport * from './UpdatesHooks';\nexport * from './UpdatesProvider.types';\nexport { UpdatesProviderEventType } from './UpdatesProvider.constants';\nexport * as Provider from './UpdatesProvider';\n"]}
+\ No newline at end of file
 diff --git a/node_modules/expo-updates/ios/EXUpdates/AppLoader/EXUpdatesAppLoaderTask.m b/node_modules/expo-updates/ios/EXUpdates/AppLoader/EXUpdatesAppLoaderTask.m
 index 3c9a535..2ac1933 100644
 --- a/node_modules/expo-updates/ios/EXUpdates/AppLoader/EXUpdatesAppLoaderTask.m
@@ -34,3 +818,824 @@ index 3c9a535..2ac1933 100644
    if ([launchWaitMs isEqualToNumber:@(0)] || !shouldCheckForUpdate) {
      self->_isTimerFinished = YES;
    } else {
+diff --git a/node_modules/expo-updates/src/UpdatesProvider.constants.ts b/node_modules/expo-updates/src/UpdatesProvider.constants.ts
+new file mode 100644
+index 0000000..3c237c8
+--- /dev/null
++++ b/node_modules/expo-updates/src/UpdatesProvider.constants.ts
+@@ -0,0 +1,52 @@
++import * as Updates from './Updates';
++import type { CurrentlyRunningInfo } from './UpdatesProvider.types';
++/////// Constants and enums  ////////
++
++// The currently running info, constructed from Updates constants
++export const currentlyRunning: CurrentlyRunningInfo = {
++  updateId: Updates.updateId,
++  channel: Updates.channel,
++  createdAt: Updates.createdAt,
++  isEmbeddedLaunch: Updates.isEmbeddedLaunch,
++  isEmergencyLaunch: Updates.isEmergencyLaunch,
++  manifest: Updates.manifest,
++  runtimeVersion: Updates.runtimeVersion,
++};
++
++/**
++ * Enumeration of the different possible event types emitted by Updates provider methods
++ */
++export enum UpdatesProviderEventType {
++  /**
++   * Type of event emitted when `checkForUpdate()` starts.
++   */
++  CHECK_START = 'check_start',
++  /**
++   * Type of event emitted when `checkForUpdate()` completes successfully.
++   */
++  CHECK_COMPLETE = 'check_complete',
++  /**
++   * Type of event emitted when `checkForUpdate()` completes with an error.
++   */
++  CHECK_ERROR = 'check_error',
++  /**
++   * Type of event emitted when update download starts.
++   */
++  DOWNLOAD_START = 'download_start',
++  /**
++   * Type of event emitted when update download completes successfully.
++   */
++  DOWNLOAD_COMPLETE = 'download_complete',
++  /**
++   * Type of event emitted when update download completes with an error.
++   */
++  DOWNLOAD_ERROR = 'download_error',
++  /**
++   * Type of event emitted when `runUpdate()` starts.
++   */
++  RUN_START = 'run_start',
++  /**
++   * Type of event emitted when `runUpdate()` completes with an error.
++   */
++  RUN_ERROR = 'run_error',
++}
+diff --git a/node_modules/expo-updates/src/UpdatesProvider.tsx b/node_modules/expo-updates/src/UpdatesProvider.tsx
+new file mode 100644
+index 0000000..919d409
+--- /dev/null
++++ b/node_modules/expo-updates/src/UpdatesProvider.tsx
+@@ -0,0 +1,233 @@
++import React, { createContext, useContext, useState } from 'react';
++
++import * as Updates from './Updates';
++import { useUpdateEvents } from './UpdatesHooks';
++import { currentlyRunning } from './UpdatesProvider.constants';
++import type { UpdatesInfo, UpdatesProviderEvent } from './UpdatesProvider.types';
++import {
++  checkForUpdateAndReturnNewUpdatesInfoAsync,
++  downloadUpdateAsync,
++  downloadAndRunUpdateAsync,
++  runUpdateAsync,
++  updatesInfoFromEvent,
++} from './UpdatesProvider.utils';
++
++// Context that includes getter and setter for the updates info
++type UpdatesContextType = {
++  updatesInfo: UpdatesInfo;
++  setUpdatesInfo: (updates: UpdatesInfo) => void;
++};
++
++// The context provided to the app
++const UpdatesContext: React.Context<UpdatesContextType> = createContext({
++  updatesInfo: {
++    currentlyRunning,
++  },
++  setUpdatesInfo: (_) => {},
++});
++
++///////////// Exported functions /////////////
++
++/**
++ * Downloads and runs an update, if one is available.
++ * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ */
++const downloadAndRunUpdate = (providerEventHandler?: (event: UpdatesProviderEvent) => void) => {
++  throw new Error(
++    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'
++  );
++};
++
++/**
++ * Downloads an update, if one is available, using `Updates.fetchUpdateAsync()`.
++ * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ */
++const downloadUpdate = () => {
++  throw new Error(
++    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'
++  );
++};
++
++/**
++ * Runs an update by calling `Updates.reloadAsync()`. This should not be called unless there is an available update
++ * that has already been successfully downloaded using [`downloadUpdate()`](#downloadupdate).
++ * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ */
++const runUpdate = () => {
++  throw new Error(
++    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'
++  );
++};
++
++/**
++ * Calls `Updates.checkForUpdateAsync()` and uses the passed in setter
++ * to refresh the [`UpdatesInfo`](#updatesinfo).
++ * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ */
++const checkForUpdate = () => {
++  throw new Error(
++    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'
++  );
++};
++
++/**
++ * Calls `Updates.readLogEntriesAsync()` and sets the `logEntries` property in the [`UpdatesInfo`](#updatesinfo) structure to the results.
++ * Provided to application code from the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ *
++ * @param maxAge Sets the max age of retrieved log entries in milliseconds. Default to 3600000 ms (1 hour).
++ */
++const readLogEntries = (maxAge?: number) => {
++  throw new Error(
++    'This error occurs when an application directly imports this method from the module. To use this method, it must be provided by the useUpdates() hook.'
++  );
++};
++
++/////// Provider and hook ///////////
++
++/**
++ * Provides the Updates React context. Includes an [`UpdateEvent`](#updateevent) listener
++ * that will set the context automatically, if automatic updates are enabled and a new
++ * update is available. This is required if application code uses the [`useUpdates`](#useupdatesprovidereventhandler) hook.
++ * @param props Context will be provided to `props.children`
++ * @returns the provider.
++ * @example
++ * ```jsx App.tsx
++ * import * as Updates from 'expo-updates';
++ *
++ * const { UpdatesProvider } = Updates.Provider;
++ *
++ * import UpdatesDemo from './src/UpdatesDemo';
++ *
++ * export default function App() {
++ *   return (
++ *     <UpdatesProvider>
++ *       <UpdatesDemo />
++ *     </UpdatesProvider>
++ *   );
++ * }
++ * ```
++ */
++const UpdatesProvider = (props: { children: any }) => {
++  const [updatesInfo, setUpdatesInfo] = useState({
++    currentlyRunning,
++  });
++  // Set up listener for events from automatic update requests
++  // that happen on startup, and use events to refresh the updates info
++  // context
++  useUpdateEvents((event) => {
++    setUpdatesInfo(updatesInfoFromEvent(event));
++  });
++  return (
++    <UpdatesContext.Provider value={{ updatesInfo, setUpdatesInfo }}>
++      {props.children}
++    </UpdatesContext.Provider>
++  );
++};
++
++/**
++ * Hook that obtains the Updates info structure and functions.
++ * Requires that application code be inside an [`UpdatesProvider`](#updatesproviderprops).
++ * @param providerEventHandler Optional handler. If present, the handler will be called on
++ * start, completion, and error in checkForUpdate, downloadUpdate, and downloadAndRunUpdate methods.
++ * download starts, and again when download completes (successfully or not).
++ * @returns the [`UpdatesInfo`](#updatesinfo) structure and associated methods. When using the provider,
++ * the methods returned by this hook should be used instead of [`checkForUpdateAsync`](#updatescheckforupdateasync),
++ * [`fetchUpdateAsync`](#updatesfetchupdateasync), [`readLogEntriesAsync`](#updatesreadlogentriesasync),
++ * and [`reloadAsync`](#updatesreloadasync).
++ * @example
++ * ```jsx UpdatesDemo.tsx
++ * import { StatusBar } from 'expo-status-bar';
++ * import React from 'react';
++ * import { Pressable, Text, View } from 'react-native';
++ * import * as Updates from 'expo-updates';
++ *
++ * const { useUpdates } = Updates.Provider;
++ *
++ * export default function UpdatesDemo() {
++ *   const { updatesInfo, checkForUpdate, downloadAndRunUpdate } = useUpdates();
++ *
++ *   const { currentlyRunning, updateAvailable } = updatesInfo;
++ *
++ *   // If true, we show the button to download and run the update
++ *   const showDownloadButton = updateAvailable !== undefined;
++ *
++ *   // Show whether or not we are running embedded code or an update
++ *   const runTypeMessage = updatesInfo.currentlyRunning.isEmbeddedLaunch
++ *     ? 'This app is running from built-in code'
++ *     : 'This app is running an update';
++ *
++ *   return (
++ *     <View style={styles.container}>
++ *       <Text style={styles.headerText}>Updates Demo</Text>
++ *       <Text>{runTypeMessage}</Text>
++ *       <Button pressHandler={checkForUpdate} text="Check manually for updates" />
++ *       {showDownloadButton ? (
++ *         <Button pressHandler={downloadAndRunUpdate} text="Download and run update" />
++ *       ) : null}
++ *       <StatusBar style="auto" />
++ *     </View>
++ *   );
++ * }
++ */
++const useUpdates = (providerEventHandler?: (event: UpdatesProviderEvent) => void) => {
++  // Get updates info value and setter from provider
++  const { updatesInfo, setUpdatesInfo } = useContext(UpdatesContext);
++
++  // Return the updates info and the user facing functions
++  return {
++    updatesInfo,
++    checkForUpdate: () => {
++      checkForUpdateAndReturnNewUpdatesInfoAsync(updatesInfo, providerEventHandler).then((result) =>
++        setUpdatesInfo(result)
++      );
++    },
++    downloadAndRunUpdate: () => {
++      downloadAndRunUpdateAsync(providerEventHandler).then((error) => {
++        if (error) {
++          setUpdatesInfo({
++            ...updatesInfo,
++            error,
++          });
++        }
++      });
++    },
++    downloadUpdate: () => {
++      downloadUpdateAsync(providerEventHandler).then((error) => {
++        if (error) {
++          setUpdatesInfo({
++            ...updatesInfo,
++            error,
++          });
++        }
++      });
++    },
++    runUpdate: () => {
++      runUpdateAsync(providerEventHandler).then((error) => {
++        if (error) {
++          setUpdatesInfo({
++            ...updatesInfo,
++            error,
++          });
++        }
++      });
++    },
++    readLogEntries: (maxAge: number = 3600000) => {
++      Updates.readLogEntriesAsync(maxAge).then((result) =>
++        setUpdatesInfo({
++          ...updatesInfo,
++          logEntries: result,
++        })
++      );
++    },
++  };
++};
++
++export {
++  UpdatesProvider,
++  useUpdates,
++  checkForUpdate,
++  downloadUpdate,
++  downloadAndRunUpdate,
++  runUpdate,
++  readLogEntries,
++};
+diff --git a/node_modules/expo-updates/src/UpdatesProvider.types.ts b/node_modules/expo-updates/src/UpdatesProvider.types.ts
+new file mode 100644
+index 0000000..058f89e
+--- /dev/null
++++ b/node_modules/expo-updates/src/UpdatesProvider.types.ts
+@@ -0,0 +1,111 @@
++import type { Manifest, UpdatesLogEntry } from './Updates.types';
++import type { UpdatesProviderEventType } from './UpdatesProvider.constants';
++
++/**
++ * An event emitted by Updates.Provider methods [`checkForUpdate()`](#checkforupdate), [`downloadUpdate()`](#downloadupdate),
++ * or [`downloadAndRunUpdate()`](#downloadandrunupdate)
++ */
++export type UpdatesProviderEvent = {
++  type: UpdatesProviderEventType;
++  error?: Error;
++};
++
++/**
++ * Structure encapsulating information on the currently running app
++ * (either the embedded bundle or a downloaded update).
++ */
++export type CurrentlyRunningInfo = {
++  /**
++   * The UUID that uniquely identifies the currently running update if `expo-updates` is enabled. The
++   * UUID is represented in its canonical string form (`xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`) and
++   * will always use lowercase letters. In development mode, or any other environment in which
++   * `expo-updates` is disabled, this value is `null`.
++   */
++  updateId: string | null;
++  /**
++   * The channel name of the current build, if configured for use with EAS Update. Null otherwise.
++   */
++  channel: string | null;
++  /**
++   * If `expo-updates` is enabled, this is a `Date` object representing the creation time of the update
++   * that's currently running (whether it was embedded or downloaded at runtime).
++   *
++   * In development mode, or any other environment in which `expo-updates` is disabled, this value is
++   * null.
++   */
++  createdAt: Date | null;
++  /**
++   * This will be true if the currently running update is the one embedded in the build,
++   * and not one downloaded from the updates server.
++   */
++  isEmbeddedLaunch: boolean;
++  /**
++   * `expo-updates` does its very best to always launch monotonically newer versions of your app so
++   * you don't need to worry about backwards compatibility when you put out an update. In very rare
++   * cases, it's possible that `expo-updates` may need to fall back to the update that's embedded in
++   * the app binary, even after newer updates have been downloaded and run (an "emergency launch").
++   * This boolean will be `true` if the app is launching under this fallback mechanism and `false`
++   * otherwise. If you are concerned about backwards compatibility of future updates to your app, you
++   * can use this constant to provide special behavior for this rare case.
++   */
++  isEmergencyLaunch: boolean;
++  /**
++   * If `expo-updates` is enabled, this is the
++   * [manifest](/workflow/expo-go#manifest) object for the update that's currently
++   * running.
++   *
++   * In development mode, or any other environment in which `expo-updates` is disabled, this object is
++   * empty.
++   */
++  manifest: Partial<Manifest>;
++  /**
++   * The runtime version of the current build.
++   */
++  runtimeVersion: string | null;
++};
++
++export type AvailableUpdateInfo = {
++  /**
++   * The UUID that uniquely identifies thls update. The
++   * UUID is represented in its canonical string form (`xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`) and
++   * will always use lowercase letters.
++   */
++  updateId: string | null;
++  /**
++   * A `Date` object representing the creation time of this update.
++   */
++  createdAt: Date | null;
++  /**
++   * The manifest for this update.
++   */
++  manifest: Partial<Manifest>;
++};
++/**
++ * Combined updates info structure provided by UpdatesProvider.
++ */
++export type UpdatesInfo = {
++  /**
++   * Information on the currently running app
++   */
++  currentlyRunning: CurrentlyRunningInfo;
++  /**
++   * If a new available update has been found, either by using checkForUpdate(),
++   * or by the [`UpdateEvent`](#updateevent) listener in [`useUpdates`](#useupdates),
++   * this will contain the information for that update.
++   */
++  availableUpdate?: AvailableUpdateInfo;
++  /**
++   * If an error is returned by any of the APIs to check for, download, or launch updates,
++   * the error description will appear here.
++   */
++  error?: Error;
++  /**
++   * A `Date` object representing the last time this client checked for an available update,
++   * or undefined if no check has yet occurred since the app started.
++   */
++  lastCheckForUpdateTime?: Date;
++  /**
++   * If present, contains expo-updates log entries returned by the `getLogEntries()` method (see [`useUpdates()`](#useupdates).)
++   */
++  logEntries?: UpdatesLogEntry[];
++};
+diff --git a/node_modules/expo-updates/src/UpdatesProvider.utils.ts b/node_modules/expo-updates/src/UpdatesProvider.utils.ts
+new file mode 100644
+index 0000000..601272e
+--- /dev/null
++++ b/node_modules/expo-updates/src/UpdatesProvider.utils.ts
+@@ -0,0 +1,124 @@
++import * as Updates from './Updates';
++import type { Manifest, UpdateEvent } from './Updates.types';
++import { UpdatesProviderEventType, currentlyRunning } from './UpdatesProvider.constants';
++import type { UpdatesInfo, UpdatesProviderEvent } from './UpdatesProvider.types';
++
++/////// Internal functions ////////
++
++// Promise wrapper for setTimeout()
++export const delay = (timeout: number) => {
++  return new Promise((resolve) => {
++    setTimeout(resolve, timeout);
++  });
++};
++
++// Constructs the availableUpdate from the update manifest
++export const availableUpdateFromManifest = (manifest: Partial<Manifest> | undefined) => {
++  return manifest
++    ? {
++        updateId: manifest?.id ? manifest?.id : null,
++        createdAt: manifest?.createdAt ? new Date(manifest?.createdAt) : null,
++        manifest,
++      }
++    : undefined;
++};
++
++// Constructs the UpdatesInfo from an event
++export const updatesInfoFromEvent = (event: UpdateEvent): UpdatesInfo => {
++  const lastCheckForUpdateTime = new Date();
++  if (event.type === Updates.UpdateEventType.NO_UPDATE_AVAILABLE) {
++    return {
++      currentlyRunning,
++      lastCheckForUpdateTime,
++    };
++  } else if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {
++    return {
++      currentlyRunning,
++      availableUpdate: availableUpdateFromManifest(event.manifest),
++      lastCheckForUpdateTime,
++    };
++  } else {
++    // event type === ERROR
++    return {
++      currentlyRunning,
++      error: new Error(event.message),
++      lastCheckForUpdateTime,
++    };
++  }
++};
++
++// Implementation of checkForUpdate
++export const checkForUpdateAndReturnNewUpdatesInfoAsync: (
++  updatesInfo: UpdatesInfo,
++  providerEventHandler?: (event: UpdatesProviderEvent) => void
++) => Promise<UpdatesInfo> = async (updatesInfo, providerEventHandler) => {
++  try {
++    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_START });
++    const checkResult = await Updates.checkForUpdateAsync();
++    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_COMPLETE });
++    const lastCheckForUpdateTime = new Date();
++    if (checkResult.isAvailable) {
++      return {
++        ...updatesInfo,
++        availableUpdate: availableUpdateFromManifest(checkResult.manifest),
++        lastCheckForUpdateTime,
++      };
++    } else {
++      return {
++        ...updatesInfo,
++        lastCheckForUpdateTime,
++      };
++    }
++  } catch (error: any) {
++    const lastCheckForUpdateTime = new Date();
++    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.CHECK_ERROR });
++    return {
++      ...updatesInfo,
++      lastCheckForUpdateTime,
++      error,
++    };
++  }
++};
++
++// Implementation of downloadUpdate
++export const downloadUpdateAsync = async (
++  providerEventHandler?: (event: UpdatesProviderEvent) => void
++) => {
++  try {
++    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_START });
++    await Updates.fetchUpdateAsync();
++    providerEventHandler &&
++      providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_COMPLETE });
++    return null;
++  } catch (error: any) {
++    providerEventHandler &&
++      providerEventHandler({ type: UpdatesProviderEventType.DOWNLOAD_ERROR, error });
++    return error;
++  }
++};
++
++// Implementation of runUpdate
++export const runUpdateAsync = async (
++  providerEventHandler?: (event: UpdatesProviderEvent) => void
++) => {
++  try {
++    providerEventHandler && providerEventHandler({ type: UpdatesProviderEventType.RUN_START });
++    await Updates.reloadAsync();
++    return null;
++  } catch (error: any) {
++    providerEventHandler &&
++      providerEventHandler({ type: UpdatesProviderEventType.RUN_ERROR, error });
++    return error;
++  }
++};
++
++// Implementation of downloadAndRunUpdate
++export const downloadAndRunUpdateAsync = async (
++  providerEventHandler?: (event: UpdatesProviderEvent) => void
++) => {
++  const error = await downloadUpdateAsync(providerEventHandler);
++  if (error) {
++    return error;
++  }
++  return await runUpdateAsync(providerEventHandler);
++};
+diff --git a/node_modules/expo-updates/src/__tests__/UpdatesProvider-test.ios.tsx b/node_modules/expo-updates/src/__tests__/UpdatesProvider-test.ios.tsx
+new file mode 100644
+index 0000000..5c9d647
+--- /dev/null
++++ b/node_modules/expo-updates/src/__tests__/UpdatesProvider-test.ios.tsx
+@@ -0,0 +1,213 @@
++import { act, fireEvent, render, screen } from '@testing-library/react-native';
++import '@testing-library/jest-native/extend-expect';
++import React from 'react';
++
++import * as Updates from '..';
++import type { Manifest, UpdateEvent } from '..';
++import ExpoUpdates from '../ExpoUpdates';
++import { availableUpdateFromManifest, delay, updatesInfoFromEvent } from '../UpdatesProvider.utils';
++import { UpdatesProviderTestApp } from './UpdatesProviderTestApp';
++
++const { UpdatesLogEntryCode, UpdatesLogEntryLevel, UpdateEventType } = Updates;
++const { UpdatesProvider } = Updates.Provider;
++
++jest.mock('../ExpoUpdates', () => {
++  return {
++    nativeDebug: true,
++    channel: 'main',
++    updateId: '0000-1111',
++    commitTime: '2023-03-26T04:58:02.560Z',
++    checkForUpdateAsync: jest.fn(),
++    fetchUpdateAsync: jest.fn(),
++    reload: jest.fn(),
++    readLogEntriesAsync: jest.fn(),
++  };
++});
++
++describe('Updates provider and hook tests', () => {
++  describe('Test hook and provider', () => {
++    it('App with provider shows currently running info', async () => {
++      render(
++        <UpdatesProvider>
++          <UpdatesProviderTestApp />
++        </UpdatesProvider>
++      );
++      const updateIdView = await screen.findByTestId('currentlyRunning_updateId');
++      expect(updateIdView).toHaveTextContent('0000-1111');
++      const createdAtView = await screen.findByTestId('currentlyRunning_createdAt');
++      expect(createdAtView).toHaveTextContent('2023-03-26T04:58:02.560Z');
++      const channelView = await screen.findByTestId('currentlyRunning_channel');
++      expect(channelView).toHaveTextContent('main');
++    });
++
++    it('App with provider shows available update after running checkForUpdate()', async () => {
++      const providerEventHandler = jest.fn();
++      render(
++        <UpdatesProvider>
++          <UpdatesProviderTestApp providerEventHandler={providerEventHandler} />
++        </UpdatesProvider>
++      );
++      const mockDate = new Date();
++      const mockManifest = {
++        id: '0000-2222',
++        createdAt: mockDate.toISOString(),
++        runtimeVersion: '1.0.0',
++        launchAsset: {
++          url: 'testUrl',
++        },
++        assets: [],
++        metadata: {},
++      };
++      ExpoUpdates.checkForUpdateAsync.mockReturnValueOnce({
++        isAvailable: true,
++        manifest: mockManifest,
++      });
++      const buttonView = await screen.findByTestId('checkForUpdate');
++      act(() => {
++        fireEvent(buttonView, 'press');
++      });
++      const updateIdView = await screen.findByTestId('availableUpdate_updateId');
++      expect(updateIdView).toHaveTextContent('0000-2222');
++      expect(providerEventHandler).toHaveBeenCalledTimes(2);
++      expect(providerEventHandler).toHaveBeenCalledWith({
++        type: Updates.UpdatesProviderEventType.CHECK_START,
++      });
++      expect(providerEventHandler).toHaveBeenCalledWith({
++        type: Updates.UpdatesProviderEventType.CHECK_COMPLETE,
++      });
++    });
++
++    it('App with provider calls handler during downloadUpdate()', async () => {
++      const providerEventHandler = jest.fn();
++      render(
++        <UpdatesProvider>
++          <UpdatesProviderTestApp providerEventHandler={providerEventHandler} />
++        </UpdatesProvider>
++      );
++      ExpoUpdates.fetchUpdateAsync.mockReturnValueOnce({
++        isNew: true,
++        manifestString: '{"name": "test"}',
++      });
++      const buttonView = await screen.findByTestId('downloadUpdate');
++      act(() => {
++        fireEvent(buttonView, 'press');
++      });
++      await delay(1000);
++      expect(providerEventHandler).toHaveBeenCalledTimes(2);
++      expect(providerEventHandler).toHaveBeenCalledWith({
++        type: Updates.UpdatesProviderEventType.DOWNLOAD_START,
++      });
++      expect(providerEventHandler).toHaveBeenCalledWith({
++        type: Updates.UpdatesProviderEventType.DOWNLOAD_COMPLETE,
++      });
++    });
++
++    it('App with provider calls handler during downloadAndRunUpdate()', async () => {
++      const providerEventHandler = jest.fn();
++      render(
++        <UpdatesProvider>
++          <UpdatesProviderTestApp providerEventHandler={providerEventHandler} />
++        </UpdatesProvider>
++      );
++      ExpoUpdates.fetchUpdateAsync.mockReturnValueOnce({
++        isNew: true,
++        manifestString: '{"name": "test"}',
++      });
++      ExpoUpdates.reload.mockReturnValueOnce('');
++      const buttonView = await screen.findByTestId('downloadAndRunUpdate');
++      act(() => {
++        fireEvent(buttonView, 'press');
++      });
++      await delay(1000);
++      expect(providerEventHandler).toHaveBeenCalledTimes(3);
++      expect(providerEventHandler).toHaveBeenCalledWith({
++        type: Updates.UpdatesProviderEventType.DOWNLOAD_START,
++      });
++      expect(providerEventHandler).toHaveBeenCalledWith({
++        type: Updates.UpdatesProviderEventType.DOWNLOAD_COMPLETE,
++      });
++      expect(providerEventHandler).toHaveBeenCalledWith({
++        type: Updates.UpdatesProviderEventType.RUN_START,
++      });
++    });
++
++    it('App with provider shows log entries after running readLogEntries()', async () => {
++      ExpoUpdates.readLogEntriesAsync.mockReturnValueOnce([
++        {
++          timestamp: 100,
++          message: 'Message 1',
++          code: UpdatesLogEntryCode.NONE,
++          level: UpdatesLogEntryLevel.INFO,
++        },
++      ]);
++      render(
++        <UpdatesProvider>
++          <UpdatesProviderTestApp />
++        </UpdatesProvider>
++      );
++      const buttonView = await screen.findByTestId('readLogEntries');
++      act(() => {
++        fireEvent(buttonView, 'press');
++      });
++      const logEntryView = await screen.findByTestId('logEntry');
++      expect(logEntryView).toHaveTextContent('Message 1');
++    });
++  });
++
++  describe('Test individual methods', () => {
++    const mockDate = new Date();
++    const manifest: Manifest = {
++      id: '0000-2222',
++      createdAt: mockDate.toISOString(),
++      runtimeVersion: '1.0.0',
++      launchAsset: {
++        url: 'testUrl',
++      },
++      assets: [],
++      metadata: {},
++    };
++
++    it('availableUpdateFromManifest() with a manifest', () => {
++      const result = availableUpdateFromManifest(manifest);
++      expect(result?.updateId).toEqual('0000-2222');
++      expect(result?.createdAt).toEqual(mockDate);
++      expect(result?.manifest).toEqual(manifest);
++    });
++
++    it('availableUpdateFromManifest() with undefined manifest', () => {
++      const result = availableUpdateFromManifest(undefined);
++      expect(result).toBeUndefined();
++    });
++
++    it('updatesInfoFromEvent() when update is available', () => {
++      const event: UpdateEvent = {
++        type: UpdateEventType.UPDATE_AVAILABLE,
++        manifest,
++      };
++      const updatesInfo = updatesInfoFromEvent(event);
++      expect(updatesInfo.currentlyRunning.updateId).toEqual('0000-1111');
++      expect(updatesInfo.availableUpdate?.updateId).toEqual('0000-2222');
++    });
++
++    it('updatesInfoFromEvent() when update is not available', () => {
++      const event: UpdateEvent = {
++        type: UpdateEventType.NO_UPDATE_AVAILABLE,
++      };
++      const updatesInfo = updatesInfoFromEvent(event);
++      expect(updatesInfo.currentlyRunning.updateId).toEqual('0000-1111');
++      expect(updatesInfo.availableUpdate).toBeUndefined();
++      expect(updatesInfo.error).toBeUndefined();
++    });
++
++    it('updatesInfoFromEvent() when an error occurs', () => {
++      const event: UpdateEvent = {
++        type: UpdateEventType.ERROR,
++        message: 'It broke',
++      };
++      const updatesInfo = updatesInfoFromEvent(event);
++      expect(updatesInfo.currentlyRunning.updateId).toEqual('0000-1111');
++      expect(updatesInfo.availableUpdate).toBeUndefined();
++      expect(updatesInfo.error?.message).toEqual('It broke');
++    });
++  });
++});
+diff --git a/node_modules/expo-updates/src/__tests__/UpdatesProviderTestApp.tsx b/node_modules/expo-updates/src/__tests__/UpdatesProviderTestApp.tsx
+new file mode 100644
+index 0000000..4e7ea58
+--- /dev/null
++++ b/node_modules/expo-updates/src/__tests__/UpdatesProviderTestApp.tsx
+@@ -0,0 +1,42 @@
++import React from 'react';
++import { View, Text, Pressable } from 'react-native';
++
++import * as Updates from '..';
++
++const { useUpdates } = Updates.Provider;
++
++export const UpdatesProviderTestApp = (props: {
++  providerEventHandler?: (event: Updates.UpdatesProviderEvent) => void;
++}) => {
++  const { updatesInfo, checkForUpdate, downloadUpdate, downloadAndRunUpdate, readLogEntries } =
++    useUpdates(props.providerEventHandler);
++  const updateAvailable: boolean = updatesInfo.availableUpdate !== undefined;
++  return (
++    <View>
++      {/* Currently running info */}
++      <Text testID="currentlyRunning_updateId">{updatesInfo.currentlyRunning.updateId}</Text>
++      <Text testID="currentlyRunning_channel">{updatesInfo.currentlyRunning.channel}</Text>
++      <Text testID="currentlyRunning_createdAt">
++        {updatesInfo.currentlyRunning?.createdAt
++          ? updatesInfo.currentlyRunning?.createdAt.toISOString()
++          : ''}
++      </Text>
++      {/* Available update, if one is present */}
++      {updateAvailable ? (
++        <Text testID="availableUpdate_updateId">{updatesInfo.availableUpdate?.updateId || ''}</Text>
++      ) : null}
++      {/* Log entries, if they have been read */}
++      {(updatesInfo.logEntries?.length || 0) > 0 ? (
++        <Text testID="logEntry">
++          {JSON.stringify(updatesInfo?.logEntries ? updatesInfo?.logEntries[0].message : '') || ''}
++        </Text>
++      ) : null}
++      {/* Show}
++      {/* Buttons for test code to invoke methods */}
++      <Pressable testID="checkForUpdate" onPress={() => checkForUpdate()} />
++      <Pressable testID="downloadUpdate" onPress={() => downloadUpdate()} />
++      <Pressable testID="downloadAndRunUpdate" onPress={() => downloadAndRunUpdate()} />
++      <Pressable testID="readLogEntries" onPress={() => readLogEntries()} />
++    </View>
++  );
++};
+diff --git a/node_modules/expo-updates/src/index.ts b/node_modules/expo-updates/src/index.ts
+index ad39cc8..103cf15 100644
+--- a/node_modules/expo-updates/src/index.ts
++++ b/node_modules/expo-updates/src/index.ts
+@@ -1,2 +1,5 @@
+ export * from './Updates';
+ export * from './UpdatesHooks';
++export * from './UpdatesProvider.types';
++export { UpdatesProviderEventType } from './UpdatesProvider.constants';
++export * as Provider from './UpdatesProvider';

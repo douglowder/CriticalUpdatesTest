@@ -5,52 +5,41 @@
  * - passing user-facing messages into the update manifest
  */
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Pressable, Text, View } from 'react-native';
 
-import { useUpdates, UpdatesProviderDownloadEventType } from '../expo-updates-provider';
+import * as Updates from 'expo-updates';
 
-import type { UpdatesProviderDownloadEvent } from '../expo-updates-provider';
+const { useUpdates } = Updates.Provider;
 
 import { delay, infoBoxText, isManifestCritical } from './Utils';
 import CacheTimeout from './CacheTimeout';
 import styles from './styles';
 export default function UpdatesDemo() {
+  ////// Download update and handle download events
+  const [lastEventType, setLastEventType] = useState('');
+  const providerEventHandler = (event: Updates.UpdatesProviderEvent) => {
+    setLastEventType(`${event.type}`);
+    if (event.type === Updates.UpdatesProviderEventType.DOWNLOAD_COMPLETE) {
+      const run = async () => {
+        await delay(2000);
+        runUpdate();
+      };
+      run();
+    }
+  };
+
   // Info from the provider
-  const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate } = useUpdates();
+  const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate } =
+    useUpdates(providerEventHandler);
   const { currentlyRunning, availableUpdate, error, lastCheckForUpdateTime } = updatesInfo;
 
   // If true, we show the button to download and run the update
   const showDownloadButton = availableUpdate !== undefined;
 
-  ////// Download update and handle download events
-  const [updateDownloadStatus, setUpdateDownloadStatus] = useState('Not started');
-  const downloadHandler = (downloadEvent: UpdatesProviderDownloadEvent) => {
-    switch (downloadEvent.type) {
-      case UpdatesProviderDownloadEventType.DOWNLOAD_START:
-        setUpdateDownloadStatus('Started');
-        break;
-      case UpdatesProviderDownloadEventType.DOWNLOAD_COMPLETE:
-        setUpdateDownloadStatus('Complete');
-        break;
-      case UpdatesProviderDownloadEventType.DOWNLOAD_ERROR:
-        setUpdateDownloadStatus('Error');
-        console.warn(`${downloadEvent.error}`);
-    }
-  };
-  useEffect(() => {
-    const run = async () => {
-      await delay(2000);
-      runUpdate();
-    };
-    if (updateDownloadStatus === 'Complete') {
-      run();
-    }
-  }, [updateDownloadStatus, runUpdate]);
-
   // Button press handlers
   const handleDownloadButtonPress = () => {
-    downloadUpdate(downloadHandler);
+    downloadUpdate();
   };
   const handleCheckForUpdatePress = () => {
     checkForUpdate();
@@ -74,8 +63,8 @@ export default function UpdatesDemo() {
         lastCheckForUpdateTime
       )}\n`}</Text>
       <CacheTimeout />
-      <Text>Download status</Text>
-      <Text>{updateDownloadStatus}</Text>
+      <Text>Type of most recent event</Text>
+      <Text>{lastEventType}</Text>
       <Button pressHandler={handleCheckForUpdatePress} text="Check manually for updates" />
       {showDownloadButton ? (
         <Button pressHandler={handleDownloadButtonPress} text="Download and run update" />
