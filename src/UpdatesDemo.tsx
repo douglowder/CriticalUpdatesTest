@@ -30,9 +30,12 @@ export default function UpdatesDemo() {
   };
 
   // Info from the provider
-  const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate } =
+  const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate, readLogEntries } =
     useUpdates(providerEventHandler);
-  const { currentlyRunning, availableUpdate, error, lastCheckForUpdateTime } = updatesInfo;
+  const { currentlyRunning, availableUpdate, error, lastCheckForUpdateTime, logEntries } =
+    updatesInfo;
+
+  const logEntryString = logEntries?.length ? JSON.stringify(logEntries[0], null, 2) : '';
 
   // If true, we show the button to download and run the update
   const showDownloadButton = availableUpdate !== undefined;
@@ -65,10 +68,13 @@ export default function UpdatesDemo() {
       <CacheTimeout />
       <Text>Type of most recent event</Text>
       <Text>{lastEventType}</Text>
+
+      <Button pressHandler={() => readLogEntries()} text="Read log entries" />
       <Button pressHandler={handleCheckForUpdatePress} text="Check manually for updates" />
       {showDownloadButton ? (
         <Button pressHandler={handleDownloadButtonPress} text="Download and run update" />
       ) : null}
+      <Text>{logEntryString}</Text>
       <StatusBar style="auto" />
     </View>
   );
