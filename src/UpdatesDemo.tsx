@@ -12,7 +12,7 @@ import * as Updates from 'expo-updates';
 
 const { useUpdates } = Updates.Provider;
 
-import { delay, infoBoxText, isManifestCritical } from './Utils';
+import { delay, infoBoxText, isManifestCritical, logEntryText } from './Utils';
 import CacheTimeout from './CacheTimeout';
 import styles from './styles';
 export default function UpdatesDemo() {
@@ -35,10 +35,10 @@ export default function UpdatesDemo() {
   const { currentlyRunning, availableUpdate, error, lastCheckForUpdateTime, logEntries } =
     updatesInfo;
 
-  const logEntryString = logEntries?.length ? JSON.stringify(logEntries[0], null, 2) : '';
-
   // If true, we show the button to download and run the update
   const showDownloadButton = availableUpdate !== undefined;
+
+  const logEntryString = logEntryText(logEntries);
 
   // Button press handlers
   const handleDownloadButtonPress = () => {
@@ -74,7 +74,7 @@ export default function UpdatesDemo() {
       {showDownloadButton ? (
         <Button pressHandler={handleDownloadButtonPress} text="Download and run update" />
       ) : null}
-      <Text>{logEntryString}</Text>
+      <Text style={styles.logEntryText}>{logEntryString}</Text>
       <StatusBar style="auto" />
     </View>
   );

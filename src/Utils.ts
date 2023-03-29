@@ -1,5 +1,5 @@
 import * as ExpoSettings from 'expo-settings';
-import type { CurrentlyRunningInfo, AvailableUpdateInfo } from 'expo-updates';
+import type { CurrentlyRunningInfo, AvailableUpdateInfo, UpdatesLogEntry } from 'expo-updates';
 
 const cacheTimeoutKey = 'EX_UPDATES_LAUNCH_WAIT_MS';
 
@@ -71,6 +71,15 @@ const isManifestCritical = (manifest: any) => {
   return manifest?.extra?.expoClient?.extra?.critical || false;
 };
 
+const logEntryText = (logEntries?: UpdatesLogEntry[]) => {
+  const entries: any = logEntries
+    ? logEntries
+        .slice(logEntries.length - 2, logEntries.length)
+        .map((entry) => ({ code: entry.code, message: entry.message }))
+    : [];
+  return JSON.stringify(entries, null, 2);
+};
+
 // Promise wrapper for setTimeout()
 const delay = (timeout: number) => {
   return new Promise((resolve) => {
@@ -84,6 +93,7 @@ export {
   removeCacheTimeoutSetting,
   delay,
   infoBoxText,
+  logEntryText,
   manifestDescription,
   manifestMessage,
   isManifestCritical,
