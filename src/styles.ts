@@ -49,4 +49,22 @@ export default StyleSheet.create({
     borderRadius: 4,
     fontSize: 10,
   },
+  monitorContainer: {
+    height: 30,
+    width: '90%',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  monitor: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#29ab50', // green
+  },
+  monitorUpdate: {
+    backgroundColor: '#fce24c', // yellow
+  },
+  monitorCritical: {
+    backgroundColor: '#db3421', // red
+  },
 });

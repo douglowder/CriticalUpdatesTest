@@ -3,12 +3,12 @@ import * as Updates from 'expo-updates';
 
 const { UpdatesProvider } = Updates.Provider;
 
-import UpdatesDemo from './src/UpdatesDemo';
+import Demo from './src/UpdatesDemo';
 
 export default function App() {
   return (
     <UpdatesProvider>
-      <UpdatesDemo />
+      <Demo />
     </UpdatesProvider>
   );
 }
