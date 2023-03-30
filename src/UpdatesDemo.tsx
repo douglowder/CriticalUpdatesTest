@@ -15,25 +15,33 @@ const { useUpdates } = Updates.Provider;
 import { delay, infoBoxText, isManifestCritical, logEntryText } from './Utils';
 import CacheTimeout from './CacheTimeout';
 import styles from './styles';
+import { UpdatesProviderCallbacksType } from 'expo-updates';
 export default function UpdatesDemo() {
   ////// Download update and handle download events
   const [lastEventType, setLastEventType] = useState('');
-  const providerEventHandler = (event: Updates.UpdatesProviderEvent) => {
-    setLastEventType(`${event.type}`);
-    if (event.type === Updates.UpdatesProviderEventType.DOWNLOAD_COMPLETE) {
+  const callbacks: UpdatesProviderCallbacksType = {
+    onDownloadUpdateStart: () => setLastEventType('Download start'),
+    onDownloadUpdateComplete: () => {
+      setLastEventType('Download complete');
       const run = async () => {
         await delay(2000);
         runUpdate();
       };
       run();
-    }
+    },
+    onDownloadUpdateError: () => setLastEventType('Download error'),
   };
 
   // Info from the provider
   const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate, readLogEntries } =
-    useUpdates(providerEventHandler);
-  const { currentlyRunning, availableUpdate, error, lastCheckForUpdateTime, logEntries } =
-    updatesInfo;
+    useUpdates(callbacks);
+  const {
+    currentlyRunning,
+    availableUpdate,
+    error,
+    lastCheckForUpdateTimeSinceRestart,
+    logEntries,
+  } = updatesInfo;
 
   // If true, we show the button to download and run the update
   const showDownloadButton = availableUpdate !== undefined;
@@ -63,7 +71,7 @@ export default function UpdatesDemo() {
         currentlyRunning,
         availableUpdate,
         error,
-        lastCheckForUpdateTime
+        lastCheckForUpdateTimeSinceRestart
       )}\n`}</Text>
       <CacheTimeout />
       <Text>Type of most recent event</Text>
