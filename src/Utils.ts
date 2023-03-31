@@ -1,5 +1,5 @@
 import * as ExpoSettings from 'expo-settings';
-import type { CurrentlyRunningInfo, AvailableUpdateInfo, UpdatesLogEntry } from 'expo-updates';
+import type { AvailableUpdateInfo, CurrentlyRunningInfo, UpdatesLogEntry } from 'expo-updates';
 
 const cacheTimeoutKey = 'EX_UPDATES_LAUNCH_WAIT_MS';
 
@@ -88,13 +88,14 @@ const delay = (timeout: number) => {
 };
 
 export {
-  getCacheTimeoutSetting,
-  setCacheTimeoutSetting,
-  removeCacheTimeoutSetting,
+  availableUpdateDescription,
   delay,
+  getCacheTimeoutSetting,
   infoBoxText,
+  isManifestCritical,
   logEntryText,
   manifestDescription,
   manifestMessage,
-  isManifestCritical,
+  removeCacheTimeoutSetting,
+  setCacheTimeoutSetting,
 };

@@ -12,10 +12,8 @@ import { View, Text, Pressable, Modal } from 'react-native';
 import * as Updates from 'expo-updates';
 
 import styles from './styles';
-import { delay, isManifestCritical, manifestDescription } from './Utils';
+import { delay, isManifestCritical, availableUpdateDescription } from './Utils';
 import Button from './Button';
-
-const { useUpdates } = Updates.Provider;
 
 const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
   props = { monitorInterval: 10000 }
@@ -36,7 +34,7 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
     onDownloadUpdateError: () => setLastEventType('Download error'),
   };
 
-  const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate } = useUpdates(callbacks);
+  const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate } = Updates.useUpdates(callbacks);
   const { availableUpdate } = updatesInfo;
 
   const handleDownloadButtonPress = () => downloadUpdate();
@@ -55,7 +53,11 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
   const flexStyle = { flex: 1 };
 
   React.useEffect(() => {
-    const interval = setInterval(() => checkForUpdate(), props.monitorInterval);
+    const interval = setInterval(() => {
+      checkForUpdate();
+      checkForUpdate();
+      checkForUpdate();
+    }, props.monitorInterval);
     return () => clearInterval(interval);
   }, [checkForUpdate, props.monitorInterval]);
 
@@ -67,7 +69,7 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
         <Modal animationType="slide" presentationStyle="formSheet">
           <View style={styles.monitorModalContainer}>
             <Text style={styles.monitorModalTitle}>{modalTitle}</Text>
-            <Text>{manifestDescription(availableUpdate?.manifest)}</Text>
+            <Text>{availableUpdateDescription(availableUpdate)}</Text>
             <Text>{lastEventType}</Text>
             <Button pressHandler={() => setModalShowing(false)} text="Dismiss" />
             {availableUpdate ? (

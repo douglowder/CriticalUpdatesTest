@@ -15,11 +15,9 @@ import UpdateMonitor from './UpdateMonitor';
 import styles from './styles';
 import Button from './Button';
 
-const { useUpdates } = Updates.Provider;
-
 export default function Demo() {
   // Info from the provider
-  const { updatesInfo, readLogEntries } = useUpdates();
+  const { updatesInfo, readLogEntries } = Updates.useUpdates();
   const {
     currentlyRunning,
     availableUpdate,
