@@ -23,7 +23,7 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
   const [modalShowing, setModalShowing] = React.useState(false);
   ////// Download update and handle download events
   const [lastEventType, setLastEventType] = React.useState('');
-  const callbacks: Updates.UpdatesProviderCallbacksType = {
+  const callbacks: Updates.UseUpdatesCallbacksType = {
     onDownloadUpdateStart: () => setLastEventType('Download start'),
     onDownloadUpdateComplete: () => {
       setLastEventType('Download complete');
