@@ -25,20 +25,20 @@ const infoBoxText = (
   return (
     currentlyRunningDescription(currentlyRunning) +
     '\n' +
-    availableUpdateDescription(availableUpdate) +
-    '\n' +
+    //availableUpdateDescription(availableUpdate) +
+    //'\n' +
     `Last check for update: ${lastCheckForUpdateTime}\n` +
     `Error: ${JSON.stringify(error)}\n`
   );
 };
 
 const manifestDescription = (manifest: any) => {
-  return (
-    `  ID: ${manifest?.id}\n` +
-    `  Created: ${manifest?.createdAt}\n` +
-    `  Message: ${manifestMessage(manifest)}\n` +
-    `  Critical: ${isManifestCritical(manifest)}\n`
-  );
+  return manifest?.id
+    ? `  ID: ${manifest?.id}\n` +
+        `  Created: ${manifest?.createdAt}\n` +
+        `  Message: ${manifestMessage(manifest)}\n` +
+        `  Critical: ${isManifestCritical(manifest)}\n`
+    : '';
 };
 
 const currentlyRunningDescription = (currentlyRunning: CurrentlyRunningInfo) => {

@@ -46,7 +46,7 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
       : [styles.monitor, styles.monitorUpdate]
     : styles.monitor;
 
-  const modalText = availableUpdate
+  const modalTitle = availableUpdate
     ? isManifestCritical(availableUpdate?.manifest)
       ? 'Critical update available'
       : 'Update available'
@@ -64,12 +64,10 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
       <View style={flexStyle} />
       <Pressable onPress={() => setModalShowing(true)} style={monitorStyle} />
       {modalShowing ? (
-        <Modal>
-          <View style={styles.container}>
-            <Text>{modalText}</Text>
-            <Text style={styles.updateMessageText}>
-              {manifestDescription(availableUpdate?.manifest)}
-            </Text>
+        <Modal animationType="slide" presentationStyle="formSheet">
+          <View style={styles.monitorModalContainer}>
+            <Text style={styles.monitorModalTitle}>{modalTitle}</Text>
+            <Text>{manifestDescription(availableUpdate?.manifest)}</Text>
             <Text>{lastEventType}</Text>
             <Button pressHandler={() => setModalShowing(false)} text="Dismiss" />
             {availableUpdate ? (

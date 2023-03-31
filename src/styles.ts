@@ -29,7 +29,7 @@ export default StyleSheet.create({
   },
   updateMessageText: {
     margin: 10,
-    height: 300,
+    height: 200,
     paddingVertical: 12,
     paddingHorizontal: 32,
     width: '90%',
@@ -40,7 +40,7 @@ export default StyleSheet.create({
   },
   logEntryText: {
     margin: 10,
-    height: 150,
+    height: 200,
     paddingVertical: 12,
     paddingHorizontal: 32,
     width: '90%',
@@ -54,6 +54,16 @@ export default StyleSheet.create({
     width: '90%',
     flexDirection: 'row',
     alignItems: 'flex-end',
+  },
+  monitorModalContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#f4f6fe',
+  },
+  monitorModalTitle: {
+    fontWeight: 'bold',
+    margin: 20,
   },
   monitor: {
     width: 30,
