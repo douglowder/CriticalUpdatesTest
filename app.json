@@ -33,6 +33,7 @@
     },
     "runtimeVersion": "1.0.0",
     "updates": {
+      "checkAutomatically": "ON_ERROR_RECOVERY",
       "requestHeaders": {
         "expo-channel-name": "main"
       }
