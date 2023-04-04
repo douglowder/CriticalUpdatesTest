@@ -16,15 +16,12 @@ import styles from './styles';
 import Button from './Button';
 
 export default function Demo() {
+  const [lastCheckForUpdateTime, setLastCheckForUpdateTime] = React.useState<Date | undefined>(
+    undefined
+  );
   // Info from the provider
   const { updatesInfo, readLogEntries } = Updates.useUpdates();
-  const {
-    currentlyRunning,
-    availableUpdate,
-    error,
-    lastCheckForUpdateTimeSinceRestart,
-    logEntries,
-  } = updatesInfo;
+  const { currentlyRunning, error, logEntries } = updatesInfo;
 
   const logEntryString = logEntryText(logEntries);
 
@@ -39,14 +36,16 @@ export default function Demo() {
     <SafeAreaView style={styles.container}>
       {/* Monitor that polls for updates and shows a green, yellow, or red
           button at the top right */}
-      <UpdateMonitor monitorInterval={5000} />
+      <UpdateMonitor
+        monitorInterval={10000}
+        setLastCheckForUpdateTime={setLastCheckForUpdateTime}
+      />
       <Text style={styles.headerText}>Critical Updates Test</Text>
       <Text>{runTypeMessage}</Text>
       <Text style={styles.updateMessageText}>{`${infoBoxText(
         currentlyRunning,
-        availableUpdate,
         error,
-        lastCheckForUpdateTimeSinceRestart
+        lastCheckForUpdateTime
       )}\n`}</Text>
       <CacheTimeout />
 

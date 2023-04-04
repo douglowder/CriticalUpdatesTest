@@ -10,14 +10,16 @@
 import React from 'react';
 import { View, Text, Pressable, Modal } from 'react-native';
 import * as Updates from 'expo-updates';
+import { useUpdates } from './UseUpdatesWithPersistentDate';
 
 import styles from './styles';
 import { delay, isManifestCritical, availableUpdateDescription } from './Utils';
 import Button from './Button';
 
-const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
-  props = { monitorInterval: 10000 }
-) => {
+const UpdateMonitor: (props?: {
+  monitorInterval?: number;
+  setLastCheckForUpdateTime?: (updateTime: Date) => void;
+}) => JSX.Element = (props = { monitorInterval: 3600000 }) => {
   const [modalShowing, setModalShowing] = React.useState(false);
   ////// Download update and handle download events
   const [lastEventType, setLastEventType] = React.useState('');
@@ -34,8 +36,9 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
     onDownloadUpdateError: () => setLastEventType('Download error'),
   };
 
-  const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate } = Updates.useUpdates(callbacks);
+  const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate } = useUpdates(callbacks);
   const { availableUpdate } = updatesInfo;
+  const { lastCheckForUpdateTimeSinceRestart } = updatesInfo;
 
   const handleDownloadButtonPress = () => downloadUpdate();
   const monitorStyle = availableUpdate
@@ -60,6 +63,13 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
     }, props.monitorInterval);
     return () => clearInterval(interval);
   }, [checkForUpdate, props.monitorInterval]);
+
+  React.useEffect(() => {
+    if (lastCheckForUpdateTimeSinceRestart) {
+      props?.setLastCheckForUpdateTime &&
+        props?.setLastCheckForUpdateTime(lastCheckForUpdateTimeSinceRestart);
+    }
+  }, [props, lastCheckForUpdateTimeSinceRestart]);
 
   return (
     <View style={styles.monitorContainer}>
