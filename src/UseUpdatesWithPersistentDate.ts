@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Updates from 'expo-updates';
-import type { UseUpdatesCallbacksType, UseUpdatesReturnType } from 'expo-updates';
+import { useUpdates as expoUseUpdates } from '@expo/use-updates';
+import type { UseUpdatesCallbacksType, UseUpdatesReturnType } from '@expo/use-updates';
 
 const fetchLastUpdateCheckDateAsync: () => Promise<Date | undefined> = async () => {
   const dateString = await AsyncStorage.getItem('@lastUpdateCheckDate');
@@ -28,14 +28,21 @@ const date1GreaterThanDate2 = (date1: Date | undefined, date2: Date | undefined)
 export const useUpdates: (callbacks?: UseUpdatesCallbacksType) => UseUpdatesReturnType = (
   callbacks
 ) => {
-  const useUpdatesResult = Updates.useUpdates(callbacks);
-  const { updatesInfo } = useUpdatesResult;
+  const useUpdatesResult = expoUseUpdates(callbacks);
 
   const [lastCheckForUpdateTimeLocal, setLastCheckForUpdateTimeLocal] = useState<Date | undefined>(
     undefined
   );
 
-  const { lastCheckForUpdateTimeSinceRestart } = updatesInfo;
+  const { lastCheckForUpdateTimeSinceRestart } = useUpdatesResult;
+
+  useEffect(() => {
+    fetchLastUpdateCheckDateAsync().then((date) => {
+      if (date1GreaterThanDate2(date, lastCheckForUpdateTimeLocal)) {
+        setLastCheckForUpdateTimeLocal(date);
+      }
+    });
+  }, [lastCheckForUpdateTimeLocal]);
 
   useEffect(() => {
     if (lastCheckForUpdateTimeSinceRestart) {
@@ -46,21 +53,8 @@ export const useUpdates: (callbacks?: UseUpdatesCallbacksType) => UseUpdatesRetu
     }
   }, [lastCheckForUpdateTimeLocal, lastCheckForUpdateTimeSinceRestart]);
 
-  useEffect(() => {
-    if (!lastCheckForUpdateTimeLocal && !lastCheckForUpdateTimeSinceRestart) {
-      fetchLastUpdateCheckDateAsync().then((date) => {
-        if (date) {
-          setLastCheckForUpdateTimeLocal(date);
-        }
-      });
-    }
-  }, [lastCheckForUpdateTimeLocal, lastCheckForUpdateTimeSinceRestart]);
-
   return {
     ...useUpdatesResult,
-    updatesInfo: {
-      ...updatesInfo,
-      lastCheckForUpdateTimeSinceRestart: lastCheckForUpdateTimeLocal,
-    },
+    lastCheckForUpdateTimeSinceRestart: lastCheckForUpdateTimeLocal,
   };
 };

@@ -11,6 +11,7 @@
     "update": "node scripts/push-update.js"
   },
   "dependencies": {
+    "@expo/use-updates": "./dependencies/expo-use-updates-0.16.1.tgz",
     "@react-native-async-storage/async-storage": "1.17.11",
     "expo": "~48.0.10",
     "expo-settings": "https://github.com/douglowder/expo-settings",

@@ -9,7 +9,7 @@
  */
 import React from 'react';
 import { View, Text, Pressable, Modal } from 'react-native';
-import * as Updates from 'expo-updates';
+import type { UseUpdatesCallbacksType } from '@expo/use-updates';
 import { useUpdates } from './UseUpdatesWithPersistentDate';
 
 import styles from './styles';
@@ -23,7 +23,7 @@ const UpdateMonitor: (props?: {
   const [modalShowing, setModalShowing] = React.useState(false);
   ////// Download update and handle download events
   const [lastEventType, setLastEventType] = React.useState('');
-  const callbacks: Updates.UseUpdatesCallbacksType = {
+  const callbacks: UseUpdatesCallbacksType = {
     onDownloadUpdateStart: () => setLastEventType('Download start'),
     onDownloadUpdateComplete: () => {
       setLastEventType('Download complete');
@@ -36,9 +36,13 @@ const UpdateMonitor: (props?: {
     onDownloadUpdateError: () => setLastEventType('Download error'),
   };
 
-  const { updatesInfo, checkForUpdate, downloadUpdate, runUpdate } = useUpdates(callbacks);
-  const { availableUpdate } = updatesInfo;
-  const { lastCheckForUpdateTimeSinceRestart } = updatesInfo;
+  const {
+    availableUpdate,
+    lastCheckForUpdateTimeSinceRestart,
+    checkForUpdate,
+    downloadUpdate,
+    runUpdate,
+  } = useUpdates(callbacks);
 
   const handleDownloadButtonPress = () => downloadUpdate();
   const monitorStyle = availableUpdate

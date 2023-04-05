@@ -7,8 +7,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Text, SafeAreaView } from 'react-native';
-import * as Updates from 'expo-updates';
 
+import { useUpdates } from './UseUpdatesWithPersistentDate';
 import { infoBoxText, isManifestCritical, logEntryText } from './Utils';
 import CacheTimeout from './CacheTimeout';
 import UpdateMonitor from './UpdateMonitor';
@@ -20,13 +20,12 @@ export default function Demo() {
     undefined
   );
   // Info from the provider
-  const { updatesInfo, readLogEntries } = Updates.useUpdates();
-  const { currentlyRunning, error, logEntries } = updatesInfo;
+  const { currentlyRunning, error, logEntries, readLogEntries } = useUpdates();
 
   const logEntryString = logEntryText(logEntries);
 
   // Show whether or not we are running embedded code or an update
-  const runTypeMessage = updatesInfo.currentlyRunning.isEmbeddedLaunch
+  const runTypeMessage = currentlyRunning.isEmbeddedLaunch
     ? 'This app is running from built-in code'
     : isManifestCritical(currentlyRunning.manifest)
     ? 'This app is running a critical update'

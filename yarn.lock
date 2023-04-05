@@ -1405,6 +1405,14 @@
   dependencies:
     cross-spawn "^7.0.3"
 
+"@expo/use-updates@./dependencies/expo-use-updates-0.16.1.tgz":
+  version "0.16.1"
+  resolved "./dependencies/expo-use-updates-0.16.1.tgz#73ca2bb2265380a8caed71fdb4fdc5bd8f9e34dc"
+  dependencies:
+    "@expo/config" "~8.0.0"
+    "@expo/config-plugins" "~6.0.0"
+    "@expo/metro-config" "~0.7.0"
+
 "@expo/vector-icons@^13.0.0":
   version "13.0.0"
   resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-13.0.0.tgz#e2989b85e95a82bce216f88cf8fb583ab050ec95"
