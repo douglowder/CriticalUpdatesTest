@@ -1,5 +1,6 @@
 import * as ExpoSettings from 'expo-settings';
-import type { AvailableUpdateInfo, CurrentlyRunningInfo, UpdatesLogEntry } from 'expo-updates';
+import type { AvailableUpdateInfo, CurrentlyRunningInfo } from '@expo/use-updates';
+import type { UpdatesLogEntry } from 'expo-updates';
 
 const cacheTimeoutKey = 'EX_UPDATES_LAUNCH_WAIT_MS';
 

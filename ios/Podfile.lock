@@ -29,7 +29,7 @@ PODS:
     - ExpoModulesCore
     - React-Core
   - EXStructuredHeaders (3.1.1)
-  - EXUpdates (0.16.3):
+  - EXUpdates (0.16.4):
     - ASN1Decoder (~> 1.8)
     - EASClient
     - EXManifests
@@ -529,7 +529,7 @@ SPEC CHECKSUMS:
   ExpoSettings: 1a1f1a492520c421f505328643e19aa7388fc6c6
   EXSplashScreen: cd7fb052dff5ba8311d5c2455ecbebffe1b7a8ca
   EXStructuredHeaders: b1a48d732562e2cc81f11771bcfd29534f5d9254
-  EXUpdates: 3b2518f513ee37058a2baf9cc8993edca270b61f
+  EXUpdates: 93d707d61fe1e1fbd054dd2518396e02418b117d
   EXUpdatesInterface: dd699d1930e28639dcbd70a402caea98e86364ca
   FBLazyVector: a83ceaa8a8581003a623facdb3c44f6d4f342ac5
   FBReactNativeSpec: 85eee79837cb797ab6176f0243a2b40511c09158

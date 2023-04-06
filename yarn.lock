@@ -1405,9 +1405,9 @@
   dependencies:
     cross-spawn "^7.0.3"
 
-"@expo/use-updates@./dependencies/expo-use-updates-0.16.1.tgz":
-  version "0.16.1"
-  resolved "./dependencies/expo-use-updates-0.16.1.tgz#73ca2bb2265380a8caed71fdb4fdc5bd8f9e34dc"
+"@expo/use-updates@./dependencies/expo-use-updates-0.16.4.tgz":
+  version "0.16.4"
+  resolved "./dependencies/expo-use-updates-0.16.4.tgz#2ed5908e1b666e25c7cc882f9d1c4d99dff48ba1"
   dependencies:
     "@expo/config" "~8.0.0"
     "@expo/config-plugins" "~6.0.0"
@@ -3633,7 +3633,7 @@ expo-asset@~8.9.1:
     path-browserify "^1.0.0"
     url-parse "^1.5.9"
 
-expo-constants@~14.2.0, expo-constants@~14.2.1:
+expo-constants@^14.2.1, expo-constants@~14.2.0, expo-constants@~14.2.1:
   version "14.2.1"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-14.2.1.tgz#b5b6b8079d2082c31ccf2cbc7cf97a0e83c229c3"
   integrity sha512-DD5u4QmBds2U7uYo409apV7nX+XjudARcgqe7S9aRFJ/6kyftmuxvk1DpaU4X42Av8z/tfKwEpuxl+vl7HHx/Q==
