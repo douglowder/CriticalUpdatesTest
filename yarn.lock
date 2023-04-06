@@ -1405,14 +1405,13 @@
   dependencies:
     cross-spawn "^7.0.3"
 
-"@expo/use-updates@./dependencies/expo-use-updates-0.16.5.tgz":
-  version "0.16.5"
-  resolved "./dependencies/expo-use-updates-0.16.5.tgz#db437f6bb5cf2708df304fe8329fa54a2105e9c1"
+"@expo/use-updates@./dependencies/expo-use-updates-0.0.0-1680798863.tgz":
+  version "0.0.0-1680798863"
+  resolved "./dependencies/expo-use-updates-0.0.0-1680798863.tgz#d12b9c142424e9271ff039ffb70b469de5e798f6"
   dependencies:
     "@expo/config" "~8.0.0"
     "@expo/config-plugins" "~6.0.0"
     "@expo/metro-config" "~0.7.0"
-    fbemitter "^3.0.0"
 
 "@expo/vector-icons@^13.0.0":
   version "13.0.0"
