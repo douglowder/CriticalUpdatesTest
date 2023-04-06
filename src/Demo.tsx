@@ -4,12 +4,11 @@
  * - critical updates
  * - passing user-facing messages into the update manifest
  */
-import { readLogEntries } from '@expo/use-updates';
+import { useUpdates, readLogEntries } from '@expo/use-updates';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Text, SafeAreaView } from 'react-native';
 
-import { useUpdates } from './UseUpdatesWithPersistentDate';
 import { infoBoxText, isManifestCritical, logEntryText } from './Utils';
 import CacheTimeout from './CacheTimeout';
 import UpdateMonitor from './UpdateMonitor';

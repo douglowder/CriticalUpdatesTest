@@ -10,8 +10,13 @@
 import React from 'react';
 import { View, Text, Pressable, Modal } from 'react-native';
 import type { UseUpdatesEvent } from '@expo/use-updates';
-import { checkForUpdate, downloadUpdate, runUpdate, UseUpdatesEventType } from '@expo/use-updates';
-import { useUpdates } from './UseUpdatesWithPersistentDate';
+import {
+  useUpdates,
+  checkForUpdate,
+  downloadUpdate,
+  runUpdate,
+  UseUpdatesEventType,
+} from '@expo/use-updates';
 
 import styles from './styles';
 import { delay, isManifestCritical, availableUpdateDescription } from './Utils';
@@ -58,8 +63,6 @@ const UpdateMonitor: (props?: {
 
   React.useEffect(() => {
     const interval = setInterval(() => {
-      checkForUpdate();
-      checkForUpdate();
       checkForUpdate();
     }, props.monitorInterval);
     return () => clearInterval(interval);
