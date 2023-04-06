@@ -9,7 +9,8 @@
  */
 import React from 'react';
 import { View, Text, Pressable, Modal } from 'react-native';
-import type { UseUpdatesCallbacksType } from '@expo/use-updates';
+import type { UseUpdatesEvent } from '@expo/use-updates';
+import { checkForUpdate, downloadUpdate, runUpdate, UseUpdatesEventType } from '@expo/use-updates';
 import { useUpdates } from './UseUpdatesWithPersistentDate';
 
 import styles from './styles';
@@ -23,26 +24,22 @@ const UpdateMonitor: (props?: {
   const [modalShowing, setModalShowing] = React.useState(false);
   ////// Download update and handle download events
   const [lastEventType, setLastEventType] = React.useState('');
-  const callbacks: UseUpdatesCallbacksType = {
-    onDownloadUpdateStart: () => setLastEventType('Download start'),
-    onDownloadUpdateComplete: () => {
+  const eventListener: (event: UseUpdatesEvent) => void = (event) => {
+    if (event.type === UseUpdatesEventType.DOWNLOAD_START) {
+      setLastEventType('Download start');
+    } else if (event.type === UseUpdatesEventType.DOWNLOAD_COMPLETE) {
       setLastEventType('Download complete');
       const run = async () => {
         await delay(2000);
         runUpdate();
       };
       run();
-    },
-    onDownloadUpdateError: () => setLastEventType('Download error'),
+    } else if (event.type === UseUpdatesEventType.ERROR) {
+      setLastEventType('Error');
+    }
   };
 
-  const {
-    availableUpdate,
-    lastCheckForUpdateTimeSinceRestart,
-    checkForUpdate,
-    downloadUpdate,
-    runUpdate,
-  } = useUpdates(callbacks);
+  const { availableUpdate, lastCheckForUpdateTimeSinceRestart } = useUpdates(eventListener);
 
   const handleDownloadButtonPress = () => downloadUpdate();
   const monitorStyle = availableUpdate
@@ -66,7 +63,7 @@ const UpdateMonitor: (props?: {
       checkForUpdate();
     }, props.monitorInterval);
     return () => clearInterval(interval);
-  }, [checkForUpdate, props.monitorInterval]);
+  }, [props.monitorInterval]);
 
   React.useEffect(() => {
     if (lastCheckForUpdateTimeSinceRestart) {

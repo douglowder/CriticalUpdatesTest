@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useUpdates as expoUseUpdates } from '@expo/use-updates';
-import type { UseUpdatesCallbacksType, UseUpdatesReturnType } from '@expo/use-updates';
+import type { UseUpdatesEvent, UseUpdatesReturnType } from '@expo/use-updates';
 
 const fetchLastUpdateCheckDateAsync: () => Promise<Date | undefined> = async () => {
   const dateString = await AsyncStorage.getItem('@lastUpdateCheckDate');
@@ -25,10 +25,10 @@ const date1GreaterThanDate2 = (date1: Date | undefined, date2: Date | undefined)
   }
 };
 
-export const useUpdates: (callbacks?: UseUpdatesCallbacksType) => UseUpdatesReturnType = (
-  callbacks
-) => {
-  const useUpdatesResult = expoUseUpdates(callbacks);
+export const useUpdates: (
+  eventListener?: (event: UseUpdatesEvent) => void
+) => UseUpdatesReturnType = (eventListener) => {
+  const useUpdatesResult = expoUseUpdates(eventListener);
 
   const [lastCheckForUpdateTimeLocal, setLastCheckForUpdateTimeLocal] = useState<Date | undefined>(
     undefined

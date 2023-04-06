@@ -4,6 +4,7 @@
  * - critical updates
  * - passing user-facing messages into the update manifest
  */
+import { readLogEntries } from '@expo/use-updates';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Text, SafeAreaView } from 'react-native';
@@ -20,7 +21,7 @@ export default function Demo() {
     undefined
   );
   // Info from the provider
-  const { currentlyRunning, error, logEntries, readLogEntries } = useUpdates();
+  const { currentlyRunning, error, logEntries } = useUpdates();
 
   const logEntryString = logEntryText(logEntries);
 
@@ -48,7 +49,7 @@ export default function Demo() {
       )}\n`}</Text>
       <CacheTimeout />
 
-      <Button pressHandler={() => readLogEntries()} text="Read log entries" />
+      <Button pressHandler={() => readLogEntries(3600000)} text="Read log entries" />
       <Text style={styles.logEntryText}>{logEntryString}</Text>
       <StatusBar style="auto" />
     </SafeAreaView>
