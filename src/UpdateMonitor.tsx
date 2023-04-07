@@ -9,14 +9,7 @@
  */
 import React from 'react';
 import { View, Text, Pressable, Modal } from 'react-native';
-import type { UseUpdatesEvent } from '@expo/use-updates';
-import {
-  useUpdates,
-  checkForUpdate,
-  downloadUpdate,
-  runUpdate,
-  UseUpdatesEventType,
-} from '@expo/use-updates';
+import { useUpdates, checkForUpdate, downloadUpdate, runUpdate } from '@expo/use-updates';
 
 import styles from './styles';
 import { delay, isManifestCritical, availableUpdateDescription } from './Utils';
@@ -29,31 +22,33 @@ const UpdateMonitor: (props?: {
   const [modalShowing, setModalShowing] = React.useState(false);
   ////// Download update and handle download events
   const [lastEventType, setLastEventType] = React.useState('');
-  const eventListener: (event: UseUpdatesEvent) => void = (event) => {
-    if (event.type === UseUpdatesEventType.DOWNLOAD_START) {
-      setLastEventType('Download start');
-    } else if (event.type === UseUpdatesEventType.DOWNLOAD_COMPLETE) {
+
+  const {
+    availableUpdate,
+    isUpdateAvailable,
+    isUpdatePending,
+    lastCheckForUpdateTimeSinceRestart,
+  } = useUpdates();
+
+  React.useEffect(() => {
+    if (isUpdatePending) {
       setLastEventType('Download complete');
       const run = async () => {
         await delay(2000);
         runUpdate();
       };
       run();
-    } else if (event.type === UseUpdatesEventType.ERROR) {
-      setLastEventType('Error');
     }
-  };
-
-  const { availableUpdate, lastCheckForUpdateTimeSinceRestart } = useUpdates(eventListener);
+  }, [isUpdatePending]);
 
   const handleDownloadButtonPress = () => downloadUpdate();
-  const monitorStyle = availableUpdate
+  const monitorStyle = isUpdateAvailable
     ? isManifestCritical(availableUpdate?.manifest)
       ? [styles.monitor, styles.monitorCritical]
       : [styles.monitor, styles.monitorUpdate]
     : styles.monitor;
 
-  const modalTitle = availableUpdate
+  const modalTitle = isUpdateAvailable
     ? isManifestCritical(availableUpdate?.manifest)
       ? 'Critical update available'
       : 'Update available'
