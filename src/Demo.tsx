@@ -18,7 +18,10 @@ export default function Demo() {
     <SafeAreaView style={styles.container}>
       <UpdateMonitor monitorInterval={10} />
       <View style={styles.spacer} />
-      <List.Section title="Critical Updates Test" titleStyle={styles.listSectionTitleText}>
+      <List.Section
+        style={styles.listSection}
+        title="Critical Updates Test"
+        titleStyle={styles.listSectionTitleText}>
         <List.Item
           style={styles.listItem}
           title={currentlyRunningTitle(currentlyRunning)}
@@ -57,16 +60,21 @@ const styles = StyleSheet.create({
   spacer: {
     flex: 1,
   },
+  listSection: {
+    width: '90%',
+  },
   listSectionTitleText: {
     fontWeight: 'bold',
     fontSize: 24,
   },
   listItem: {
     margin: 10,
+    width: '100%',
   },
   listItemTitleText: {
     fontWeight: 'bold',
-    fontSize: 12,
+    fontSize: 14,
+    padding: 10,
   },
   listItemDescriptionText: {
     fontSize: 12,
