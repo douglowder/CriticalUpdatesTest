@@ -4,23 +4,19 @@
  * - critical updates
  * - passing user-facing messages into the update manifest
  */
-import { useUpdates, readLogEntries } from '@expo/use-updates';
+import { readLogEntries } from '@expo/use-updates';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Text, SafeAreaView } from 'react-native';
 
+import { useUpdates } from './UseUpdatesWithPersistentDate';
 import { infoBoxText, isManifestCritical, logEntryText } from './Utils';
-import CacheTimeout from './CacheTimeout';
 import UpdateMonitor from './UpdateMonitor';
 import styles from './styles';
 import Button from './Button';
 
 export default function Demo() {
-  const [lastCheckForUpdateTime, setLastCheckForUpdateTime] = React.useState<Date | undefined>(
-    undefined
-  );
-  // Info from the provider
-  const { currentlyRunning, error, logEntries } = useUpdates();
+  const { currentlyRunning, error, logEntries, lastCheckForUpdateTime } = useUpdates();
 
   const logEntryString = logEntryText(logEntries);
 
@@ -35,10 +31,7 @@ export default function Demo() {
     <SafeAreaView style={styles.container}>
       {/* Monitor that polls for updates and shows a green, yellow, or red
           button at the top right */}
-      <UpdateMonitor
-        monitorInterval={10000}
-        setLastCheckForUpdateTime={setLastCheckForUpdateTime}
-      />
+      <UpdateMonitor monitorInterval={10} />
       <Text style={styles.headerText}>Critical Updates Test</Text>
       <Text>{runTypeMessage}</Text>
       <Text style={styles.updateMessageText}>{`${infoBoxText(
@@ -46,9 +39,8 @@ export default function Demo() {
         error,
         lastCheckForUpdateTime
       )}\n`}</Text>
-      <CacheTimeout />
 
-      <Button pressHandler={() => readLogEntries(3600000)} text="Read log entries" />
+      <Button pressHandler={() => readLogEntries()} text="Read log entries" />
       <Text style={styles.logEntryText}>{logEntryString}</Text>
       <StatusBar style="auto" />
     </SafeAreaView>

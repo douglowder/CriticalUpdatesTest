@@ -1405,9 +1405,9 @@
   dependencies:
     cross-spawn "^7.0.3"
 
-"@expo/use-updates@./dependencies/expo-use-updates-0.0.0-1680831117.tgz":
-  version "0.0.0-1680831117"
-  resolved "./dependencies/expo-use-updates-0.0.0-1680831117.tgz#6a13f27fe3b8c3e0934cafb39ba774ea6e4aecf2"
+"@expo/use-updates@./dependencies/expo-use-updates-0.0.0-1681191042.tgz":
+  version "0.0.0-1681191042"
+  resolved "./dependencies/expo-use-updates-0.0.0-1681191042.tgz#143d7b425c91977ed4a6e927823fa74a5ecb623f"
   dependencies:
     "@expo/config" "~8.0.0"
     "@expo/config-plugins" "~6.0.0"
@@ -3695,10 +3695,6 @@ expo-modules-core@1.2.6:
   dependencies:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
-
-"expo-settings@https://github.com/douglowder/expo-settings":
-  version "0.1.0"
-  resolved "https://github.com/douglowder/expo-settings#0ca2cbddcee7cccff159b53993aec3850ee3664a"
 
 expo-splash-screen@~0.18.1:
   version "0.18.1"

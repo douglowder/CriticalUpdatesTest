@@ -1,21 +1,43 @@
-import * as ExpoSettings from 'expo-settings';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { AvailableUpdateInfo, CurrentlyRunningInfo } from '@expo/use-updates';
 import type { UpdatesLogEntry } from 'expo-updates';
 
-const cacheTimeoutKey = 'EX_UPDATES_LAUNCH_WAIT_MS';
+// Test for the critical user flag passed into an update
 
-const getCacheTimeoutSetting: () => number = () => {
-  const cacheTimeoutString = ExpoSettings.get(cacheTimeoutKey);
-  return cacheTimeoutString ? parseInt(cacheTimeoutString, 10) : -1;
+const isManifestCritical = (manifest: any) => {
+  return manifest?.extra?.expoClient?.extra?.critical || false;
 };
 
-const setCacheTimeoutSetting = (timeout: number) => {
-  ExpoSettings.set(cacheTimeoutKey, `${timeout}`);
+// Promise wrapper for setTimeout()
+
+const delay = (timeout: number) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeout);
+  });
 };
 
-const removeCacheTimeoutSetting = () => {
-  ExpoSettings.remove(cacheTimeoutKey);
+// Persistent date utils
+
+const fetchLastUpdateCheckDateAsync: () => Promise<Date | undefined> = async () => {
+  const dateString = await AsyncStorage.getItem('@lastUpdateCheckDate');
+  return dateString ? new Date(dateString) : undefined;
 };
+
+const storeLastUpdateCheckDateAsync: (date: Date) => Promise<void> = async (date) => {
+  const dateString = date.toISOString();
+  return await AsyncStorage.setItem('@lastUpdateCheckDate', dateString);
+};
+
+const dateToTimeInSeconds = (date: Date | undefined) =>
+  date ? Math.floor(date.getTime() / 1000) : -1;
+
+const date1GreaterThanDate2 = (date1: Date | undefined, date2: Date | undefined) =>
+  dateToTimeInSeconds(date1) > dateToTimeInSeconds(date2);
+
+const dateDifferenceInSeconds = (date1: Date | undefined, date2: Date | undefined) =>
+  dateToTimeInSeconds(date1) - dateToTimeInSeconds(date2);
+
+// Utils for displaying info
 
 const infoBoxText = (
   currentlyRunning: CurrentlyRunningInfo,
@@ -67,10 +89,6 @@ const manifestMessage = (manifest: any) => {
   return manifest?.extra?.expoClient?.extra?.message || '';
 };
 
-const isManifestCritical = (manifest: any) => {
-  return manifest?.extra?.expoClient?.extra?.critical || false;
-};
-
 const logEntryText = (logEntries?: UpdatesLogEntry[]) => {
   const entries: any = logEntries
     ? logEntries
@@ -80,22 +98,16 @@ const logEntryText = (logEntries?: UpdatesLogEntry[]) => {
   return JSON.stringify(entries, null, 2);
 };
 
-// Promise wrapper for setTimeout()
-const delay = (timeout: number) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, timeout);
-  });
-};
-
 export {
+  fetchLastUpdateCheckDateAsync,
+  storeLastUpdateCheckDateAsync,
+  date1GreaterThanDate2,
+  dateDifferenceInSeconds,
   availableUpdateDescription,
   delay,
-  getCacheTimeoutSetting,
   infoBoxText,
   isManifestCritical,
   logEntryText,
   manifestDescription,
   manifestMessage,
-  removeCacheTimeoutSetting,
-  setCacheTimeoutSetting,
 };

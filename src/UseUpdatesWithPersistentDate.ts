@@ -1,60 +1,43 @@
+// Wraps the useUpdates() hook and persists the last update check time
+
 import { useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useUpdates as expoUseUpdates } from '@expo/use-updates';
-import type { UseUpdatesEvent, UseUpdatesReturnType } from '@expo/use-updates';
+import type { UseUpdatesReturnType } from '@expo/use-updates';
+import { fetchLastUpdateCheckDateAsync, storeLastUpdateCheckDateAsync } from './Utils';
 
-const fetchLastUpdateCheckDateAsync: () => Promise<Date | undefined> = async () => {
-  const dateString = await AsyncStorage.getItem('@lastUpdateCheckDate');
-  return dateString ? new Date(dateString) : undefined;
+export type WrappedUseUpdatesReturnType = UseUpdatesReturnType & {
+  lastCheckForUpdateTime: Date | undefined;
 };
 
-const storeLastUpdateCheckDateAsync: (date: Date) => void = (date) => {
-  const dateString = date.toISOString();
-  return AsyncStorage.setItem('@lastUpdateCheckDate', dateString);
-};
-
-const dateToTimeInSeconds = (date: Date) => Math.floor(date.getTime() / 1000);
-
-const date1GreaterThanDate2 = (date1: Date | undefined, date2: Date | undefined) => {
-  if (!date2) {
-    return true;
-  } else if (!date1) {
-    return false;
-  } else {
-    return dateToTimeInSeconds(date1) > dateToTimeInSeconds(date2);
-  }
-};
-
-export const useUpdates: (
-  eventListener?: (event: UseUpdatesEvent) => void
-) => UseUpdatesReturnType = (eventListener) => {
-  const useUpdatesResult = expoUseUpdates(eventListener);
-
-  const [lastCheckForUpdateTimeLocal, setLastCheckForUpdateTimeLocal] = useState<Date | undefined>(
-    undefined
-  );
-
+export const useUpdates: () => WrappedUseUpdatesReturnType = () => {
+  const useUpdatesResult = expoUseUpdates();
   const { lastCheckForUpdateTimeSinceRestart } = useUpdatesResult;
 
-  useEffect(() => {
-    fetchLastUpdateCheckDateAsync().then((date) => {
-      if (date1GreaterThanDate2(date, lastCheckForUpdateTimeLocal)) {
-        setLastCheckForUpdateTimeLocal(date);
-      }
-    });
-  }, [lastCheckForUpdateTimeLocal]);
+  const [lastCheckForUpdateTime, setLastCheckForUpdateTime] = useState<Date | undefined>(undefined);
 
   useEffect(() => {
     if (lastCheckForUpdateTimeSinceRestart) {
-      if (date1GreaterThanDate2(lastCheckForUpdateTimeSinceRestart, lastCheckForUpdateTimeLocal)) {
-        setLastCheckForUpdateTimeLocal(lastCheckForUpdateTimeSinceRestart);
-        storeLastUpdateCheckDateAsync(lastCheckForUpdateTimeSinceRestart);
-      }
+      // If this changes, there was a check for update, so store the time and set the state
+      storeLastUpdateCheckDateAsync(lastCheckForUpdateTimeSinceRestart).then(() => {
+        setLastCheckForUpdateTime(lastCheckForUpdateTimeSinceRestart);
+      });
+      return;
     }
-  }, [lastCheckForUpdateTimeLocal, lastCheckForUpdateTimeSinceRestart]);
+  }, [lastCheckForUpdateTimeSinceRestart]);
+
+  useEffect(() => {
+    if (lastCheckForUpdateTime === undefined) {
+      // If no check for update yet, try reading from storage
+      fetchLastUpdateCheckDateAsync().then((storedDate) => {
+        if (storedDate) {
+          setLastCheckForUpdateTime(storedDate);
+        }
+      });
+    }
+  }, [lastCheckForUpdateTime]);
 
   return {
     ...useUpdatesResult,
-    lastCheckForUpdateTimeSinceRestart: lastCheckForUpdateTimeLocal,
+    lastCheckForUpdateTime,
   };
 };
