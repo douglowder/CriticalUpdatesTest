@@ -2,52 +2,32 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
+    width: '90%',
+    height: '90%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  spacer: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 10,
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 4,
-    elevation: 3,
-    backgroundColor: '#4630EB',
+  listSection: {
+    width: '90%',
   },
-  buttonPressed: {
-    backgroundColor: '#8630EB',
-  },
-  buttonText: {
-    color: 'white',
-  },
-  headerText: {
-    fontSize: 20,
+  listSectionTitleText: {
     fontWeight: 'bold',
+    fontSize: 24,
   },
-  updateMessageText: {
+  listItem: {
     margin: 10,
-    height: 200,
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    width: '90%',
-    borderColor: '#4630EB',
-    borderWidth: 1,
-    borderRadius: 4,
-    fontSize: 10,
+    width: '100%',
   },
-  logEntryText: {
-    margin: 10,
-    height: 200,
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    width: '90%',
-    borderColor: '#4630EB',
-    borderWidth: 1,
-    borderRadius: 4,
-    fontSize: 10,
+  listItemTitleText: {
+    fontWeight: 'bold',
+    fontSize: 14,
+    padding: 10,
+  },
+  listItemDescriptionText: {
+    fontSize: 12,
   },
   monitorContainer: {
     height: 30,
@@ -56,7 +36,6 @@ export default StyleSheet.create({
     alignItems: 'flex-end',
   },
   monitorModalContainer: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#f4f6fe',
@@ -76,5 +55,8 @@ export default StyleSheet.create({
   },
   monitorCritical: {
     backgroundColor: '#db3421', // red
+  },
+  buttonStyle: {
+    margin: 20,
   },
 });

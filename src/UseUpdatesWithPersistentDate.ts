@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useUpdates as expoUseUpdates } from '@expo/use-updates';
 import type { UseUpdatesReturnType } from '@expo/use-updates';
-import { fetchLastUpdateCheckDateAsync, storeLastUpdateCheckDateAsync } from './Utils';
+import { fetchLastUpdateCheckDateAsync, storeLastUpdateCheckDateAsync } from './utils';
 
 export type WrappedUseUpdatesReturnType = UseUpdatesReturnType & {
   lastCheckForUpdateTime: Date | undefined;

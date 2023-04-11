@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { AvailableUpdateInfo, CurrentlyRunningInfo } from '@expo/use-updates';
-import type { UpdatesLogEntry } from 'expo-updates';
 
 // Test for the critical user flag passed into an update
 
@@ -52,9 +51,8 @@ const currentlyRunningDescription = (currentlyRunning: CurrentlyRunningInfo) => 
 
 const availableUpdateDescription = (availableUpdate: AvailableUpdateInfo | undefined) => {
   return availableUpdate
-    ? 'Update available:\n' +
-        ` ID: ${availableUpdate.updateId}\n` +
-        ` Created: ${availableUpdate.createdAt || ''}\n` +
+    ? ` ID: ${availableUpdate.updateId}\n` +
+        ` Created: ${availableUpdate.createdAt?.toISOString() || ''}\n` +
         ` Message: ${manifestMessage(availableUpdate.manifest)}\n` +
         ` Critical: ${isManifestCritical(availableUpdate.manifest)}\n`
     : 'No available update';
@@ -62,15 +60,6 @@ const availableUpdateDescription = (availableUpdate: AvailableUpdateInfo | undef
 
 const manifestMessage = (manifest: any) => {
   return manifest?.extra?.expoClient?.extra?.message || '';
-};
-
-const logEntryText = (logEntries?: UpdatesLogEntry[]) => {
-  const entries: any = logEntries
-    ? logEntries
-        .slice(logEntries.length - 2, logEntries.length)
-        .map((entry) => ({ code: entry.code, message: entry.message }))
-    : [];
-  return JSON.stringify(entries, null, 2);
 };
 
 export {
@@ -83,6 +72,5 @@ export {
   currentlyRunningTitle,
   currentlyRunningDescription,
   isManifestCritical,
-  logEntryText,
   manifestMessage,
 };

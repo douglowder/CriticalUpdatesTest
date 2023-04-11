@@ -6,11 +6,12 @@
  */
 import React from 'react';
 import { List } from 'react-native-paper';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 
 import { useUpdates } from './UseUpdatesWithPersistentDate';
-import { currentlyRunningTitle, currentlyRunningDescription } from './Utils';
+import { currentlyRunningTitle, currentlyRunningDescription } from './utils';
 import UpdateMonitor from './UpdateMonitor';
+import styles from './styles';
 
 export default function Demo() {
   const { currentlyRunning, error, lastCheckForUpdateTime } = useUpdates();
@@ -49,34 +50,3 @@ export default function Demo() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: '90%',
-    height: '90%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  spacer: {
-    flex: 1,
-  },
-  listSection: {
-    width: '90%',
-  },
-  listSectionTitleText: {
-    fontWeight: 'bold',
-    fontSize: 24,
-  },
-  listItem: {
-    margin: 10,
-    width: '100%',
-  },
-  listItemTitleText: {
-    fontWeight: 'bold',
-    fontSize: 14,
-    padding: 10,
-  },
-  listItemDescriptionText: {
-    fontSize: 12,
-  },
-});

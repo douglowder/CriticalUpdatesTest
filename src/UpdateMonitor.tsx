@@ -8,8 +8,9 @@
  * on the update, and download and run it
  */
 import React, { useEffect, useRef } from 'react';
-import { AppState, View, Text, Pressable, Modal } from 'react-native';
+import { AppState, View, Pressable } from 'react-native';
 import { checkForUpdate, downloadUpdate, runUpdate } from '@expo/use-updates';
+import { Modal, Portal, List, Button } from 'react-native-paper';
 
 // Use our wrapped hook with the persistent time
 import { useUpdates } from './UseUpdatesWithPersistentDate';
@@ -20,8 +21,7 @@ import {
   isManifestCritical,
   availableUpdateDescription,
   dateDifferenceInSeconds,
-} from './Utils';
-import Button from './Button';
+} from './utils';
 
 const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
   props = { monitorInterval: 3600 }
@@ -92,17 +92,47 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
       <View style={flexStyle} />
       <Pressable onPress={() => setModalShowing(true)} style={monitorStyle} />
       {modalShowing ? (
-        <Modal animationType="slide" presentationStyle="formSheet">
-          <View style={styles.monitorModalContainer}>
-            <Text style={styles.monitorModalTitle}>{modalTitle}</Text>
-            <Text>{availableUpdateDescription(availableUpdate)}</Text>
-            <Text>{message}</Text>
-            <Button pressHandler={() => setModalShowing(false)} text="Dismiss" />
+        <Portal>
+          <Modal
+            visible={modalShowing}
+            onDismiss={() => setModalShowing(false)}
+            contentContainerStyle={styles.monitorModalContainer}>
+            <List.Section
+              style={styles.listSection}
+              title={modalTitle}
+              titleStyle={styles.listSectionTitleText}>
+              <List.Item
+                style={styles.listItem}
+                title="Description:"
+                titleStyle={styles.listItemTitleText}
+                description={availableUpdateDescription(availableUpdate)}
+                descriptionNumberOfLines={5}
+                descriptionStyle={styles.listItemDescriptionText}
+              />
+              <List.Item
+                style={styles.listItem}
+                title="Message:"
+                titleStyle={styles.listItemTitleText}
+                description={message}
+                descriptionStyle={styles.listItemDescriptionText}
+              />
+            </List.Section>
+            <Button
+              style={styles.buttonStyle}
+              mode="contained"
+              onPress={() => setModalShowing(false)}>
+              Dismiss
+            </Button>
             {availableUpdate ? (
-              <Button pressHandler={handleDownloadButtonPress} text="Download and run update" />
+              <Button
+                style={styles.buttonStyle}
+                mode="contained"
+                onPress={handleDownloadButtonPress}>
+                Download and run update
+              </Button>
             ) : null}
-          </View>
-        </Modal>
+          </Modal>
+        </Portal>
       ) : null}
     </View>
   );
