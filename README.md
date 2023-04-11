@@ -3,7 +3,7 @@
 App to test out
 
 - Ideas for implementing critical updates
-- Ideas for an Updates provider API
+- New JS API `@expo/use-updates`
 
 _Usage_
 
@@ -23,14 +23,17 @@ npx expo run:ios --configuration Release
 # Push an update
 yarn update --message "Testing an update"
 
-# After a few seconds, status button turns yellow
-# indicating an update is available. Press yellow button
-# to open modal.
+# After a few seconds, hide the app, and then click on it to bring it
+# back to the foreground. The monitor status will be yellow
+# (update available).
 
-# Press "Download and run update" button to run the update.
+# Press "Download and run update" button to run the update. Status
+# should be green again, and the app should show that it is running
+# an update.
 
 # After pushing an update, restarting the app should also show the 
-# yellow status
+# yellow status, if automatic updates are enabled (in app.json,
+# "checkAutomatically" is set to "ON_LOAD", or not present)
 
 # Push a critical update
 yarn update --message "Testing a critical update" --critical
