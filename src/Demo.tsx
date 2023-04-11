@@ -4,45 +4,71 @@
  * - critical updates
  * - passing user-facing messages into the update manifest
  */
-import { readLogEntries } from '@expo/use-updates';
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Text, SafeAreaView } from 'react-native';
+import { List } from 'react-native-paper';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 import { useUpdates } from './UseUpdatesWithPersistentDate';
-import { infoBoxText, isManifestCritical, logEntryText } from './Utils';
+import { currentlyRunningTitle, currentlyRunningDescription } from './Utils';
 import UpdateMonitor from './UpdateMonitor';
-import styles from './styles';
-import Button from './Button';
 
 export default function Demo() {
-  const { currentlyRunning, error, logEntries, lastCheckForUpdateTime } = useUpdates();
-
-  const logEntryString = logEntryText(logEntries);
-
-  // Show whether or not we are running embedded code or an update
-  const runTypeMessage = currentlyRunning.isEmbeddedLaunch
-    ? 'This app is running from built-in code'
-    : isManifestCritical(currentlyRunning.manifest)
-    ? 'This app is running a critical update'
-    : 'This app is running a normal update';
-
+  const { currentlyRunning, error, lastCheckForUpdateTime } = useUpdates();
   return (
     <SafeAreaView style={styles.container}>
-      {/* Monitor that polls for updates and shows a green, yellow, or red
-          button at the top right */}
       <UpdateMonitor monitorInterval={10} />
-      <Text style={styles.headerText}>Critical Updates Test</Text>
-      <Text>{runTypeMessage}</Text>
-      <Text style={styles.updateMessageText}>{`${infoBoxText(
-        currentlyRunning,
-        error,
-        lastCheckForUpdateTime
-      )}\n`}</Text>
-
-      <Button pressHandler={() => readLogEntries()} text="Read log entries" />
-      <Text style={styles.logEntryText}>{logEntryString}</Text>
-      <StatusBar style="auto" />
+      <View style={styles.spacer} />
+      <List.Section title="Critical Updates Test" titleStyle={styles.listSectionTitleText}>
+        <List.Item
+          style={styles.listItem}
+          title={currentlyRunningTitle(currentlyRunning)}
+          titleStyle={styles.listItemTitleText}
+          description={currentlyRunningDescription(currentlyRunning)}
+          descriptionNumberOfLines={5}
+          descriptionStyle={styles.listItemDescriptionText}
+        />
+        <List.Item
+          style={styles.listItem}
+          title="Last update check:"
+          titleStyle={styles.listItemTitleText}
+          description={lastCheckForUpdateTime?.toISOString() || ''}
+          descriptionStyle={styles.listItemDescriptionText}
+        />
+        <List.Item
+          style={styles.listItem}
+          title="Last error:"
+          titleStyle={styles.listItemTitleText}
+          description={error?.message || ''}
+          descriptionStyle={styles.listItemDescriptionText}
+        />
+      </List.Section>
+      <View style={styles.spacer} />
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: '90%',
+    height: '90%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  spacer: {
+    flex: 1,
+  },
+  listSectionTitleText: {
+    fontWeight: 'bold',
+    fontSize: 24,
+  },
+  listItem: {
+    margin: 10,
+  },
+  listItemTitleText: {
+    fontWeight: 'bold',
+    fontSize: 12,
+  },
+  listItemDescriptionText: {
+    fontSize: 12,
+  },
+});

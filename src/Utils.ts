@@ -37,39 +37,14 @@ const date1GreaterThanDate2 = (date1: Date | undefined, date2: Date | undefined)
 const dateDifferenceInSeconds = (date1: Date | undefined, date2: Date | undefined) =>
   dateToTimeInSeconds(date1) - dateToTimeInSeconds(date2);
 
-// Utils for displaying info
-
-const infoBoxText = (
-  currentlyRunning: CurrentlyRunningInfo,
-  error: Error | undefined,
-  lastCheckForUpdateTime: Date | undefined
-) => {
-  return (
-    currentlyRunningDescription(currentlyRunning) +
-    '\n' +
-    //availableUpdateDescription(availableUpdate) +
-    //'\n' +
-    `Last check for update: ${lastCheckForUpdateTime}\n` +
-    `Error: ${JSON.stringify(error)}\n`
-  );
-};
-
-const manifestDescription = (manifest: any) => {
-  return manifest?.id
-    ? `  ID: ${manifest?.id}\n` +
-        `  Created: ${manifest?.createdAt}\n` +
-        `  Message: ${manifestMessage(manifest)}\n` +
-        `  Critical: ${isManifestCritical(manifest)}\n`
-    : '';
+const currentlyRunningTitle = (currentlyRunning: CurrentlyRunningInfo) => {
+  return currentlyRunning?.isEmbeddedLaunch ? 'Running the embedded bundle:' : 'Running an update:';
 };
 
 const currentlyRunningDescription = (currentlyRunning: CurrentlyRunningInfo) => {
   return (
-    (currentlyRunning?.isEmbeddedLaunch
-      ? 'Running the embedded bundle:\n'
-      : 'Running an update:\n') +
     ` ID: ${currentlyRunning.updateId}\n` +
-    ` Created: ${currentlyRunning.createdAt}\n` +
+    ` Created: ${currentlyRunning.createdAt?.toISOString()}\n` +
     ` Channel: ${currentlyRunning.channel}\n` +
     ` Runtime Version: ${currentlyRunning.runtimeVersion}\n`
   );
@@ -80,8 +55,8 @@ const availableUpdateDescription = (availableUpdate: AvailableUpdateInfo | undef
     ? 'Update available:\n' +
         ` ID: ${availableUpdate.updateId}\n` +
         ` Created: ${availableUpdate.createdAt || ''}\n` +
-        ' Manifest:\n' +
-        manifestDescription(availableUpdate.manifest)
+        ` Message: ${manifestMessage(availableUpdate.manifest)}\n` +
+        ` Critical: ${isManifestCritical(availableUpdate.manifest)}\n`
     : 'No available update';
 };
 
@@ -105,9 +80,9 @@ export {
   dateDifferenceInSeconds,
   availableUpdateDescription,
   delay,
-  infoBoxText,
+  currentlyRunningTitle,
+  currentlyRunningDescription,
   isManifestCritical,
   logEntryText,
-  manifestDescription,
   manifestMessage,
 };
