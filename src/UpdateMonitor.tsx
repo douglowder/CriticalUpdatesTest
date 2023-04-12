@@ -33,7 +33,7 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
   const appState = useRef(AppState.currentState);
   useEffect(() => {
     const subscription = AppState.addEventListener('change', (nextAppState) => {
-      if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
+      if (appState.current !== 'active' && nextAppState === 'active') {
         // App has come to the foreground, see if it is time to check for an update
         const now = new Date();
         if (
