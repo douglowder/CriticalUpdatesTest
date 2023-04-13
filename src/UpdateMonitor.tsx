@@ -8,12 +8,14 @@
  * on the update, and download and run it
  */
 import React, { useEffect } from 'react';
-import { AppState, View, Pressable } from 'react-native';
+import { View, Pressable } from 'react-native';
 import { useUpdates, checkForUpdate, downloadUpdate, runUpdate } from '@expo/use-updates';
 import { Modal, Portal, List, Button } from 'react-native-paper';
 
+import useAppState from './hooks/useAppState';
 import useInterval from './hooks/useInterval';
 import usePersistentDate from './hooks/usePersistentDate';
+
 import styles from './styles';
 import {
   delay,
@@ -34,18 +36,24 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
 
   const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
 
-  const appState = AppState.currentState;
-  const intervalSeconds = props.monitorInterval || 3600;
+  const monitorInterval = props.monitorInterval || 3600;
 
-  // Check at intervals while app state is active
-  useInterval(() => {
-    if (
-      appState === 'active' &&
-      dateDifferenceInSeconds(new Date(), lastCheckForUpdateTime) > intervalSeconds
-    ) {
+  const needsUpdateCheck = () =>
+    dateDifferenceInSeconds(new Date(), lastCheckForUpdateTime) > monitorInterval;
+
+  // Check if needed when app becomes active
+  const appState = useAppState((activating) => {
+    if (activating && needsUpdateCheck()) {
       checkForUpdate();
     }
-  }, intervalSeconds);
+  });
+
+  // Check every 10 seconds while app is active
+  useInterval(() => {
+    if (appState === 'active' && needsUpdateCheck()) {
+      checkForUpdate();
+    }
+  }, 10);
 
   // Run the downloaded update if download completes successfully
   useEffect(() => {

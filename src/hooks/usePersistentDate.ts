@@ -1,19 +1,15 @@
-// Wraps the useUpdates() hook and persists the last update check time
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 import { date1GreaterThanDate2 } from '../utils';
 
-const fetchLastUpdateCheckDateAsync: () => Promise<Date | undefined> = async () => {
-  const dateString = await AsyncStorage.getItem('@lastUpdateCheckDate');
-  return dateString ? new Date(dateString) : undefined;
-};
-
-const storeLastUpdateCheckDateAsync: (date: Date) => Promise<void> = async (date) => {
-  const dateString = date.toISOString();
-  return await AsyncStorage.setItem('@lastUpdateCheckDate', dateString);
-};
-
+/**
+ * Hook that takes a date computed since restart, and persists it if is later than the value already stored.
+ * If the date has never been computed, attempt to read the previously saved value from storage.
+ *
+ * @param dateSinceRestart The date computed since restart
+ *
+ * @returns the most recently computed date, either computed since restart, or retrieved from storage
+ */
 const usePersistentDate = (dateSinceRestart: Date | undefined) => {
   const [localDate, setLocalDate] = useState<Date | undefined>(undefined);
 
@@ -42,3 +38,13 @@ const usePersistentDate = (dateSinceRestart: Date | undefined) => {
 };
 
 export default usePersistentDate;
+
+const fetchLastUpdateCheckDateAsync: () => Promise<Date | undefined> = async () => {
+  const dateString = await AsyncStorage.getItem('@lastUpdateCheckDate');
+  return dateString ? new Date(dateString) : undefined;
+};
+
+const storeLastUpdateCheckDateAsync: (date: Date) => Promise<void> = async (date) => {
+  const dateString = date.toISOString();
+  return await AsyncStorage.setItem('@lastUpdateCheckDate', dateString);
+};
