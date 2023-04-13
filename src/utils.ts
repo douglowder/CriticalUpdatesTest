@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { AvailableUpdateInfo, CurrentlyRunningInfo } from '@expo/use-updates';
 
 // Test for the critical user flag passed into an update
@@ -16,16 +15,6 @@ const delay = (timeout: number) => {
 };
 
 // Persistent date utils
-
-const fetchLastUpdateCheckDateAsync: () => Promise<Date | undefined> = async () => {
-  const dateString = await AsyncStorage.getItem('@lastUpdateCheckDate');
-  return dateString ? new Date(dateString) : undefined;
-};
-
-const storeLastUpdateCheckDateAsync: (date: Date) => Promise<void> = async (date) => {
-  const dateString = date.toISOString();
-  return await AsyncStorage.setItem('@lastUpdateCheckDate', dateString);
-};
 
 const dateToTimeInSeconds = (date: Date | undefined) =>
   date ? Math.floor(date.getTime() / 1000) : -1;
@@ -63,8 +52,6 @@ const manifestMessage = (manifest: any) => {
 };
 
 export {
-  fetchLastUpdateCheckDateAsync,
-  storeLastUpdateCheckDateAsync,
   date1GreaterThanDate2,
   dateDifferenceInSeconds,
   availableUpdateDescription,

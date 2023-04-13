@@ -7,14 +7,13 @@
  * Click on the monitor to open a modal that allows you to see information
  * on the update, and download and run it
  */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { AppState, View, Pressable } from 'react-native';
-import { checkForUpdate, downloadUpdate, runUpdate } from '@expo/use-updates';
+import { useUpdates, checkForUpdate, downloadUpdate, runUpdate } from '@expo/use-updates';
 import { Modal, Portal, List, Button } from 'react-native-paper';
 
-// Use our wrapped hook with the persistent time
-import { useUpdates } from './UseUpdatesWithPersistentDate';
-
+import useInterval from './hooks/useInterval';
+import usePersistentDate from './hooks/usePersistentDate';
 import styles from './styles';
 import {
   delay,
@@ -26,34 +25,29 @@ import {
 const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
   props = { monitorInterval: 3600 }
 ) => {
-  const { availableUpdate, isUpdateAvailable, isUpdatePending, lastCheckForUpdateTime } =
-    useUpdates();
+  const {
+    availableUpdate,
+    isUpdateAvailable,
+    isUpdatePending,
+    lastCheckForUpdateTimeSinceRestart,
+  } = useUpdates();
 
-  ////////////// App state section
-  const appState = useRef(AppState.currentState);
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', (nextAppState) => {
-      if (appState.current !== 'active' && nextAppState === 'active') {
-        // App has come to the foreground, see if it is time to check for an update
-        const now = new Date();
-        if (
-          dateDifferenceInSeconds(now, lastCheckForUpdateTime) > (props.monitorInterval || 3600000)
-        ) {
-          checkForUpdate();
-        }
-      }
+  const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
 
-      appState.current = nextAppState;
-    });
+  const appState = AppState.currentState;
+  const intervalSeconds = props.monitorInterval || 3600;
 
-    return () => {
-      subscription.remove();
-    };
-  }, [lastCheckForUpdateTime, props.monitorInterval]);
+  // Check at intervals while app state is active
+  useInterval(() => {
+    if (
+      appState === 'active' &&
+      dateDifferenceInSeconds(new Date(), lastCheckForUpdateTime) > intervalSeconds
+    ) {
+      checkForUpdate();
+    }
+  }, intervalSeconds);
 
-  ///////////////////////////////////////////
-
-  // Run the update if download completes successfully
+  // Run the downloaded update if download completes successfully
   useEffect(() => {
     if (isUpdatePending) {
       setMessage('Download complete');

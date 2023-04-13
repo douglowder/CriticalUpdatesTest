@@ -7,14 +7,16 @@
 import React from 'react';
 import { List } from 'react-native-paper';
 import { SafeAreaView, View } from 'react-native';
+import { useUpdates } from '@expo/use-updates';
 
-import { useUpdates } from './UseUpdatesWithPersistentDate';
 import { currentlyRunningTitle, currentlyRunningDescription } from './utils';
+import usePersistentDate from './hooks/usePersistentDate';
 import UpdateMonitor from './UpdateMonitor';
 import styles from './styles';
 
 export default function Demo() {
-  const { currentlyRunning, error, lastCheckForUpdateTime } = useUpdates();
+  const { currentlyRunning, error, lastCheckForUpdateTimeSinceRestart } = useUpdates();
+  const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
   return (
     <SafeAreaView style={styles.container}>
       <UpdateMonitor monitorInterval={10} />
