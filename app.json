@@ -16,6 +16,7 @@
     ],
     "jsEngine": "jsc",
     "ios": {
+      "userInterfaceStyle": "automatic",
       "supportsTablet": true,
       "bundleIdentifier": "com.douglowderexpo.CriticalUpdatesTest"
     },

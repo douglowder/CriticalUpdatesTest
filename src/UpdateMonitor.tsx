@@ -12,21 +12,19 @@ import { View, Pressable } from 'react-native';
 import { useUpdates, checkForUpdate, downloadUpdate, runUpdate } from '@expo/use-updates';
 import { Modal, Portal, List, Button } from 'react-native-paper';
 
-import useAppState from './hooks/useAppState';
-import useInterval from './hooks/useInterval';
-import usePersistentDate from './hooks/usePersistentDate';
-
-import styles from './styles';
-import {
-  delay,
-  isManifestCritical,
-  availableUpdateDescription,
-  dateDifferenceInSeconds,
-} from './utils';
+import useAppState from './utils/useAppState';
+import useInterval from './utils/useInterval';
+import usePersistentDate from './utils/usePersistentDate';
+import { useTheme, themedStyles } from './ui/paperStyles';
+import { delay, isManifestCritical, availableUpdateDescription } from './utils/updateUtils';
+import { dateDifferenceInSeconds } from './utils/dateUtils';
 
 const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
   props = { monitorInterval: 3600 }
 ) => {
+  const theme = useTheme();
+  const styles = themedStyles(theme);
+
   const {
     availableUpdate,
     isUpdateAvailable,

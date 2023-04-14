@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
-import { date1GreaterThanDate2 } from '../utils';
+import { date1GreaterThanDate2 } from './dateUtils';
 
 /**
  * Hook that takes a date computed since restart, and persists it if is later than the value already stored.

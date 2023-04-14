@@ -9,12 +9,14 @@ import { List } from 'react-native-paper';
 import { SafeAreaView, View } from 'react-native';
 import { useUpdates } from '@expo/use-updates';
 
-import { currentlyRunningTitle, currentlyRunningDescription } from './utils';
-import usePersistentDate from './hooks/usePersistentDate';
+import { currentlyRunningTitle, currentlyRunningDescription } from './utils/updateUtils';
+import usePersistentDate from './utils/usePersistentDate';
 import UpdateMonitor from './UpdateMonitor';
-import styles from './styles';
+import { useTheme, themedStyles } from './ui/paperStyles';
 
 export default function Demo() {
+  const theme = useTheme();
+  const styles = themedStyles(theme);
   const { currentlyRunning, error, lastCheckForUpdateTimeSinceRestart } = useUpdates();
   const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
   return (
