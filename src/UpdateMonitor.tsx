@@ -31,6 +31,8 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
     lastCheckForUpdateTimeSinceRestart,
   } = useUpdates();
 
+  const isUpdateCritical = availableUpdate ? isManifestCritical(availableUpdate.manifest) : false;
+
   const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
 
   const monitorInterval = props.monitorInterval || 3600;
@@ -52,10 +54,16 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
     }
   }, 10);
 
+  // If update is critical, download it (the next hook will run it)
+  useEffect(() => {
+    if (isUpdateCritical && !isUpdatePending) {
+      downloadUpdate();
+    }
+  }, [isUpdateCritical, isUpdatePending]);
+
   // Run the downloaded update if download completes successfully
   useEffect(() => {
     if (isUpdatePending) {
-      setMessage('Download complete');
       const run = async () => {
         await delay(2000);
         runUpdate();
@@ -70,19 +78,15 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
 
   const [modalShowing, setModalShowing] = React.useState(false);
 
-  const [message, setMessage] = React.useState('');
-
   const monitorStyle = isUpdateAvailable
-    ? isManifestCritical(availableUpdate?.manifest)
+    ? isUpdateCritical
       ? [styles.monitor, styles.monitorCritical]
       : [styles.monitor, styles.monitorUpdate]
     : styles.monitor;
 
   const modalTitle = isUpdateAvailable
-    ? isManifestCritical(availableUpdate?.manifest)
-      ? 'Critical update available'
-      : 'Update available'
-    : 'No update available';
+    ? `${isUpdateCritical ? 'Critical ' : ''}Update ${isUpdatePending ? 'Downloaded' : 'Available'}`
+    : 'No Update Available';
 
   const flexStyle = { flex: 1 };
 
@@ -106,13 +110,6 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
                 titleStyle={styles.listItemTitleText}
                 description={availableUpdateDescription(availableUpdate)}
                 descriptionNumberOfLines={5}
-                descriptionStyle={styles.listItemDescriptionText}
-              />
-              <List.Item
-                style={styles.listItem}
-                title="Message:"
-                titleStyle={styles.listItemTitleText}
-                description={message}
                 descriptionStyle={styles.listItemDescriptionText}
               />
             </List.Section>
