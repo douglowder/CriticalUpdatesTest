@@ -5,38 +5,42 @@ App to test out
 - Ideas for implementing critical updates
 - New JS API `@expo/use-updates`
 
-_Usage_
+### Quick start
 
 ```bash
-# Setup
 yarn
 eas init
 eas update:configure
 
-# Build
+# Build and run iOS
 npx expo run:ios --configuration Release
-
-# See that the app is running from built-in code
-# Monitor status (circle button in upper right corner)
-# is green
-
-# Push an update
-yarn update --message "Testing an update"
-
-# After a few seconds, hide the app, and then click on it to bring it
-# back to the foreground. The monitor status will be yellow
-# (update available).
-
-# Press "Download and run update" button to run the update. Status
-# should be green again, and the app should show that it is running
-# an update.
-
-# After pushing an update, restarting the app should also show the 
-# yellow status, if automatic updates are enabled (in app.json,
-# "checkAutomatically" is set to "ON_LOAD", or not present)
-
-# Push a critical update
-yarn update --message "Testing a critical update" --critical
-
-# Same as above, except the button will turn red
+# Build and run Android
+npx expo run:android --variant release
 ```
+
+See that the app is running from built-in code.  Monitor status (circle button in upper right corner) will be green.
+
+### Push an update
+
+```bash
+yarn update --message "Testing an update"
+```
+
+After a few seconds, the monitor status will turn yellow (update available). Click on the yellow button to get more information about the update, and see the "Download and run update" button.
+
+Press "Download and run update" button to run the update. Status should be green again, and the app should show that it is running an update.
+
+### Automatic updates
+
+This app uses the `expo-updates` setting `checkAutomatically: ON_ERROR_RECOVERY` (see `app.json`). With this setting, updates are not automatically downloaded on startup unless an error was encountered while loading the last update.
+
+You can turn on automatic update downloads by removing the above setting, or changing the value to `ON_LOAD`, then running `npx expo prebuild` to propagate the new setting to the native iOS and Android code (`Expo.plist` and `AndroidManifest.xml`).
+
+After building the app this way, try force quitting the app, push an update as above, then start the app up again.  Now the app should automatically detect and download the update, and status should automatically turn yellow. The code is currently configured to automatically run the update when downloaded, so the app will reload and the monitor will turn green again.
+
+### Push a critical update
+```bash
+yarn update --message "Testing a critical update" --critical
+```
+
+The monitor button will turn red, indicating a critical update. The monitor code automatically downloads and runs critical updates.
