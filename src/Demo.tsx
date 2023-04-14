@@ -5,18 +5,17 @@
  * - passing user-facing messages into the update manifest
  */
 import React from 'react';
-import { List } from 'react-native-paper';
+import { List, useTheme } from 'react-native-paper';
 import { SafeAreaView, View } from 'react-native';
 import { useUpdates } from '@expo/use-updates';
 
 import { currentlyRunningTitle, currentlyRunningDescription } from './utils/updateUtils';
 import usePersistentDate from './utils/usePersistentDate';
 import UpdateMonitor from './UpdateMonitor';
-import { useTheme, themedStyles } from './ui/paperStyles';
+import type { DemoTheme } from './ui/theme';
 
 export default function Demo() {
-  const theme = useTheme();
-  const styles = themedStyles(theme);
+  const { styles } = useTheme<DemoTheme>();
   const { currentlyRunning, error, lastCheckForUpdateTimeSinceRestart } = useUpdates();
   const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
   return (

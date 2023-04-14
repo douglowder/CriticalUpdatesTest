@@ -3,7 +3,9 @@ import type { MD3Theme } from 'react-native-paper';
 import { useColorScheme } from 'react-native';
 import { StyleSheet } from 'react-native';
 
-export const themedStyles = (theme: MD3Theme) =>
+export type DemoTheme = MD3Theme & { styles: StyleSheet.NamedStyles<any> };
+
+const themedStyles = (theme: MD3Theme) =>
   StyleSheet.create({
     container: {
       width: '100%',
@@ -70,9 +72,37 @@ export const themedStyles = (theme: MD3Theme) =>
     },
   });
 
-export const useTheme: () => MD3Theme = () => {
-  const colorScheme = useColorScheme();
-  return colorScheme === 'dark' ? MD3DarkTheme : MD3LightTheme;
+const lightPaperTheme: MD3Theme = {
+  ...MD3LightTheme,
+  colors: {
+    ...MD3LightTheme.colors,
+    primary: '#000000',
+    primaryContainer: '#ffffff',
+    secondaryContainer: '#eeeeee',
+  },
 };
 
-export default useTheme;
+const darkPaperTheme: MD3Theme = {
+  ...MD3DarkTheme,
+  colors: {
+    ...MD3DarkTheme.colors,
+    primary: '#ffffff',
+    primaryContainer: '#000000',
+    secondaryContainer: '#111111',
+  },
+};
+
+const lightTheme: DemoTheme = {
+  ...lightPaperTheme,
+  styles: themedStyles(lightPaperTheme),
+};
+
+const darkTheme: DemoTheme = {
+  ...darkPaperTheme,
+  styles: themedStyles(darkPaperTheme),
+};
+
+export const useDemoTheme: () => DemoTheme = () => {
+  const colorScheme = useColorScheme();
+  return colorScheme === 'dark' ? darkTheme : lightTheme;
+};

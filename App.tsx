@@ -3,10 +3,10 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
 
 import Demo from './src/Demo';
-import useTheme from './src/ui/paperStyles';
+import { useDemoTheme } from './src/ui/theme';
 
 export default function App() {
-  const theme = useTheme();
+  const theme = useDemoTheme();
   return (
     <PaperProvider theme={theme}>
       <Demo />
