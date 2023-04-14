@@ -8,22 +8,18 @@
  * on the update, and download and run it
  */
 import React, { useEffect } from 'react';
-import { View, Pressable } from 'react-native';
 import { useUpdates, checkForUpdate, downloadUpdate, runUpdate } from '@expo/use-updates';
-import { Modal, Portal, List, Button, useTheme } from 'react-native-paper';
 
 import useAppState from './utils/useAppState';
 import useInterval from './utils/useInterval';
 import usePersistentDate from './utils/usePersistentDate';
 import { delay, isManifestCritical, availableUpdateDescription } from './utils/updateUtils';
 import { dateDifferenceInSeconds } from './utils/dateUtils';
-import type { DemoTheme } from './ui/theme';
+import { Modal, Section, Item, Button, Monitor } from './ui/theme';
 
-const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
-  props = { monitorInterval: 3600 }
+const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element = (
+  props = { updateCheckInterval: 3600 }
 ) => {
-  const { styles } = useTheme<DemoTheme>();
-
   const {
     availableUpdate,
     isUpdateAvailable,
@@ -35,7 +31,7 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
 
   const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
 
-  const monitorInterval = props.monitorInterval || 3600;
+  const monitorInterval = props.updateCheckInterval || 3600;
 
   const needsUpdateCheck = () =>
     dateDifferenceInSeconds(new Date(), lastCheckForUpdateTime) > monitorInterval;
@@ -78,59 +74,31 @@ const UpdateMonitor: (props?: { monitorInterval?: number }) => JSX.Element = (
 
   const [modalShowing, setModalShowing] = React.useState(false);
 
-  const monitorStyle = isUpdateAvailable
-    ? isUpdateCritical
-      ? [styles.monitor, styles.monitorCritical]
-      : [styles.monitor, styles.monitorUpdate]
-    : styles.monitor;
-
   const modalTitle = isUpdateAvailable
     ? `${isUpdateCritical ? 'Critical ' : ''}Update ${isUpdatePending ? 'Downloaded' : 'Available'}`
     : 'No Update Available';
 
-  const flexStyle = { flex: 1 };
-
   return (
-    <View style={styles.monitorContainer}>
-      <View style={flexStyle} />
-      <Pressable onPress={() => setModalShowing(true)} style={monitorStyle} />
+    <Monitor
+      isUpdateCritical={isUpdateCritical}
+      isUpdateAvailable={isUpdateAvailable}
+      onPress={() => setModalShowing(true)}>
       {modalShowing ? (
-        <Portal>
-          <Modal
-            visible={modalShowing}
-            onDismiss={() => setModalShowing(false)}
-            contentContainerStyle={styles.monitorModalContainer}>
-            <List.Section
-              style={styles.listSection}
-              title={modalTitle}
-              titleStyle={styles.listSectionTitleText}>
-              <List.Item
-                style={styles.listItem}
-                title="Description:"
-                titleStyle={styles.listItemTitleText}
-                description={availableUpdateDescription(availableUpdate)}
-                descriptionNumberOfLines={5}
-                descriptionStyle={styles.listItemDescriptionText}
-              />
-            </List.Section>
-            <Button
-              style={styles.buttonStyle}
-              mode="contained"
-              onPress={() => setModalShowing(false)}>
-              Dismiss
-            </Button>
-            {availableUpdate ? (
-              <Button
-                style={styles.buttonStyle}
-                mode="contained"
-                onPress={handleDownloadButtonPress}>
-                Download and run update
-              </Button>
-            ) : null}
-          </Modal>
-        </Portal>
+        <Modal visible={modalShowing} onDismiss={() => setModalShowing(false)}>
+          <Section title={modalTitle}>
+            <Item
+              title="Description:"
+              description={availableUpdateDescription(availableUpdate)}
+              descriptionNumberOfLines={5}
+            />
+          </Section>
+          <Button onPress={() => setModalShowing(false)}>Dismiss</Button>
+          {availableUpdate ? (
+            <Button onPress={handleDownloadButtonPress}>Download and run update</Button>
+          ) : null}
+        </Modal>
       ) : null}
-    </View>
+    </Monitor>
   );
 };
 
