@@ -26,6 +26,8 @@ See that the app is running from built-in code.  Monitor status (circle button i
 yarn update --message "Testing an update"
 ```
 
+(This runs a script that manually modifies `app.json` to add a custom `message` property in the `extra` section, and then run `eas update`. Doing this results in an update manifest that contains the custom property in the `extra` section of the `expoClient` object.)
+
 After a few seconds, the monitor status will turn yellow (update available). Click on the yellow button to get more information about the update, and see the "Download and run update" button.
 
 Press "Download and run update" button to run the update. Status should be green again, and the app should show that it is running an update.
@@ -36,7 +38,7 @@ This app uses the `expo-updates` setting `checkAutomatically: ON_ERROR_RECOVERY`
 
 You can turn on automatic update downloads by removing the above setting, or changing the value to `ON_LOAD`, then running `npx expo prebuild` to propagate the new setting to the native iOS and Android code (`Expo.plist` and `AndroidManifest.xml`).
 
-After building the app this way, try force quitting the app, push an update as above, then start the app up again.  Now the app should automatically detect and download the update, and status should automatically turn yellow. The code is currently configured to automatically run the update when downloaded, so the app will reload and the monitor will turn green again.
+After building the app this way, try force quitting the app, push an update as above, then start the app up again.  Now the app should automatically detect and download the update, and status should automatically turn yellow.
 
 ### Push a critical update
 ```bash
