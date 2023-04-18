@@ -1,4 +1,4 @@
-// Persistent date utils
+// Date-time utils for the persistent date hook and for date comparison
 
 export const dateToTimeInSeconds = (date: Date | undefined) =>
   date ? Math.floor(date.getTime() / 1000) : -1;

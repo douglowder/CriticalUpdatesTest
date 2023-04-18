@@ -57,18 +57,20 @@ const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element =
     }
   }, [isUpdateCritical, isUpdatePending]);
 
-  // Run the downloaded update if download completes successfully
+  // Run the downloaded update if download completes successfully and it is critical
   useEffect(() => {
-    if (isUpdatePending) {
+    if (isUpdatePending && isUpdateCritical) {
       const run = async () => {
         await delay(2000);
         runUpdate();
       };
       run();
     }
-  }, [isUpdatePending]);
+  }, [isUpdateCritical, isUpdatePending]);
 
   const handleDownloadButtonPress = () => downloadUpdate();
+
+  const handleRunButtonPress = () => runUpdate();
 
   // Appearance and content
 
@@ -93,9 +95,10 @@ const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element =
             />
           </Section>
           <Button onPress={() => setModalShowing(false)}>Dismiss</Button>
-          {availableUpdate ? (
-            <Button onPress={handleDownloadButtonPress}>Download and run update</Button>
+          {isUpdateAvailable ? (
+            <Button onPress={handleDownloadButtonPress}>Download update</Button>
           ) : null}
+          {isUpdatePending ? <Button onPress={handleRunButtonPress}>Run update</Button> : null}
         </Modal>
       ) : null}
     </Monitor>
