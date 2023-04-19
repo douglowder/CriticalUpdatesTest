@@ -37,7 +37,7 @@ const themedStyles = (theme: MD3Theme) =>
     listSectionTitleText: {
       fontWeight: 'bold',
       fontSize: 24,
-      color: theme.colors.secondary,
+      color: theme.colors.tertiary,
     },
     listItem: {
       margin: 10,
@@ -47,11 +47,11 @@ const themedStyles = (theme: MD3Theme) =>
       fontWeight: 'bold',
       fontSize: 14,
       padding: 10,
-      color: theme.colors.tertiary,
+      color: theme.colors.primary,
     },
     listItemDescriptionText: {
       fontSize: 12,
-      color: theme.colors.primary,
+      color: theme.colors.secondary,
     },
     monitorContainer: {
       height: 100,
@@ -68,7 +68,7 @@ const themedStyles = (theme: MD3Theme) =>
     monitorModalTitle: {
       fontWeight: 'bold',
       margin: 20,
-      color: theme.colors.secondary,
+      color: theme.colors.tertiary,
     },
     monitor: {
       width: 30,
@@ -85,6 +85,7 @@ const themedStyles = (theme: MD3Theme) =>
     },
     buttonStyle: {
       margin: 20,
+      borderRadius: 8,
     },
   });
 
@@ -93,7 +94,10 @@ const lightPaperTheme: MD3Theme = {
   colors: {
     ...MD3LightTheme.colors,
     primaryContainer: '#ffffff',
-    secondaryContainer: '#eeeeee',
+    secondaryContainer: '#f1f3f5',
+    primary: '#11181c',
+    secondary: '#687076',
+    tertiary: '#0081f1',
   },
 };
 
@@ -103,6 +107,9 @@ const darkPaperTheme: MD3Theme = {
     ...MD3DarkTheme.colors,
     primaryContainer: '#111111',
     secondaryContainer: '#333333',
+    primary: '#ecedee',
+    secondary: '#9ba1a6',
+    tertiary: '#52a9ff',
   },
 };
 
@@ -159,9 +166,14 @@ export const Item = (props: any) => {
 };
 
 export const Button = (props: any) => {
-  const { styles } = useTheme<DemoTheme>();
+  const { styles, colors } = useTheme<DemoTheme>();
   return (
-    <PaperButton {...props} onPress={props.onPress} style={styles.buttonStyle} mode="contained">
+    <PaperButton
+      {...props}
+      buttonColor={colors.tertiary}
+      onPress={props.onPress}
+      style={styles.buttonStyle}
+      mode="contained">
       {props.children}
     </PaperButton>
   );
