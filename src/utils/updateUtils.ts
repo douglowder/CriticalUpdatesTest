@@ -10,14 +10,6 @@ const manifestMessage = (manifest: any) => {
   return manifest?.extra?.expoClient?.extra?.message || '';
 };
 
-// Promise wrapper for setTimeout()
-
-const delay = (timeout: number) => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, timeout);
-  });
-};
-
 // Utils for constructing display text
 
 const currentlyRunningTitle = (currentlyRunning: CurrentlyRunningInfo) => {
@@ -44,7 +36,6 @@ const availableUpdateDescription = (availableUpdate: AvailableUpdateInfo | undef
 
 export {
   availableUpdateDescription,
-  delay,
   currentlyRunningTitle,
   currentlyRunningDescription,
   isManifestCritical,

@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'react';
  * Based on https://balavishnuvj.com/blog/using-callbacks-in-custom-hooks/
  *
  * @param callback The callback to be called
- * @param interval The interval between callbacks, in seconds
+ * @param interval The interval between callbacks, in milliseconds
  */
 const useInterval: (callback: () => void, interval: number) => void = (callback, interval) => {
   const callbackRef = useRef<typeof callback>();
@@ -18,7 +18,7 @@ const useInterval: (callback: () => void, interval: number) => void = (callback,
     function cb() {
       callbackRef.current && callbackRef.current();
     }
-    let id = setInterval(cb, interval * 1000);
+    let id = setInterval(cb, interval);
     return () => clearInterval(id);
   }, [interval]);
 };

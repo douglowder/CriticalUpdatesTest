@@ -6,6 +6,9 @@
  *
  * Click on the monitor to open a modal that allows you to see information
  * on the update, and download and run it
+ *
+ * The `updateCheckInterval` prop is the number of milliseconds to wait after the previous check for updates
+ * before calling `checkForUpdate()` again. Default value is 3600000 (1 hour).
  */
 import React, { useEffect } from 'react';
 import { useUpdates, checkForUpdate, downloadUpdate, runUpdate } from '@expo/use-updates';
@@ -13,12 +16,12 @@ import { useUpdates, checkForUpdate, downloadUpdate, runUpdate } from '@expo/use
 import useAppState from './utils/useAppState';
 import useInterval from './utils/useInterval';
 import usePersistentDate from './utils/usePersistentDate';
-import { delay, isManifestCritical, availableUpdateDescription } from './utils/updateUtils';
-import { dateDifferenceInSeconds } from './utils/dateUtils';
+import { isManifestCritical, availableUpdateDescription } from './utils/updateUtils';
+import { dateDifferenceInMilliSeconds } from './utils/dateUtils';
 import { Modal, Section, Item, Button, Monitor } from './ui/theme';
 
 const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element = (
-  props = { updateCheckInterval: 3600 }
+  props = { updateCheckInterval: 3600000 }
 ) => {
   const {
     availableUpdate,
@@ -31,10 +34,10 @@ const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element =
 
   const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
 
-  const monitorInterval = props.updateCheckInterval || 3600;
+  const monitorInterval = props.updateCheckInterval || 3600000;
 
   const needsUpdateCheck = () =>
-    dateDifferenceInSeconds(new Date(), lastCheckForUpdateTime) > monitorInterval;
+    dateDifferenceInMilliSeconds(new Date(), lastCheckForUpdateTime) > monitorInterval;
 
   // Check if needed when app becomes active
   const appState = useAppState((activating) => {
@@ -43,14 +46,15 @@ const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element =
     }
   });
 
-  // Check every 10 seconds while app is active
+  // Wake up periodically while app is active to see if we need to do another check
+  // This interval should be smaller than monitorInterval
   useInterval(() => {
     if (appState === 'active' && needsUpdateCheck()) {
       checkForUpdate();
     }
-  }, 10);
+  }, monitorInterval / 4);
 
-  // If update is critical, download it (the next hook will run it)
+  // If update is critical, download it
   useEffect(() => {
     if (isUpdateCritical && !isUpdatePending) {
       downloadUpdate();
@@ -60,17 +64,13 @@ const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element =
   // Run the downloaded update if download completes successfully and it is critical
   useEffect(() => {
     if (isUpdatePending && isUpdateCritical) {
-      const run = async () => {
-        await delay(2000);
-        runUpdate();
-      };
-      run();
+      setTimeout(() => runUpdate(), 2000);
     }
   }, [isUpdateCritical, isUpdatePending]);
 
   const handleDownloadButtonPress = () => downloadUpdate();
 
-  const handleRunButtonPress = () => runUpdate();
+  const handleRunButtonPress = () => setTimeout(() => runUpdate(), 500);
 
   // Appearance and content
 

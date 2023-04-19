@@ -17,8 +17,8 @@ export default function Demo() {
   const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
   return (
     <Container>
-      {/* Pass in the desired time between update checks, in seconds (default 3600 = 1 hour) */}
-      <UpdateMonitor updateCheckInterval={10} />
+      {/* Pass in the desired time between update checks, in ms (default 3600000 = 1 hour) */}
+      <UpdateMonitor updateCheckInterval={3600000} />
       <Spacer />
       <Section title="Critical Updates Test">
         <Item
