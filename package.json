@@ -11,6 +11,8 @@
     "update": "node scripts/push-update.js"
   },
   "dependencies": {
+    "@expo/styleguide-base": "^1.0.0-alpha.2",
+    "@expo/styleguide-native": "^7.0.0-alpha.2",
     "@expo/use-updates": "0.0.0",
     "@react-native-async-storage/async-storage": "1.17.11",
     "expo": "~48.0.11",

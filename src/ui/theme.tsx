@@ -13,13 +13,22 @@ import {
 import type { MD3Theme } from 'react-native-paper';
 import { useColorScheme } from 'react-native';
 import { StyleSheet, SafeAreaView, Pressable, View } from 'react-native';
+import {
+  darkTheme as expoDarkTheme,
+  lightTheme as expoLightTheme,
+  palette,
+} from '@expo/styleguide-base';
 
+type MonitorColors = { red: string; yellow: string; green: string };
 /**
  * Add styles to the theme properties
  */
-export type DemoTheme = MD3Theme & { styles: StyleSheet.NamedStyles<any> };
+export type DemoTheme = MD3Theme & {
+  styles: StyleSheet.NamedStyles<any>;
+  monitorColors: MonitorColors;
+};
 
-const themedStyles = (theme: MD3Theme) =>
+const themedStyles = (theme: MD3Theme, monitorColors: MonitorColors) =>
   StyleSheet.create({
     container: {
       width: '100%',
@@ -75,13 +84,13 @@ const themedStyles = (theme: MD3Theme) =>
       height: 30,
       topMargin: 70,
       borderRadius: 15,
-      backgroundColor: '#29ab50', // green
+      backgroundColor: monitorColors.green,
     },
     monitorUpdate: {
-      backgroundColor: '#fce24c', // yellow
+      backgroundColor: monitorColors.yellow,
     },
     monitorCritical: {
-      backgroundColor: '#db3421', // red
+      backgroundColor: monitorColors.red,
     },
     buttonStyle: {
       margin: 20,
@@ -93,11 +102,11 @@ const lightPaperTheme: MD3Theme = {
   ...MD3LightTheme,
   colors: {
     ...MD3LightTheme.colors,
-    primaryContainer: '#ffffff',
-    secondaryContainer: '#f1f3f5',
-    primary: '#11181c',
-    secondary: '#687076',
-    tertiary: '#0081f1',
+    primaryContainer: expoLightTheme.background.screen,
+    secondaryContainer: expoLightTheme.background.overlay,
+    primary: expoLightTheme.text.default,
+    secondary: expoLightTheme.text.secondary,
+    tertiary: expoLightTheme.text.tertiary,
   },
 };
 
@@ -105,22 +114,36 @@ const darkPaperTheme: MD3Theme = {
   ...MD3DarkTheme,
   colors: {
     ...MD3DarkTheme.colors,
-    primaryContainer: '#111111',
-    secondaryContainer: '#333333',
-    primary: '#ecedee',
-    secondary: '#9ba1a6',
-    tertiary: '#52a9ff',
+    primaryContainer: expoDarkTheme.background.screen,
+    secondaryContainer: expoDarkTheme.background.overlay,
+    primary: expoDarkTheme.text.default,
+    secondary: expoDarkTheme.text.secondary,
+    tertiary: expoDarkTheme.text.tertiary,
   },
+};
+
+const lightMonitorColors = {
+  red: palette.light.red10,
+  yellow: palette.light.yellow10,
+  green: palette.light.green10,
+};
+
+const darkMonitorColors = {
+  red: palette.dark.red10,
+  yellow: palette.dark.yellow10,
+  green: palette.dark.green10,
 };
 
 const lightTheme: DemoTheme = {
   ...lightPaperTheme,
-  styles: themedStyles(lightPaperTheme),
+  styles: themedStyles(lightPaperTheme, lightMonitorColors),
+  monitorColors: lightMonitorColors,
 };
 
 const darkTheme: DemoTheme = {
   ...darkPaperTheme,
-  styles: themedStyles(darkPaperTheme),
+  styles: themedStyles(darkPaperTheme, darkMonitorColors),
+  monitorColors: darkMonitorColors,
 };
 
 /**
