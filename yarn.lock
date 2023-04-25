@@ -1414,6 +1414,18 @@
   dependencies:
     cross-spawn "^7.0.3"
 
+"@expo/styleguide-base@^1.0.0-alpha.2":
+  version "1.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@expo/styleguide-base/-/styleguide-base-1.0.0-alpha.2.tgz#ff581558974706079def453cfbf245e5bc3bb291"
+  integrity sha512-7sEdwU5KtKMF5NnmYw6KwgCuV/6CI1+UtFyX9v3DK9a6lfcqQpChk0Ac1nQB1E4daSq+1pHKxM2BcDh1BWtstA==
+  dependencies:
+    "@radix-ui/colors" "^0.1.8"
+
+"@expo/styleguide-native@^7.0.0-alpha.2":
+  version "7.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@expo/styleguide-native/-/styleguide-native-7.0.0-alpha.2.tgz#c4543afa4e566e77e921a41537d6887beda9c813"
+  integrity sha512-IXw7zVzypGCGWBbLDaMmjwzT9svWv1hFW6PydMbZA++lJFOR6kXf2i5gS3hXMfealeZbovwQTxnFYjtPCmNL3A==
+
 "@expo/use-updates@0.0.0":
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/@expo/use-updates/-/use-updates-0.0.0.tgz#1148ce3e11282ddfa3d9a919191969210a19ab54"
@@ -1640,6 +1652,11 @@
   dependencies:
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
+
+"@radix-ui/colors@^0.1.8":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@radix-ui/colors/-/colors-0.1.8.tgz#b08c62536fc462a87632165fb28e9b18f9bd047e"
+  integrity sha512-jwRMXYwC0hUo0mv6wGpuw254Pd9p/R6Td5xsRpOmaWkUHlooNWqVcadgyzlRumMq3xfOTXwJReU0Jv+EIy4Jbw==
 
 "@react-native-async-storage/async-storage@1.17.11":
   version "1.17.11"
