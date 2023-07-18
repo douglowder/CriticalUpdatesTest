@@ -21,7 +21,9 @@ const currentlyRunningDescription = (currentlyRunning: CurrentlyRunningInfo) => 
     ` ID: ${currentlyRunning.updateId}\n` +
     ` Created: ${currentlyRunning.createdAt?.toISOString()}\n` +
     ` Channel: ${currentlyRunning.channel}\n` +
-    ` Runtime Version: ${currentlyRunning.runtimeVersion}\n`
+    ` Runtime Version: ${currentlyRunning.runtimeVersion}\n` +
+    ` Message: ${manifestMessage(currentlyRunning.manifest)}\n` +
+    ` ${currentlyRunning.isEmergencyLaunch ? 'This is an emergency launch' : ''}\n`
   );
 };
 

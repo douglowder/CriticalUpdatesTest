@@ -25,7 +25,7 @@ export default function Demo() {
         <Item
           title={currentlyRunningTitle(currentlyRunning)}
           description={currentlyRunningDescription(currentlyRunning)}
-          descriptionNumberOfLines={5}
+          descriptionNumberOfLines={8}
         />
         <Item
           title="Last update check:"
