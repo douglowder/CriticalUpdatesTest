@@ -14,7 +14,6 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "jsEngine": "jsc",
     "ios": {
       "userInterfaceStyle": "automatic",
       "supportsTablet": true,

@@ -5,7 +5,7 @@
     <key>EXUpdatesCheckOnLaunch</key>
     <string>ERROR_RECOVERY_ONLY</string>
     <key>EXUpdatesEnabled</key>
-    <true/>
+    <false/>
     <key>EXUpdatesLaunchWaitMs</key>
     <integer>0</integer>
     <key>EXUpdatesRequestHeaders</key>
@@ -15,7 +15,5 @@
     </dict>
     <key>EXUpdatesRuntimeVersion</key>
     <string>1.0.0</string>
-    <key>EXUpdatesURL</key>
-    <string>https://exp.host/@douglowderexpo/CriticalUpdatesTest</string>
   </dict>
 </plist>

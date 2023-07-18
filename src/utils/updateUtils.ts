@@ -1,4 +1,4 @@
-import type { AvailableUpdateInfo, CurrentlyRunningInfo } from '@expo/use-updates';
+import type { UpdateInfo, CurrentlyRunningInfo } from 'expo-updates';
 
 // Access 'extra' properties from update manifests
 
@@ -25,7 +25,7 @@ const currentlyRunningDescription = (currentlyRunning: CurrentlyRunningInfo) => 
   );
 };
 
-const availableUpdateDescription = (availableUpdate: AvailableUpdateInfo | undefined) => {
+const availableUpdateDescription = (availableUpdate?: UpdateInfo) => {
   return availableUpdate
     ? ` ID: ${availableUpdate.updateId}\n` +
         ` Created: ${availableUpdate.createdAt?.toISOString() || ''}\n` +

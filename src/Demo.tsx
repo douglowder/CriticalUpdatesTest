@@ -5,7 +5,7 @@
  * - passing user-facing messages into the update manifest
  */
 import React from 'react';
-import { useUpdates } from '@expo/use-updates';
+import { useUpdates } from 'expo-updates';
 
 import { currentlyRunningTitle, currentlyRunningDescription } from './utils/updateUtils';
 import usePersistentDate from './utils/usePersistentDate';
@@ -13,7 +13,8 @@ import UpdateMonitor from './UpdateMonitor';
 import { Container, Section, Item, Spacer } from './ui/theme';
 
 export default function Demo() {
-  const { currentlyRunning, error, lastCheckForUpdateTimeSinceRestart } = useUpdates();
+  const { currentlyRunning, checkError, downloadError, lastCheckForUpdateTimeSinceRestart } =
+    useUpdates();
   const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
   return (
     <Container>
@@ -30,7 +31,8 @@ export default function Demo() {
           title="Last update check:"
           description={lastCheckForUpdateTime?.toISOString() || ''}
         />
-        <Item title="Last error:" description={error?.message || ''} />
+        <Item title="Last check error:" description={checkError?.message || ''} />
+        <Item title="Last download error:" description={downloadError?.message || ''} />
       </Section>
       <Spacer />
     </Container>

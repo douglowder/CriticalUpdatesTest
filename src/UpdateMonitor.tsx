@@ -10,8 +10,10 @@
  * The `updateCheckInterval` prop is the number of milliseconds to wait after the previous check for updates
  * before calling `checkForUpdate()` again. Default value is 3600000 (1 hour).
  */
+import * as Updates from 'expo-updates';
 import React, { useEffect } from 'react';
-import { useUpdates, checkForUpdate, downloadUpdate, runUpdate } from '@expo/use-updates';
+
+const { useUpdates, checkForUpdateAsync, fetchUpdateAsync, reloadAsync } = Updates;
 
 import useAppState from './utils/useAppState';
 import useInterval from './utils/useInterval';
@@ -42,7 +44,7 @@ const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element =
   // Check if needed when app becomes active
   const appState = useAppState((activating) => {
     if (activating && needsUpdateCheck()) {
-      checkForUpdate();
+      checkForUpdateAsync();
     }
   });
 
@@ -50,27 +52,27 @@ const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element =
   // This interval should be smaller than monitorInterval
   useInterval(() => {
     if (appState === 'active' && needsUpdateCheck()) {
-      checkForUpdate();
+      checkForUpdateAsync();
     }
   }, monitorInterval / 4);
 
   // If update is critical, download it
   useEffect(() => {
     if (isUpdateCritical && !isUpdatePending) {
-      downloadUpdate();
+      fetchUpdateAsync();
     }
   }, [isUpdateCritical, isUpdatePending]);
 
   // Run the downloaded update if download completes successfully and it is critical
   useEffect(() => {
     if (isUpdatePending && isUpdateCritical) {
-      setTimeout(() => runUpdate(), 2000);
+      setTimeout(() => reloadAsync(), 2000);
     }
   }, [isUpdateCritical, isUpdatePending]);
 
-  const handleDownloadButtonPress = () => downloadUpdate();
+  const handleDownloadButtonPress = () => fetchUpdateAsync();
 
-  const handleRunButtonPress = () => setTimeout(() => runUpdate(), 500);
+  const handleRunButtonPress = () => setTimeout(() => reloadAsync(), 500);
 
   // Appearance and content
 
