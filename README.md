@@ -3,7 +3,7 @@
 App to test out
 
 - Ideas for implementing critical updates
-- New JS API `@expo/use-updates`
+- Uses the [new forthcoming JS API](https://github.com/expo/expo/pull/23532)
 
 ### Quick start
 
