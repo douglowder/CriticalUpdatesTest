@@ -85,8 +85,9 @@ const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element =
 
   return (
     <Monitor
-      isUpdateCritical={isUpdateCritical}
-      isUpdateAvailable={isUpdateAvailable}
+      visible={isUpdateAvailable || __DEV__}
+      type={isUpdateCritical ? 'warning' : isUpdateAvailable ? 'info' : undefined}
+      label={modalTitle}
       onPress={() => setModalShowing(true)}>
       {modalShowing ? (
         <Modal visible={modalShowing} onDismiss={() => setModalShowing(false)}>

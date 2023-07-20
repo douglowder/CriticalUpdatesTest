@@ -1,25 +1,27 @@
 // RN Paper theme, extended for this project, and some styled components
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   MD3DarkTheme,
   MD3LightTheme,
   useTheme,
+  Banner,
   List,
   Button as PaperButton,
   Portal,
   Modal as PaperModal,
+  Text as PaperText,
 } from 'react-native-paper';
 import type { MD3Theme } from 'react-native-paper';
 import { useColorScheme } from 'react-native';
-import { StyleSheet, SafeAreaView, Pressable, View } from 'react-native';
+import { StyleSheet, SafeAreaView, View } from 'react-native';
 import {
   darkTheme as expoDarkTheme,
   lightTheme as expoLightTheme,
   palette,
 } from '@expo/styleguide-base';
 
-type MonitorColors = { red: string; yellow: string; green: string };
+type MonitorColors = { red: string; yellow: string; green: string; blue: string };
 /**
  * Add styles to the theme properties
  */
@@ -63,11 +65,11 @@ const themedStyles = (theme: MD3Theme, monitorColors: MonitorColors) =>
       color: theme.colors.secondary,
     },
     monitorContainer: {
-      height: 100,
-      width: '90%',
+      width: '100%',
       flexDirection: 'row',
-      alignItems: 'flex-end',
-      backgroundColor: theme.colors.primaryContainer,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: monitorColors.blue,
     },
     monitorModalContainer: {
       alignItems: 'center',
@@ -79,17 +81,22 @@ const themedStyles = (theme: MD3Theme, monitorColors: MonitorColors) =>
       margin: 20,
       color: theme.colors.tertiary,
     },
-    monitor: {
+    monitorLabelText: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      color: theme.colors.inverseOnSurface,
+    },
+    monitorIcon: {
       width: 30,
       height: 30,
       topMargin: 70,
       borderRadius: 15,
       backgroundColor: monitorColors.green,
     },
-    monitorUpdate: {
+    monitorIconInfo: {
       backgroundColor: monitorColors.yellow,
     },
-    monitorCritical: {
+    monitorIconWarning: {
       backgroundColor: monitorColors.red,
     },
     buttonStyle: {
@@ -126,12 +133,14 @@ const lightMonitorColors = {
   red: palette.light.red10,
   yellow: palette.light.yellow10,
   green: palette.light.green10,
+  blue: palette.light.blue11,
 };
 
 const darkMonitorColors = {
   red: palette.dark.red10,
   yellow: palette.dark.yellow10,
   green: palette.dark.green10,
+  blue: palette.light.blue11,
 };
 
 const lightTheme: DemoTheme = {
@@ -213,18 +222,45 @@ export const Modal = (props: any) => {
   );
 };
 
-export const Monitor = (props: any) => {
+const MonitorIconView = React.forwardRef((props: { type?: 'info' | 'warning' }, ref: any) => {
   const { styles } = useTheme<DemoTheme>();
-  const monitorStyle = props.isUpdateAvailable
-    ? props.isUpdateCritical
-      ? [styles.monitor, styles.monitorCritical]
-      : [styles.monitor, styles.monitorUpdate]
-    : styles.monitor;
+  const { type } = props;
+
+  const monitorStyle =
+    type === 'warning'
+      ? [styles.monitorIcon, styles.monitorIconWarning]
+      : type === 'info'
+      ? [styles.monitorIcon, styles.monitorIconInfo]
+      : styles.monitorIcon;
+  return <View ref={ref} style={monitorStyle} />;
+});
+
+export const Monitor = (props: {
+  visible: boolean;
+  label: string;
+  type?: 'info' | 'warning';
+  onPress: () => void;
+  children: any;
+}) => {
+  const { styles, colors } = useTheme<DemoTheme>();
+  const { label, type } = props;
+  const iconRef = React.useRef(<MonitorIconView />);
+
+  useEffect(() => {
+    iconRef.current = <MonitorIconView type={type} />;
+  }, [type]);
+
   return (
-    <View style={styles.monitorContainer}>
-      <Spacer />
-      <Pressable onPress={props.onPress} style={monitorStyle} />
-      {props.children}
-    </View>
+    <Banner
+      theme={{ colors: { primary: colors.inverseOnSurface } }}
+      style={styles.monitorContainer}
+      visible={props.visible}
+      icon={(_size) => iconRef.current ?? null}
+      actions={[{ label: 'Details', onPress: props.onPress }]}>
+      <View>
+        <PaperText style={styles.monitorLabelText}>{label}</PaperText>
+        {props.children}
+      </View>
+    </Banner>
   );
 };
