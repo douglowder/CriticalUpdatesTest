@@ -30,6 +30,7 @@ const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element =
     isUpdateAvailable,
     isUpdatePending,
     lastCheckForUpdateTimeSinceRestart,
+    checkError,
   } = useUpdates();
 
   const isUpdateCritical = availableUpdate ? isManifestCritical(availableUpdate.manifest) : false;
@@ -44,7 +45,7 @@ const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element =
   // Check if needed when app becomes active
   const appState = useAppState((activating) => {
     if (activating && needsUpdateCheck()) {
-      checkForUpdateAsync();
+      checkForUpdateAsync().catch((_error) => {});
     }
   });
 
@@ -52,7 +53,7 @@ const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element =
   // This interval should be smaller than monitorInterval
   useInterval(() => {
     if (appState === 'active' && needsUpdateCheck()) {
-      checkForUpdateAsync();
+      checkForUpdateAsync().catch((_error) => {});
     }
   }, monitorInterval / 4);
 
@@ -92,7 +93,7 @@ const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element =
           <Section title={modalTitle}>
             <Item
               title="Description:"
-              description={availableUpdateDescription(availableUpdate)}
+              description={availableUpdateDescription(availableUpdate, checkError)}
               descriptionNumberOfLines={5}
             />
           </Section>
