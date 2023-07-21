@@ -10,6 +10,7 @@ import {
   Button as PaperButton,
   Portal,
   Modal as PaperModal,
+  Switch as PaperSwitch,
   Text as PaperText,
 } from 'react-native-paper';
 import type { MD3Theme } from 'react-native-paper';
@@ -53,6 +54,7 @@ const themedStyles = (theme: MD3Theme, monitorColors: MonitorColors) =>
     listItem: {
       margin: 10,
       width: '100%',
+      padding: 0,
     },
     listItemTitleText: {
       fontWeight: 'bold',
@@ -102,6 +104,12 @@ const themedStyles = (theme: MD3Theme, monitorColors: MonitorColors) =>
     buttonStyle: {
       margin: 20,
       borderRadius: 8,
+    },
+    switchStyle: {
+      flexDirection: 'row',
+      margin: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   });
 
@@ -219,6 +227,17 @@ export const Modal = (props: any) => {
         {props.children}
       </PaperModal>
     </Portal>
+  );
+};
+
+export const Switch = (props: any) => {
+  const { styles, colors } = useTheme<DemoTheme>();
+  return (
+    <View style={styles.switchStyle}>
+      <PaperText style={styles.listItemDescriptionText}>{props.label}</PaperText>
+      <Spacer />
+      <PaperSwitch {...props} color={colors.secondary} />
+    </View>
   );
 };
 
