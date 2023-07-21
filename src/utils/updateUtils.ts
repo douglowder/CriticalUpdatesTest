@@ -27,19 +27,36 @@ const currentlyRunningDescription = (currentlyRunning: CurrentlyRunningInfo) => 
   );
 };
 
-const availableUpdateDescription = (availableUpdate?: UpdateInfo, error?: Error) => {
+const availableUpdateDescription = (availableUpdate?: UpdateInfo) => {
   const updateDescription = availableUpdate
     ? ` ID: ${availableUpdate.updateId}\n` +
       ` Created: ${availableUpdate.createdAt?.toISOString() || ''}\n` +
       ` Message: ${manifestMessage(availableUpdate.manifest)}\n` +
       ` Critical: ${isManifestCritical(availableUpdate.manifest)}\n`
     : 'No available update\n';
-  const errorDescription = error ? `Error: ${error.message}\n` : '';
   return updateDescription + errorDescription;
+};
+
+const errorDescription = (
+  initializationError?: Error,
+  checkError?: Error,
+  downloadError?: Error
+) => {
+  const initializationErrorDescription = initializationError?.message
+    ? `Error on init: ${initializationError?.message}\n`
+    : '';
+  const checkErrorDescription = checkError?.message
+    ? `Error on check: ${checkError?.message}\n`
+    : '';
+  const downloadErrorDescription = downloadError?.message
+    ? `Error on download: ${downloadError?.message}\n`
+    : '';
+  return initializationErrorDescription + checkErrorDescription + downloadErrorDescription;
 };
 
 export {
   availableUpdateDescription,
+  errorDescription,
   currentlyRunningTitle,
   currentlyRunningDescription,
   isManifestCritical,

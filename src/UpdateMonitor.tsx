@@ -9,6 +9,11 @@
  *
  * The `updateCheckInterval` prop is the number of milliseconds to wait after the previous check for updates
  * before calling `checkForUpdate()` again. Default value is 3600000 (1 hour).
+ *
+ * If `checkOnForeground` is true, the monitor will check for an update whenever the app comes back to
+ * foreground. Defaults to false.
+ *
+ * If `autoLaunchCritical` is true, critical updates will be downloaded and launched immediately. Defaults to false.
  */
 import * as Updates from 'expo-updates';
 import React, { useEffect } from 'react';
@@ -18,33 +23,47 @@ const { useUpdates, checkForUpdateAsync, fetchUpdateAsync, reloadAsync } = Updat
 import useAppState from './utils/useAppState';
 import useInterval from './utils/useInterval';
 import usePersistentDate from './utils/usePersistentDate';
-import { isManifestCritical, availableUpdateDescription } from './utils/updateUtils';
+import {
+  isManifestCritical,
+  availableUpdateDescription,
+  errorDescription,
+} from './utils/updateUtils';
 import { dateDifferenceInMilliSeconds } from './utils/dateUtils';
 import { Modal, Section, Item, Button, Monitor } from './ui/theme';
 
-const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element = (
-  props = { updateCheckInterval: 3600000 }
-) => {
+const defaultUpdateCheckInterval = 3600000; // 1 hour
+const defaultCheckOnForeground = false;
+const defaultAutoLaunchCritical = false;
+
+const UpdateMonitor: (props?: {
+  updateCheckInterval?: number;
+  checkOnForeground?: boolean;
+  autoLaunchCritical?: boolean;
+}) => JSX.Element = (props) => {
   const {
     availableUpdate,
     isUpdateAvailable,
     isUpdatePending,
     lastCheckForUpdateTimeSinceRestart,
+    initializationError,
     checkError,
+    downloadError,
   } = useUpdates();
 
   const isUpdateCritical = availableUpdate ? isManifestCritical(availableUpdate.manifest) : false;
 
   const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
 
-  const monitorInterval = props.updateCheckInterval || 3600000;
+  const monitorInterval = props?.updateCheckInterval ?? defaultUpdateCheckInterval;
+  const checkOnForeground = props?.checkOnForeground ?? defaultCheckOnForeground;
+  const autoLaunchCritical = props?.autoLaunchCritical ?? defaultAutoLaunchCritical;
 
   const needsUpdateCheck = () =>
     dateDifferenceInMilliSeconds(new Date(), lastCheckForUpdateTime) > monitorInterval;
 
   // Check if needed when app becomes active
   const appState = useAppState((activating) => {
-    if (activating && needsUpdateCheck()) {
+    if (activating && needsUpdateCheck() && checkOnForeground) {
       checkForUpdateAsync().catch((_error) => {});
     }
   });
@@ -59,17 +78,17 @@ const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element =
 
   // If update is critical, download it
   useEffect(() => {
-    if (isUpdateCritical && !isUpdatePending) {
-      fetchUpdateAsync();
+    if (isUpdateCritical && !isUpdatePending && autoLaunchCritical) {
+      fetchUpdateAsync().catch((_error) => {});
     }
-  }, [isUpdateCritical, isUpdatePending]);
+  }, [isUpdateCritical, isUpdatePending, autoLaunchCritical]);
 
   // Run the downloaded update if download completes successfully and it is critical
   useEffect(() => {
-    if (isUpdatePending && isUpdateCritical) {
+    if (isUpdatePending && isUpdateCritical && autoLaunchCritical) {
       setTimeout(() => reloadAsync(), 2000);
     }
-  }, [isUpdateCritical, isUpdatePending]);
+  }, [isUpdateCritical, isUpdatePending, autoLaunchCritical]);
 
   const handleDownloadButtonPress = () => fetchUpdateAsync();
 
@@ -94,7 +113,10 @@ const UpdateMonitor: (props?: { updateCheckInterval?: number }) => JSX.Element =
           <Section title={modalTitle}>
             <Item
               title="Description:"
-              description={availableUpdateDescription(availableUpdate, checkError)}
+              description={
+                availableUpdateDescription(availableUpdate) +
+                errorDescription(initializationError, checkError, downloadError)
+              }
               descriptionNumberOfLines={5}
             />
           </Section>
