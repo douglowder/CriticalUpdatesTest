@@ -1,6 +1,6 @@
 // RN Paper theme, extended for this project, and some styled components
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   MD3DarkTheme,
   MD3LightTheme,
@@ -10,6 +10,7 @@ import {
   Button as PaperButton,
   Portal,
   Modal as PaperModal,
+  RadioButton,
   Switch as PaperSwitch,
   Text as PaperText,
 } from 'react-native-paper';
@@ -234,13 +235,44 @@ export const Modal = (props: any) => {
 };
 
 export const Switch = (props: any) => {
-  const { styles, colors } = useTheme<DemoTheme>();
+  const { styles, monitorColors } = useTheme<DemoTheme>();
   return (
     <View style={styles.switchStyle}>
       <PaperText style={styles.listItemDescriptionText}>{props.label}</PaperText>
       <Spacer />
-      <PaperSwitch {...props} color={colors.secondary} />
+      <PaperSwitch {...props} color={monitorColors.green} />
     </View>
+  );
+};
+
+export const SelectOptions = (props: {
+  options: {
+    name: string;
+    value: string;
+  }[];
+  defaultValue: string;
+  onValueChange: (newValue: string) => void;
+}) => {
+  const { styles, monitorColors } = useTheme<DemoTheme>();
+  const { options, defaultValue, onValueChange } = props;
+  const [value, setValue] = useState(defaultValue);
+  const handleChange = (newValue: string) => {
+    setValue(newValue);
+    onValueChange(newValue);
+  };
+  return (
+    <RadioButton.Group onValueChange={(newValue: string) => handleChange(newValue)} value={value}>
+      {options.map((option) => {
+        const checked = option.value === defaultValue ? 'checked' : 'unchecked';
+        return (
+          <View key={option.name} style={styles.switchStyle}>
+            <PaperText style={styles.listItemDescriptionText}>{option.name}</PaperText>
+            <Spacer />
+            <RadioButton value={option.value} status={checked} color={monitorColors.blue} />
+          </View>
+        );
+      })}
+    </RadioButton.Group>
   );
 };
 

@@ -14,7 +14,9 @@ import {
 } from './utils/updateUtils';
 import usePersistentDate from './utils/usePersistentDate';
 import UpdateMonitor from './UpdateMonitor';
-import { Container, Section, Item, Spacer, Switch } from './ui/theme';
+import { Container, Section, Item, Spacer, Switch, SelectOptions } from './ui/theme';
+
+const defaultCheckInterval = 3600000; // 1 hour
 
 export default function Demo() {
   const {
@@ -28,12 +30,13 @@ export default function Demo() {
   const [autoLaunchCritical, setAutoLaunchCritical] = useState(false);
   const [checkOnForeground, setCheckOnForeground] = useState(true);
   const [monitorAlwaysVisible, setMonitorAlwaysVisible] = useState(false);
+  const [updateCheckInterval, setUpdateCheckInterval] = useState(defaultCheckInterval);
 
   return (
     <Container>
       {/* Pass in the desired time between update checks, in ms (default 3600000 = 1 hour) */}
       <UpdateMonitor
-        updateCheckInterval={3600000}
+        updateCheckInterval={updateCheckInterval}
         autoLaunchCritical={autoLaunchCritical}
         checkOnForeground={checkOnForeground}
         alwaysVisible={monitorAlwaysVisible}
@@ -64,6 +67,14 @@ export default function Demo() {
           value={monitorAlwaysVisible}
           label="Monitor always visible"
           onValueChange={() => setMonitorAlwaysVisible(!monitorAlwaysVisible)}
+        />
+        <SelectOptions
+          options={[
+            { name: 'Check at 1 hour intervals', value: `${defaultCheckInterval}` },
+            { name: 'Check at 10 second intervals', value: '10000' },
+          ]}
+          defaultValue={`${defaultCheckInterval}`}
+          onValueChange={(newValue) => setUpdateCheckInterval(parseInt(newValue, 10))}
         />
       </Section>
       <Spacer />
