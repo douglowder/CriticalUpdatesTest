@@ -102,6 +102,12 @@ const UpdateMonitor: (props?: {
 
   const [modalShowing, setModalShowing] = React.useState(false);
 
+  const description = `${availableUpdateDescription(availableUpdate)} ${errorDescription(
+    initializationError,
+    checkError,
+    downloadError
+  )}`;
+
   const modalTitle = isUpdateAvailable
     ? `${isUpdateCritical ? 'Critical ' : ''}Update ${isUpdatePending ? 'Downloaded' : 'Available'}`
     : 'No Update Available';
@@ -115,14 +121,7 @@ const UpdateMonitor: (props?: {
       {modalShowing ? (
         <Modal visible={modalShowing} onDismiss={() => setModalShowing(false)}>
           <Section title={modalTitle}>
-            <Item
-              title="Description:"
-              description={
-                availableUpdateDescription(availableUpdate) +
-                errorDescription(initializationError, checkError, downloadError)
-              }
-              descriptionNumberOfLines={5}
-            />
+            <Item title="Description:" description={description} descriptionNumberOfLines={5} />
           </Section>
           <Button onPress={() => setModalShowing(false)}>Dismiss</Button>
           {isUpdateAvailable ? (

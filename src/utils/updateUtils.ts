@@ -38,7 +38,7 @@ const availableUpdateDescription = (availableUpdate?: UpdateInfo) => {
       ` Message: ${manifestMessage(availableUpdate.manifest)}\n` +
       ` Critical: ${isManifestCritical(availableUpdate.manifest)}\n`
     : 'No available update\n';
-  return updateDescription + errorDescription;
+  return updateDescription;
 };
 
 const errorDescription = (
