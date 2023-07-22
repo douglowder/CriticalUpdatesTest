@@ -28,7 +28,7 @@ export default function Demo() {
   } = useUpdates();
   const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
   const [autoLaunchCritical, setAutoLaunchCritical] = useState(false);
-  const [checkOnForeground, setCheckOnForeground] = useState(true);
+  const [checkOnForeground, setCheckOnForeground] = useState(false);
   const [monitorAlwaysVisible, setMonitorAlwaysVisible] = useState(false);
   const [updateCheckInterval, setUpdateCheckInterval] = useState(defaultCheckInterval);
 

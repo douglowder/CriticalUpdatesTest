@@ -65,11 +65,12 @@ const UpdateMonitor: (props?: {
     dateDifferenceInMilliSeconds(new Date(), lastCheckForUpdateTime) > monitorInterval;
 
   // Check if needed when app becomes active
-  const appState = useAppState((activating) => {
-    if (activating && needsUpdateCheck() && checkOnForeground) {
+  const appStateHandler = (activating: boolean) => {
+    if (activating) {
       checkForUpdateAsync().catch((_error) => {});
     }
-  });
+  };
+  const appState = useAppState(checkOnForeground ? appStateHandler : undefined);
 
   // Wake up periodically while app is active to see if we need to do another check
   // This interval should be smaller than monitorInterval

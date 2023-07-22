@@ -4,7 +4,7 @@ import { AppState, AppStateStatus } from 'react-native';
 /**
  * Hook that returns app state, and takes a callback that is called on active state changes
  *
- * @param callback Called with the "activating" parameter = true when entering active state,
+ * @param callback If defined, it will be called with the "activating" parameter = true when entering active state,
  * false when leaving active state
  *
  * @returns one of 'active', 'background', 'inactive', or 'unknown'
@@ -37,7 +37,7 @@ const useAppState: (callback?: (activating: boolean) => void) => AppStateStatus 
     return () => {
       subscription.remove();
     };
-  }, []);
+  }, [callback]);
 
   return appState.current;
 };
