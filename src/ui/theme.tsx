@@ -45,6 +45,7 @@ const themedStyles = (theme: MD3Theme, monitorColors: MonitorColors) =>
     },
     listSection: {
       width: '90%',
+      marginRight: 24,
     },
     listSectionTitleText: {
       fontWeight: 'bold',
@@ -52,19 +53,20 @@ const themedStyles = (theme: MD3Theme, monitorColors: MonitorColors) =>
       color: theme.colors.tertiary,
     },
     listItem: {
-      margin: 10,
+      margin: 0,
       width: '100%',
       padding: 0,
     },
     listItemTitleText: {
       fontWeight: 'bold',
       fontSize: 14,
-      padding: 10,
+      paddingBottom: 5,
       color: theme.colors.primary,
     },
     listItemDescriptionText: {
       fontSize: 12,
       color: theme.colors.secondary,
+      flexWrap: 'wrap',
     },
     monitorContainer: {
       width: '100%',
@@ -201,6 +203,7 @@ export const Item = (props: any) => {
       style={styles.listItem}
       titleStyle={styles.listItemTitleText}
       descriptionStyle={styles.listItemDescriptionText}
+      descriptionEllipsizeMode="clip"
     />
   );
 };

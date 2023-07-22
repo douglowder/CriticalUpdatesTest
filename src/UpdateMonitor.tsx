@@ -34,11 +34,13 @@ import { Modal, Section, Item, Button, Monitor } from './ui/theme';
 const defaultUpdateCheckInterval = 3600000; // 1 hour
 const defaultCheckOnForeground = false;
 const defaultAutoLaunchCritical = false;
+const defaultAlwaysVisible = false;
 
 const UpdateMonitor: (props?: {
   updateCheckInterval?: number;
   checkOnForeground?: boolean;
   autoLaunchCritical?: boolean;
+  alwaysVisible?: boolean;
 }) => JSX.Element = (props) => {
   const {
     availableUpdate,
@@ -57,6 +59,7 @@ const UpdateMonitor: (props?: {
   const monitorInterval = props?.updateCheckInterval ?? defaultUpdateCheckInterval;
   const checkOnForeground = props?.checkOnForeground ?? defaultCheckOnForeground;
   const autoLaunchCritical = props?.autoLaunchCritical ?? defaultAutoLaunchCritical;
+  const alwaysVisible = props?.alwaysVisible ?? defaultAlwaysVisible;
 
   const needsUpdateCheck = () =>
     dateDifferenceInMilliSeconds(new Date(), lastCheckForUpdateTime) > monitorInterval;
@@ -104,7 +107,7 @@ const UpdateMonitor: (props?: {
 
   return (
     <Monitor
-      visible={isUpdateAvailable || __DEV__}
+      visible={isUpdateAvailable || alwaysVisible}
       type={isUpdateCritical ? 'warning' : isUpdateAvailable ? 'info' : undefined}
       label={modalTitle}
       onPress={() => setModalShowing(true)}>

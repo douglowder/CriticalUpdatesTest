@@ -27,6 +27,7 @@ export default function Demo() {
   const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
   const [autoLaunchCritical, setAutoLaunchCritical] = useState(false);
   const [checkOnForeground, setCheckOnForeground] = useState(true);
+  const [monitorAlwaysVisible, setMonitorAlwaysVisible] = useState(false);
 
   return (
     <Container>
@@ -35,22 +36,20 @@ export default function Demo() {
         updateCheckInterval={3600000}
         autoLaunchCritical={autoLaunchCritical}
         checkOnForeground={checkOnForeground}
+        alwaysVisible={monitorAlwaysVisible}
       />
       <Spacer />
       <Section title="Critical Updates Test">
         <Item
           title={currentlyRunningTitle(currentlyRunning)}
-          description={currentlyRunningDescription(currentlyRunning)}
+          description={currentlyRunningDescription(currentlyRunning, lastCheckForUpdateTime)}
           descriptionNumberOfLines={6}
         />
         <Item
           title="Errors:"
           description={errorDescription(initializationError, checkError, downloadError)}
         />
-        <Item
-          title="Last update check:"
-          description={lastCheckForUpdateTime?.toISOString() || ''}
-        />
+        <Item title="Monitor settings" />
         <Switch
           value={autoLaunchCritical}
           label="Auto download and launch critical updates"
@@ -60,6 +59,11 @@ export default function Demo() {
           value={checkOnForeground}
           label="Check for updates when app foregrounds"
           onValueChange={() => setCheckOnForeground(!checkOnForeground)}
+        />
+        <Switch
+          value={monitorAlwaysVisible}
+          label="Monitor always visible"
+          onValueChange={() => setMonitorAlwaysVisible(!monitorAlwaysVisible)}
         />
       </Section>
       <Spacer />

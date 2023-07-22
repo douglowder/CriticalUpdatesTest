@@ -16,13 +16,17 @@ const currentlyRunningTitle = (currentlyRunning: CurrentlyRunningInfo) => {
   return currentlyRunning?.isEmbeddedLaunch ? 'Running the embedded bundle:' : 'Running an update:';
 };
 
-const currentlyRunningDescription = (currentlyRunning: CurrentlyRunningInfo) => {
+const currentlyRunningDescription = (
+  currentlyRunning: CurrentlyRunningInfo,
+  lastCheckForUpdateTime?: Date
+) => {
   return (
     ` ID: ${currentlyRunning.updateId}\n` +
     ` Created: ${currentlyRunning.createdAt?.toISOString()}\n` +
     ` Channel: ${currentlyRunning.channel}\n` +
     ` Runtime Version: ${currentlyRunning.runtimeVersion}\n` +
     ` Message: ${manifestMessage(currentlyRunning.manifest)}\n` +
+    ` Last check: ${lastCheckForUpdateTime?.toISOString()}\n` +
     ` ${currentlyRunning.isEmergencyLaunch ? 'This is an emergency launch' : ''}\n`
   );
 };
