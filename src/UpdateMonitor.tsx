@@ -21,7 +21,7 @@ import React, { useEffect } from 'react';
 const { useUpdates, checkForUpdateAsync, fetchUpdateAsync, reloadAsync } = Updates;
 
 import useAppState from './utils/useAppState';
-import useInterval from './utils/useInterval';
+import { useInterval } from './utils/timeUtils';
 import usePersistentDate from './utils/usePersistentDate';
 import {
   isManifestCritical,
@@ -112,12 +112,30 @@ const UpdateMonitor: (props?: {
     ? `${isUpdateCritical ? 'Critical ' : ''}Update ${isUpdatePending ? 'Downloaded' : 'Available'}`
     : 'No Update Available';
 
+  const actions: any = [{ label: 'Details', onPress: () => setModalShowing(true) }];
+  if (isUpdateAvailable) {
+    actions.unshift({
+      label: 'Download',
+      onPress: () => {
+        handleDownloadButtonPress();
+      },
+    });
+  }
+  if (isUpdatePending) {
+    actions.unshift({
+      label: 'Launch',
+      onPress: () => {
+        handleRunButtonPress();
+      },
+    });
+  }
+
   return (
     <Monitor
       visible={isUpdateAvailable || alwaysVisible}
       type={isUpdateCritical ? 'warning' : isUpdateAvailable ? 'info' : undefined}
       label={modalTitle}
-      onPress={() => setModalShowing(true)}>
+      actions={actions}>
       {modalShowing ? (
         <Modal visible={modalShowing} onDismiss={() => setModalShowing(false)}>
           <Section title={modalTitle}>

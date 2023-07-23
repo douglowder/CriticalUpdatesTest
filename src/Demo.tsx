@@ -14,7 +14,15 @@ import {
 } from './utils/updateUtils';
 import usePersistentDate from './utils/usePersistentDate';
 import UpdateMonitor from './UpdateMonitor';
-import { Container, Section, Item, Spacer, Switch, SelectOptions } from './ui/theme';
+import {
+  ActivityIndicator,
+  Container,
+  Section,
+  Item,
+  Spacer,
+  Switch,
+  SelectOptions,
+} from './ui/theme';
 
 const defaultCheckInterval = 3600000; // 1 hour
 
@@ -24,6 +32,8 @@ export default function Demo() {
     initializationError,
     checkError,
     downloadError,
+    isChecking,
+    isDownloading,
     lastCheckForUpdateTimeSinceRestart,
   } = useUpdates();
   const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
@@ -78,6 +88,7 @@ export default function Demo() {
         />
       </Section>
       <Spacer />
+      <ActivityIndicator active={isChecking || isDownloading} />
     </Container>
   );
 }

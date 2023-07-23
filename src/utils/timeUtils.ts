@@ -7,7 +7,10 @@ import { useEffect, useRef } from 'react';
  * @param callback The callback to be called
  * @param interval The interval between callbacks, in milliseconds
  */
-const useInterval: (callback: () => void, interval: number) => void = (callback, interval) => {
+export const useInterval: (callback: () => void, interval: number) => void = (
+  callback,
+  interval
+) => {
   const callbackRef = useRef<typeof callback>();
   useEffect(() => {
     callbackRef.current = callback;
@@ -23,4 +26,13 @@ const useInterval: (callback: () => void, interval: number) => void = (callback,
   }, [interval]);
 };
 
-export default useInterval;
+/**
+ * Promise wrapper for setTimeout()
+ * @param {delay} timeout Timeout in ms
+ * @returns a Promise that resolves after the timeout has elapsed
+ */
+export const delay = (timeout: number) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeout);
+  });
+};

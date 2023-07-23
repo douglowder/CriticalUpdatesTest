@@ -13,6 +13,7 @@ import {
   RadioButton,
   Switch as PaperSwitch,
   Text as PaperText,
+  ActivityIndicator as PaperActivityIndicator,
 } from 'react-native-paper';
 import type { MD3Theme } from 'react-native-paper';
 import { useColorScheme } from 'react-native';
@@ -113,6 +114,11 @@ const themedStyles = (theme: MD3Theme, monitorColors: MonitorColors) =>
       margin: 10,
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    activityIndicatorStyle: {
+      position: 'absolute',
+      bottom: 20,
+      right: '50%',
     },
   });
 
@@ -245,6 +251,19 @@ export const Switch = (props: any) => {
   );
 };
 
+export const ActivityIndicator = (props: { active: boolean }) => {
+  const { styles, colors } = useTheme<DemoTheme>();
+  return (
+    <View style={styles.activityIndicatorStyle}>
+      <PaperActivityIndicator
+        animating={props.active}
+        color={colors.inverseSurface}
+        hidesWhenStopped={true}
+      />
+    </View>
+  );
+};
+
 export const SelectOptions = (props: {
   options: {
     name: string;
@@ -293,7 +312,10 @@ export const Monitor = (props: {
   visible: boolean;
   label: string;
   type?: 'info' | 'warning';
-  onPress: () => void;
+  actions: {
+    label: string;
+    onPress: () => {};
+  }[];
   children: any;
 }) => {
   const { styles, colors } = useTheme<DemoTheme>();
@@ -310,7 +332,7 @@ export const Monitor = (props: {
       style={styles.monitorContainer}
       visible={props.visible}
       icon={(_size) => iconRef.current ?? null}
-      actions={[{ label: 'Details', onPress: props.onPress }]}>
+      actions={props.actions}>
       <View>
         <PaperText style={styles.monitorLabelText}>{label}</PaperText>
         {props.children}
