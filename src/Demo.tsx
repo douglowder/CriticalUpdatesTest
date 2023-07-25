@@ -37,22 +37,22 @@ export default function Demo() {
     lastCheckForUpdateTimeSinceRestart,
   } = useUpdates();
   const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
+
+  const [monitorAlwaysVisible, setMonitorAlwaysVisible] = useState(false);
+
   const [autoLaunchCritical, setAutoLaunchCritical] = useState(false);
   const [checkOnForeground, setCheckOnForeground] = useState(false);
-  const [monitorAlwaysVisible, setMonitorAlwaysVisible] = useState(false);
   const [updateCheckInterval, setUpdateCheckInterval] = useState(defaultCheckInterval);
 
   return (
     <Container>
-      {/* Pass in the desired time between update checks, in ms (default 3600000 = 1 hour) */}
       <UpdateMonitor
         updateCheckInterval={updateCheckInterval}
         autoLaunchCritical={autoLaunchCritical}
         checkOnForeground={checkOnForeground}
         alwaysVisible={monitorAlwaysVisible}
       />
-      <Spacer />
-      <Section title="Critical Updates Test">
+      <Section title="Updates API Demo">
         <Item
           title={currentlyRunningTitle(currentlyRunning)}
           description={currentlyRunningDescription(currentlyRunning, lastCheckForUpdateTime)}
@@ -64,19 +64,19 @@ export default function Demo() {
         />
         <Item title="Monitor settings" />
         <Switch
+          value={monitorAlwaysVisible}
+          label="Monitor always visible"
+          onValueChange={() => setMonitorAlwaysVisible(!monitorAlwaysVisible)}
+        />
+        <Switch
           value={autoLaunchCritical}
-          label="Auto download and launch critical updates"
+          label="Download and launch critical updates"
           onValueChange={() => setAutoLaunchCritical(!autoLaunchCritical)}
         />
         <Switch
           value={checkOnForeground}
-          label="Check for updates when app foregrounds"
+          label="Check when app foregrounds"
           onValueChange={() => setCheckOnForeground(!checkOnForeground)}
-        />
-        <Switch
-          value={monitorAlwaysVisible}
-          label="Monitor always visible"
-          onValueChange={() => setMonitorAlwaysVisible(!monitorAlwaysVisible)}
         />
         <SelectOptions
           options={[

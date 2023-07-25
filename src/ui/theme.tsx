@@ -17,23 +17,23 @@ import {
 } from 'react-native-paper';
 import type { MD3Theme } from 'react-native-paper';
 import { useColorScheme } from 'react-native';
-import { StyleSheet, SafeAreaView, View } from 'react-native';
+import { StyleSheet, ScrollView, View } from 'react-native';
 import {
   darkTheme as expoDarkTheme,
   lightTheme as expoLightTheme,
   palette,
 } from '@expo/styleguide-base';
 
-type MonitorColors = { red: string; yellow: string; green: string; blue: string };
+type AdditionalColors = { red: string; yellow: string; green: string; blue: string };
 /**
  * Add styles to the theme properties
  */
 export type DemoTheme = MD3Theme & {
   styles: StyleSheet.NamedStyles<any>;
-  monitorColors: MonitorColors;
+  colors: typeof MD3LightTheme.colors & AdditionalColors;
 };
 
-const themedStyles = (theme: MD3Theme, monitorColors: MonitorColors) =>
+const themedStyles = (theme: MD3Theme, additionalColors: AdditionalColors) =>
   StyleSheet.create({
     container: {
       width: '100%',
@@ -75,7 +75,8 @@ const themedStyles = (theme: MD3Theme, monitorColors: MonitorColors) =>
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      backgroundColor: monitorColors.blue,
+      backgroundColor: additionalColors.blue,
+      color: theme.colors.inverseOnSurface,
     },
     monitorModalContainer: {
       alignItems: 'center',
@@ -97,23 +98,28 @@ const themedStyles = (theme: MD3Theme, monitorColors: MonitorColors) =>
       height: 30,
       topMargin: 70,
       borderRadius: 15,
-      backgroundColor: monitorColors.green,
+      backgroundColor: additionalColors.green,
     },
     monitorIconInfo: {
-      backgroundColor: monitorColors.yellow,
+      backgroundColor: additionalColors.yellow,
     },
     monitorIconWarning: {
-      backgroundColor: monitorColors.red,
+      backgroundColor: additionalColors.red,
     },
     buttonStyle: {
-      margin: 20,
+      margin: 15,
       borderRadius: 8,
     },
     switchStyle: {
       flexDirection: 'row',
-      margin: 10,
+      margin: 15,
+      paddingLeft: 5,
+      paddingRight: 5,
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    controlText: {
+      fontSize: 14,
     },
     activityIndicatorStyle: {
       position: 'absolute',
@@ -121,6 +127,20 @@ const themedStyles = (theme: MD3Theme, monitorColors: MonitorColors) =>
       right: '50%',
     },
   });
+
+const lightAdditionalColors = {
+  red: palette.light.red10,
+  yellow: palette.light.yellow10,
+  green: palette.light.green10,
+  blue: palette.light.blue11,
+};
+
+const darkAdditionalColors = {
+  red: palette.dark.red10,
+  yellow: palette.dark.yellow10,
+  green: palette.dark.green10,
+  blue: palette.light.blue7,
+};
 
 const lightPaperTheme: MD3Theme = {
   ...MD3LightTheme,
@@ -146,30 +166,22 @@ const darkPaperTheme: MD3Theme = {
   },
 };
 
-const lightMonitorColors = {
-  red: palette.light.red10,
-  yellow: palette.light.yellow10,
-  green: palette.light.green10,
-  blue: palette.light.blue11,
-};
-
-const darkMonitorColors = {
-  red: palette.dark.red10,
-  yellow: palette.dark.yellow10,
-  green: palette.dark.green10,
-  blue: palette.light.blue11,
-};
-
 const lightTheme: DemoTheme = {
   ...lightPaperTheme,
-  styles: themedStyles(lightPaperTheme, lightMonitorColors),
-  monitorColors: lightMonitorColors,
+  styles: themedStyles(lightPaperTheme, lightAdditionalColors),
+  colors: {
+    ...lightPaperTheme.colors,
+    ...lightAdditionalColors,
+  },
 };
 
 const darkTheme: DemoTheme = {
   ...darkPaperTheme,
-  styles: themedStyles(darkPaperTheme, darkMonitorColors),
-  monitorColors: darkMonitorColors,
+  styles: themedStyles(darkPaperTheme, darkAdditionalColors),
+  colors: {
+    ...darkPaperTheme.colors,
+    ...darkAdditionalColors,
+  },
 };
 
 /**
@@ -185,7 +197,7 @@ export const useDemoTheme: () => DemoTheme = () => {
 
 export const Container = (props: any) => {
   const { styles } = useTheme<DemoTheme>();
-  return <SafeAreaView style={styles.container}>{props.children}</SafeAreaView>;
+  return <ScrollView contentContainerStyle={styles.container}>{props.children}</ScrollView>;
 };
 
 export const Spacer = () => {
@@ -241,12 +253,12 @@ export const Modal = (props: any) => {
 };
 
 export const Switch = (props: any) => {
-  const { styles, monitorColors } = useTheme<DemoTheme>();
+  const { styles, colors } = useTheme<DemoTheme>();
   return (
     <View style={styles.switchStyle}>
-      <PaperText style={styles.listItemDescriptionText}>{props.label}</PaperText>
+      <PaperText style={styles.controlText}>{props.label}</PaperText>
       <Spacer />
-      <PaperSwitch {...props} color={monitorColors.green} />
+      <PaperSwitch {...props} color={colors.blue} />
     </View>
   );
 };
@@ -257,7 +269,7 @@ export const ActivityIndicator = (props: { active: boolean }) => {
     <View style={styles.activityIndicatorStyle}>
       <PaperActivityIndicator
         animating={props.active}
-        color={colors.inverseSurface}
+        color={colors.secondary}
         hidesWhenStopped={true}
       />
     </View>
@@ -272,7 +284,7 @@ export const SelectOptions = (props: {
   defaultValue: string;
   onValueChange: (newValue: string) => void;
 }) => {
-  const { styles, monitorColors } = useTheme<DemoTheme>();
+  const { styles, colors } = useTheme<DemoTheme>();
   const { options, defaultValue, onValueChange } = props;
   const [value, setValue] = useState(defaultValue);
   const handleChange = (newValue: string) => {
@@ -285,9 +297,14 @@ export const SelectOptions = (props: {
         const checked = option.value === defaultValue ? 'checked' : 'unchecked';
         return (
           <View key={option.name} style={styles.switchStyle}>
-            <PaperText style={styles.listItemDescriptionText}>{option.name}</PaperText>
+            <PaperText style={styles.controlText}>{option.name}</PaperText>
             <Spacer />
-            <RadioButton value={option.value} status={checked} color={monitorColors.blue} />
+            <RadioButton.Android
+              value={option.value}
+              status={checked}
+              color={colors.green}
+              uncheckedColor={colors.inverseOnSurface}
+            />
           </View>
         );
       })}
@@ -328,10 +345,14 @@ export const Monitor = (props: {
 
   return (
     <Banner
-      theme={{ colors: { primary: colors.inverseOnSurface } }}
+      theme={{
+        colors: {
+          primary: colors.inverseOnSurface,
+        },
+      }}
       style={styles.monitorContainer}
       visible={props.visible}
-      icon={(_size) => iconRef.current ?? null}
+      icon={() => iconRef.current ?? null}
       actions={props.actions}>
       <View>
         <PaperText style={styles.monitorLabelText}>{label}</PaperText>
