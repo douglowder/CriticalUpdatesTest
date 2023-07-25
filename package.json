@@ -11,8 +11,8 @@
     "update": "node scripts/push-update.js"
   },
   "dependencies": {
-    "@expo/styleguide-base": "^1.0.0-alpha.2",
-    "@expo/styleguide-native": "^7.0.0-alpha.2",
+    "@expo/styleguide-base": "^1.0.1",
+    "@expo/styleguide-native": "^7.0.1",
     "@expo/cli": "./dependencies/expo-cli-0.10.4-1690277763947.tgz",
     "@expo/config-plugins": "./dependencies/expo-config-plugins-7.2.2-1690277764928.tgz",
     "@expo/config-types": "./dependencies/expo-config-types-49.0.0-1690277767528.tgz",

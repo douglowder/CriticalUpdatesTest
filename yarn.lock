@@ -1545,14 +1545,14 @@
   dependencies:
     cross-spawn "^7.0.3"
 
-"@expo/styleguide-base@^1.0.0-alpha.2":
+"@expo/styleguide-base@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@expo/styleguide-base/-/styleguide-base-1.0.1.tgz#c05b64370fc1754ed7e3c627fd2d788582445cd2"
   integrity sha512-Iu52/esfpMXB5cOT3oyTvcSdkwok9re9Wtu4Tz7cmeumjh+81kTIB1GHZn8W1RFhSx9dys0NXr3UqPD8MkngtQ==
   dependencies:
     "@radix-ui/colors" "^0.1.8"
 
-"@expo/styleguide-native@^7.0.0-alpha.2":
+"@expo/styleguide-native@^7.0.1":
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/@expo/styleguide-native/-/styleguide-native-7.0.1.tgz#63096a55510e2fa74558540c38ecf0f63c463c05"
   integrity sha512-VpBhS69z2fG7Z+yWdmMgnTUtZZQ0O2tv3NUL/n7sByTLyhn8ZUP3///T20WACuUNglL2Cuf9Na9muv9+0EADog==
