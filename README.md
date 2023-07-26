@@ -40,8 +40,9 @@ Click "Details" on the banner to see information on the update. Click "Download"
 
 ![04-update-available-detail](https://github.com/douglowder/CriticalUpdatesTest/assets/6577821/b1d7f545-9110-4851-a85e-0f9a5f6a3711) ![05-update-downloaded](https://github.com/douglowder/CriticalUpdatesTest/assets/6577821/c0a1bd30-fbe2-4ab9-b1dc-b7e81decf00d) ![06-update-launched](https://github.com/douglowder/CriticalUpdatesTest/assets/6577821/14408b1b-d96e-403b-a8b5-c2c0ac1de1e1)
 
+### Check for updates when the app foregrounds
 
-
+Enable the "Check when app foregrounds" toggle. Now push another update using a `yarn update` command as above. In the simulator, navigate back to the home screen, and then click on the app icon to bring it back to the foreground. The monitor code will check the update server and show the banner indicating a new available update.
 
 ### Automatic updates
 
