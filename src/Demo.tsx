@@ -52,6 +52,7 @@ export default function Demo() {
         checkOnForeground={checkOnForeground}
         alwaysVisible={monitorAlwaysVisible}
       />
+      <Spacer />
       <Section title="Updates API Demo">
         <Item
           title={currentlyRunningTitle(currentlyRunning)}

@@ -309,7 +309,7 @@ export const SelectOptions = (props: {
           <View key={option.name} style={styles.switchStyle}>
             <PaperText style={styles.controlText}>{option.name}</PaperText>
             <Spacer />
-            <RadioButton.Android
+            <RadioButton
               value={option.value}
               status={checked}
               color={colors.green}
