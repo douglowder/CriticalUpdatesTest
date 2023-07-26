@@ -25,7 +25,15 @@ import {
   SelectOptions,
 } from './ui';
 
-const defaultCheckInterval = 3600000; // 1 hour
+const longCheckInterval = 3600000; // 1 hour
+const shortCheckInterval = 10000; // 10 seconds
+
+// Change these to modify the default values for the monitor settings
+
+const defaultCheckInterval = longCheckInterval;
+const defaultAutoLaunchCritical = false;
+const defaultCheckOnForeground = false;
+const defaultMonitorAlwaysVisible = false;
 
 export default function Demo() {
   const {
@@ -37,13 +45,13 @@ export default function Demo() {
     isDownloading,
     lastCheckForUpdateTimeSinceRestart,
   } = useUpdates();
-  const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
 
-  const [monitorAlwaysVisible, setMonitorAlwaysVisible] = useState(false);
-
-  const [autoLaunchCritical, setAutoLaunchCritical] = useState(false);
-  const [checkOnForeground, setCheckOnForeground] = useState(false);
+  const [monitorAlwaysVisible, setMonitorAlwaysVisible] = useState(defaultMonitorAlwaysVisible);
+  const [autoLaunchCritical, setAutoLaunchCritical] = useState(defaultAutoLaunchCritical);
+  const [checkOnForeground, setCheckOnForeground] = useState(defaultCheckOnForeground);
   const [updateCheckInterval, setUpdateCheckInterval] = useState(defaultCheckInterval);
+
+  const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
 
   return (
     <Container>
@@ -83,8 +91,8 @@ export default function Demo() {
         />
         <SelectOptions
           options={[
-            { name: 'Check at 1 hour intervals', value: `${defaultCheckInterval}` },
-            { name: 'Check at 10 second intervals', value: '10000' },
+            { name: 'Check at 1 hour intervals', value: `${longCheckInterval}` },
+            { name: 'Check at 10 second intervals', value: `${shortCheckInterval}` },
           ]}
           defaultValue={`${defaultCheckInterval}`}
           onValueChange={(newValue) => setUpdateCheckInterval(parseInt(newValue, 10))}
