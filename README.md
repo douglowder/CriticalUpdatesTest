@@ -1,9 +1,10 @@
-## CriticalUpdatesTest
+## Updates API demo
 
 App to test out
 
-- Ideas for implementing critical updates
-- Uses the [new forthcoming JS API](https://github.com/expo/expo/pull/23532)
+- Features provided by `expo-updates`
+- Example solutions for some use cases
+- Uses the [new forthcoming JS API](https://docs.expo.dev/versions/unversioned/sdk/updates/#useupdates)
 
 ### Quick start
 
@@ -18,7 +19,7 @@ npx expo run:ios --configuration Release
 npx expo run:android --variant release
 ```
 
-See that the app is running from built-in code.  Monitor status (circle button in upper right corner) will be green.
+See that the app is running from built-in code. Toggle "Monitor always visible" to show the monitor's banner view, showing that there are no available updates.
 
 ### Push an update
 
@@ -28,21 +29,17 @@ yarn update --message "Testing an update"
 
 (This runs a script that manually modifies `app.json` to add a custom `message` property in the `extra` section, and then run `eas update`. Doing this results in an update manifest that contains the custom property in the `extra` section of the `expoClient` object.)
 
-After a few seconds, the monitor status will turn yellow (update available). Click on the yellow button to get more information about the update, and see the "Download and run update" button.
+Check the checkbox near the bottom of the screen labeled "Check at 10 second intervals". After a few seconds, the monitor banner will appear at the top with a notification icon, alerting the user that an update is available.
 
-Press "Download and run update" button to run the update. Status should be green again, and the app should show that it is running an update.
+Click "Details" on the banner to see information on the update. Click "Download" to fetch the update, and "Launch" to restart the app with the new update bundle.
 
 ### Automatic updates
 
-This app uses the `expo-updates` setting `checkAutomatically: ON_ERROR_RECOVERY` (see `app.json`). With this setting, updates are not automatically downloaded on startup unless an error was encountered while loading the last update.
-
-You can turn on automatic update downloads by removing the above setting, or changing the value to `ON_LOAD`, then running `npx expo prebuild` to propagate the new setting to the native iOS and Android code (`Expo.plist` and `AndroidManifest.xml`).
-
-After building the app this way, try force quitting the app, push an update as above, then start the app up again.  Now the app should automatically detect and download the update, and status should automatically turn yellow.
+Force quit the app, and then issue a `yarn update` command to run EAS Update again and upload a new update bundle to the server.  Now start the app. Since the `expo-updates` module has the default configuration for automatic updates, it will query the server on startup, see that there is an update, and download it. Therefore, the monitor banner will now show that a new update has been downloaded.  Click "Launch" to load and run the new update. If a bundle is downloaded, it will also be automatically launched the next time the app cold starts.
 
 ### Push a critical update
 ```bash
 yarn update --message "Testing a critical update" --critical
 ```
 
-The monitor button will turn red, indicating a critical update. The monitor code automatically downloads and runs critical updates.
+The banner will show that a critical update is available, with a red icon. The monitor code automatically downloads and runs critical updates, if the "Download and launch critical updates" toggle is enabled.
