@@ -53,7 +53,6 @@ const UpdateMonitor: (props?: {
   } = useUpdates();
 
   const isUpdateCritical = availableUpdate ? isManifestCritical(availableUpdate.manifest) : false;
-
   const lastCheckForUpdateTime = usePersistentDate(lastCheckForUpdateTimeSinceRestart);
 
   const monitorInterval = props?.updateCheckInterval ?? defaultUpdateCheckInterval;
@@ -109,8 +108,10 @@ const UpdateMonitor: (props?: {
   )}`;
 
   const modalTitle = isUpdateAvailable
-    ? `${isUpdateCritical ? 'Critical ' : ''}Update ${isUpdatePending ? 'Downloaded' : 'Available'}`
-    : 'No Update Available';
+    ? `${isUpdateCritical ? 'A critical update' : 'An update'} ${
+        isUpdatePending ? 'has been downloaded' : 'is available'
+      }`
+    : 'App is running the latest update';
 
   const actions: any = [{ label: 'Details', onPress: () => setModalShowing(true) }];
   if (isUpdateAvailable) {

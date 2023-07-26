@@ -1,6 +1,8 @@
 // RN Paper theme, extended for this project, and some styled components
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import Feather from 'react-native-vector-icons/Feather';
+
 import {
   MD3DarkTheme,
   MD3LightTheme,
@@ -88,6 +90,10 @@ const themedStyles = (theme: MD3Theme, additionalColors: AdditionalColors) =>
       margin: 20,
       color: theme.colors.tertiary,
     },
+    monitorLabel: {
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     monitorLabelText: {
       fontSize: 20,
       fontWeight: 'bold',
@@ -98,6 +104,8 @@ const themedStyles = (theme: MD3Theme, additionalColors: AdditionalColors) =>
       height: 30,
       topMargin: 70,
       borderRadius: 15,
+      justifyContent: 'center',
+      alignItems: 'center',
       backgroundColor: additionalColors.green,
     },
     monitorIconInfo: {
@@ -130,7 +138,7 @@ const themedStyles = (theme: MD3Theme, additionalColors: AdditionalColors) =>
 
 const lightAdditionalColors = {
   red: palette.light.red10,
-  yellow: palette.light.yellow10,
+  yellow: palette.light.yellow8,
   green: palette.light.green10,
   blue: palette.light.blue11,
 };
@@ -144,6 +152,7 @@ const darkAdditionalColors = {
 
 const lightPaperTheme: MD3Theme = {
   ...MD3LightTheme,
+  mode: 'exact',
   colors: {
     ...MD3LightTheme.colors,
     primaryContainer: expoLightTheme.background.screen,
@@ -156,6 +165,7 @@ const lightPaperTheme: MD3Theme = {
 
 const darkPaperTheme: MD3Theme = {
   ...MD3DarkTheme,
+  mode: 'exact',
   colors: {
     ...MD3DarkTheme.colors,
     primaryContainer: expoDarkTheme.background.screen,
@@ -312,19 +322,6 @@ export const SelectOptions = (props: {
   );
 };
 
-const MonitorIconView = React.forwardRef((props: { type?: 'info' | 'warning' }, ref: any) => {
-  const { styles } = useTheme<DemoTheme>();
-  const { type } = props;
-
-  const monitorStyle =
-    type === 'warning'
-      ? [styles.monitorIcon, styles.monitorIconWarning]
-      : type === 'info'
-      ? [styles.monitorIcon, styles.monitorIconInfo]
-      : styles.monitorIcon;
-  return <View ref={ref} style={monitorStyle} />;
-});
-
 export const Monitor = (props: {
   visible: boolean;
   label: string;
@@ -337,11 +334,21 @@ export const Monitor = (props: {
 }) => {
   const { styles, colors } = useTheme<DemoTheme>();
   const { label, type } = props;
-  const iconRef = React.useRef(<MonitorIconView />);
 
-  useEffect(() => {
-    iconRef.current = <MonitorIconView type={type} />;
-  }, [type]);
+  const iconName = type === 'warning' ? 'alert-circle' : type === 'info' ? 'bell' : 'check';
+
+  const monitorIconStyle =
+    type === 'warning'
+      ? [styles.monitorIcon, styles.monitorIconWarning]
+      : type === 'info'
+      ? [styles.monitorIcon, styles.monitorIconInfo]
+      : styles.monitorIcon;
+
+  const icon = () => (
+    <View style={monitorIconStyle}>
+      <Feather name={iconName} size={20} color={colors.inverseOnSurface} />
+    </View>
+  );
 
   return (
     <Banner
@@ -352,9 +359,9 @@ export const Monitor = (props: {
       }}
       style={styles.monitorContainer}
       visible={props.visible}
-      icon={() => iconRef.current ?? null}
+      icon={icon}
       actions={props.actions}>
-      <View>
+      <View style={styles.monitorLabel}>
         <PaperText style={styles.monitorLabelText}>{label}</PaperText>
         {props.children}
       </View>
