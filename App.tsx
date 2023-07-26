@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native';
 
 import Demo from './src/Demo';
-import { useDemoTheme } from './src/ui/theme';
+import { useDemoTheme } from './src/ui';
 
 export default function App() {
   const theme = useDemoTheme();

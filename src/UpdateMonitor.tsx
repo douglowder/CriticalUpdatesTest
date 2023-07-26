@@ -29,7 +29,7 @@ import {
   errorDescription,
 } from './utils/updateUtils';
 import { dateDifferenceInMilliSeconds } from './utils/dateUtils';
-import { Modal, Section, Item, Button, Monitor } from './ui/theme';
+import { Modal, Section, Item, Button, Monitor } from './ui';
 
 const defaultUpdateCheckInterval = 3600000; // 1 hour
 const defaultCheckOnForeground = false;

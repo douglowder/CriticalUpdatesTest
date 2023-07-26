@@ -19,10 +19,11 @@ import {
   Container,
   Section,
   Item,
+  ExpoGoLogo,
   Spacer,
   Switch,
   SelectOptions,
-} from './ui/theme';
+} from './ui';
 
 const defaultCheckInterval = 3600000; // 1 hour
 
@@ -53,6 +54,7 @@ export default function Demo() {
         alwaysVisible={monitorAlwaysVisible}
       />
       <Spacer />
+      <ExpoGoLogo />
       <Section title="Updates API Demo">
         <Item
           title={currentlyRunningTitle(currentlyRunning)}
