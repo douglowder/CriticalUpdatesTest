@@ -3,11 +3,11 @@ import type { UpdateInfo, CurrentlyRunningInfo } from 'expo-updates';
 // Access 'extra' properties from update manifests
 
 const isManifestCritical = (manifest: any) => {
-  return manifest?.extra?.expoClient?.extra?.critical || false;
+  return manifest?.extra?.expoClient?.extra?.critical ?? false;
 };
 
 const manifestMessage = (manifest: any) => {
-  return manifest?.extra?.expoClient?.extra?.message || '';
+  return manifest?.extra?.expoClient?.extra?.message ?? '';
 };
 
 // Utils for constructing display text
